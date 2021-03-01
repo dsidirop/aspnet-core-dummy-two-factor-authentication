@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>aspnet-TwoFactorAuth-BBB373B5-EF3F-4DBB-B8AA-7152CEC275BF</UserSecretsId>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.1" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.1" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.312" PrivateAssets="all">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\TwoFactorAuth.Common\TwoFactorAuth.Common.csproj" />
+    <ProjectReference Include="..\..\Data\TwoFactorAuth.Data.Models\TwoFactorAuth.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\TwoFactorAuth.Data\TwoFactorAuth.Data.csproj" />
+    <ProjectReference Include="..\..\Services\TwoFactorAuth.Services.Data\TwoFactorAuth.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Services\TwoFactorAuth.Services.Mapping\TwoFactorAuth.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\Services\TwoFactorAuth.Services.Messaging\TwoFactorAuth.Services.Messaging.csproj" />
+    <ProjectReference Include="..\..\Services\TwoFactorAuth.Services\TwoFactorAuth.Services.csproj" />
+    <ProjectReference Include="..\TwoFactorAuth.Web.Infrastructure\TwoFactorAuth.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\TwoFactorAuth.Web.ViewModels\TwoFactorAuth.Web.ViewModels.csproj" />
+  </ItemGroup>
+</Project>

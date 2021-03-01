@@ -1,0 +1,14 @@
+﻿@model TwoFactorAuth.Web.ViewModels.Settings.SettingsListViewModel
+
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@foreach (var setting in Model.Settings)
+{
+    <div>@setting.Id: @setting.NameAndValue</div>
+}
+
+<a asp-action="InsertSetting" class="btn btn-primary">Insert new</a>
