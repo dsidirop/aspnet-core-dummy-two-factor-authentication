@@ -1,4 +1,7 @@
-﻿namespace TwoFactorAuth.Web
+﻿using System;
+using Microsoft.OpenApi.Models;
+
+namespace TwoFactorAuth.Web
 {
     using System.Reflection;
 
@@ -76,6 +79,28 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "TwoFactorAuth API",
+                    Description = "TwoFactorAuth ASP.NET Core Web API",
+                    TermsOfService = new Uri("https://acmecorp.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Acme Corp.",
+                        Email = string.Empty,
+                        Url = new Uri("https://acmecorp.com/about"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "GPL v3",
+                        Url = new Uri("https://acmecorp.com/license"),
+                    },
+                });
+            });
         }
 
         // This method gets called by the runtime   Use this method to configure the HTTP request pipeline
@@ -94,6 +119,14 @@
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(
+                    c => c.SwaggerEndpoint(
+                        "/swagger/v1/swagger.json",
+                        "WebApp1 v1"
+                    )
+                );
             }
             else
             {
