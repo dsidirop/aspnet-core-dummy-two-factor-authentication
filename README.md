@@ -41,8 +41,8 @@ they get redirected back to step 1.
 The project is based off the dotnet template [ASP.NET-Core-Template](https://github.com/NikolayIT/ASP.NET-Core-Template/tree/master/)
 kind courtesy of [Nikolay Kostov](https://github.com/NikolayIT).
 
-![Dependencies Graph](https://user-images.githubusercontent.com/25417032/97107966-0e5fc500-16d3-11eb-9b9c-c73012ff97ac.png)
-![image](https://user-images.githubusercontent.com/25417032/97108063-9fcf3700-16d3-11eb-8225-32eac21c4542.png)
+![image](https://user-images.githubusercontent.com/7284501/109699777-a72eb180-7b99-11eb-9064-770c029336f9.png)
+![Dependencies Graph](https://user-images.githubusercontent.com/7284501/109700429-64210e00-7b9a-11eb-9de0-d91756719a4c.png)
 
 ### Web
 
