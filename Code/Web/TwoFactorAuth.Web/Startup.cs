@@ -1,4 +1,7 @@
-﻿namespace TwoFactorAuth.Web
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using TwoFactorAuth.Services.Data.SettingsService;
+
+namespace TwoFactorAuth.Web
 {
     using System;
     using System.Reflection;
@@ -78,6 +81,17 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
 
+            services
+                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    options =>
+                    {
+                        options.LoginPath = "/DummyTwoFactorAuth/Login";
+                        options.LogoutPath = "/Account/Logout";
+                    }
+                );
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -129,7 +143,7 @@
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
+                app.UseHsts(); // http strict transport security header
             }
 
             app.UseHttpsRedirection();
@@ -138,17 +152,19 @@
 
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseAuthentication(); //0
+            app.UseAuthorization(); //0
 
             app.UseEndpoints(
                 endpoints =>
                 {
-                    endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                    endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                    endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}"); //   order
+                    endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}"); //                   order
                     endpoints.MapRazorPages();
                 }
             );
+
+            //0 https://docs.microsoft.com/en-us/aspnet/core/security/authentication/scaffold-identity?view=aspnetcore-5.0&tabs=visual-studio
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace TwoFactorAuth.Web.Controllers
+﻿using TwoFactorAuth.Services.Data.SettingsService;
+
+namespace TwoFactorAuth.Web.Controllers
 {
     using System;
     using System.Threading.Tasks;
@@ -8,7 +10,6 @@
     using Microsoft.AspNetCore.Mvc;
 
     using TwoFactorAuth.Data.Common.Repositories;
-    using TwoFactorAuth.Services.Data;
 
     using ViewModels.Settings;
 

@@ -1,13 +1,11 @@
-﻿namespace TwoFactorAuth.Services.Data
+﻿using System.Collections.Generic;
+using System.Linq;
+using TwoFactorAuth.Data.Common.Repositories;
+using TwoFactorAuth.Data.Models;
+using TwoFactorAuth.Services.Mapping;
+
+namespace TwoFactorAuth.Services.Data.SettingsService
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Mapping;
-
-    using TwoFactorAuth.Data.Common.Repositories;
-    using TwoFactorAuth.Data.Models;
-
     public class SettingsService : ISettingsService
     {
         private readonly IDeletableEntityRepository<Setting> _settingsRepository;

@@ -1,7 +1,7 @@
-﻿namespace TwoFactorAuth.Services.Data
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace TwoFactorAuth.Services.Data.SettingsService
+{
     public interface ISettingsService
     {
         int GetCount();

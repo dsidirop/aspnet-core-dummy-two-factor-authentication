@@ -1,4 +1,6 @@
-﻿namespace TwoFactorAuth.Web.Areas.Administration.Controllers
+﻿using TwoFactorAuth.Services.Data.SettingsService;
+
+namespace TwoFactorAuth.Web.Areas.Administration.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
 
