@@ -16,8 +16,10 @@
 
         public IActionResult Index()
         {
-            var viewModel = new IndexViewModel { SettingsCount = _settingsService.GetCount(), };
-            return View(viewModel);
+            return View(new IndexViewModel
+            {
+                SettingsCount = _settingsService.GetCount(),
+            });
         }
     }
 }

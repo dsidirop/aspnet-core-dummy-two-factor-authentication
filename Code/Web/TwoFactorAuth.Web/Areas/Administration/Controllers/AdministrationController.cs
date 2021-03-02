@@ -7,8 +7,8 @@
 
     using TwoFactorAuth.Web.Controllers;
 
-    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     [Area("Administration")]
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public class AdministrationController : BaseController
     {
     }
