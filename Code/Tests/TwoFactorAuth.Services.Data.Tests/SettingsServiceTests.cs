@@ -21,14 +21,22 @@
         public void GetCountShouldReturnCorrectNumber()
         {
             var repository = new Mock<IDeletableEntityRepository<Setting>>();
-            repository.Setup(r => r.All()).Returns(new List<Setting>
-                                                        {
-                                                            new Setting(),
-                                                            new Setting(),
-                                                            new Setting(),
-                                                        }.AsQueryable());
+
+            repository
+                .Setup(r => r.All())
+                .Returns(
+                    new List<Setting>
+                    {
+                        new Setting(),
+                        new Setting(),
+                        new Setting(),
+                    }.AsQueryable()
+                );
+
             var service = new SettingsService.SettingsService(repository.Object);
+
             Assert.Equal(3, service.GetCount());
+
             repository.Verify(x => x.All(), Times.Once);
         }
 
@@ -36,15 +44,19 @@
         public async Task GetCountShouldReturnCorrectNumberUsingDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "SettingsTestDb").Options;
-            using var dbContext = new ApplicationDbContext(options);
-            dbContext.Settings.Add(new Setting());
-            dbContext.Settings.Add(new Setting());
-            dbContext.Settings.Add(new Setting());
+                .UseInMemoryDatabase(databaseName: "SettingsTestDb")
+                .Options;
+
+            await using var dbContext = new ApplicationDbContext(options);
+            await dbContext.Settings.AddAsync(new Setting());
+            await dbContext.Settings.AddAsync(new Setting());
+            await dbContext.Settings.AddAsync(new Setting());
+
             await dbContext.SaveChangesAsync();
 
             using var repository = new EfDeletableEntityRepository<Setting>(dbContext);
             var service = new SettingsService.SettingsService(repository);
+
             Assert.Equal(3, service.GetCount());
         }
     }

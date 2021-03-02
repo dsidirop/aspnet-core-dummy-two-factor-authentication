@@ -15,10 +15,10 @@
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
-        static private readonly MethodInfo SetIsDeletedQueryFilterMethod =
-            typeof(ApplicationDbContext).GetMethod(
-                nameof(SetIsDeletedQueryFilter),
-                BindingFlags.NonPublic | BindingFlags.Static);
+        static private readonly MethodInfo SetIsDeletedQueryFilterMethod = typeof(ApplicationDbContext).GetMethod(
+            nameof(SetIsDeletedQueryFilter),
+            BindingFlags.NonPublic | BindingFlags.Static
+        );
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -40,7 +40,8 @@
 
         public override Task<int> SaveChangesAsync(
             bool acceptAllChangesOnSuccess,
-            CancellationToken cancellationToken = default)
+            CancellationToken cancellationToken = default
+        )
         {
             ApplyAuditInfoRules();
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
@@ -48,8 +49,7 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            // Needed for Identity models configuration
-            base.OnModelCreating(builder);
+            base.OnModelCreating(builder); // needed for Identity models configuration
 
             ConfigureUserIdentityRelations(builder);
 
@@ -57,18 +57,21 @@
 
             var entityTypes = builder.Model.GetEntityTypes().ToList();
 
-            // Set global query filter for not deleted entities only
-            var deletableEntityTypes = entityTypes
-                .Where(et => et.ClrType != null && typeof(IDeletableEntity).IsAssignableFrom(et.ClrType));
+            var deletableEntityTypes = entityTypes.Where( // set global query filter for not deleted entities only
+                et => et.ClrType != null
+                      && typeof(IDeletableEntity).IsAssignableFrom(et.ClrType)
+            );
+
             foreach (var deletableEntityType in deletableEntityTypes)
             {
                 var method = SetIsDeletedQueryFilterMethod.MakeGenericMethod(deletableEntityType.ClrType);
-                method.Invoke(null, new object[] { builder });
+                method.Invoke(null, new object[] {builder});
             }
 
-            // Disable cascade delete
-            var foreignKeys = entityTypes
-                .SelectMany(e => e.GetForeignKeys().Where(f => f.DeleteBehavior == DeleteBehavior.Cascade));
+            var foreignKeys = entityTypes.SelectMany( // disable cascade delete
+                e => e.GetForeignKeys().Where(f => f.DeleteBehavior == DeleteBehavior.Cascade)
+            );
+
             foreach (var foreignKey in foreignKeys)
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
@@ -81,21 +84,21 @@
             builder.Entity<T>().HasQueryFilter(e => !e.IsDeleted);
         }
 
-        // Applies configurations
-        private void ConfigureUserIdentityRelations(ModelBuilder builder)
-             => builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+        private void ConfigureUserIdentityRelations(ModelBuilder builder) // applies configurations
+            => builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 
         private void ApplyAuditInfoRules()
         {
             var changedEntries = ChangeTracker
                 .Entries()
-                .Where(e =>
-                    e.Entity is IAuditInfo &&
-                    (e.State == EntityState.Added || e.State == EntityState.Modified));
+                .Where(
+                    e => e.Entity is IAuditInfo &&
+                         (e.State == EntityState.Added || e.State == EntityState.Modified)
+                );
 
             foreach (var entry in changedEntries)
             {
-                var entity = (IAuditInfo)entry.Entity;
+                var entity = (IAuditInfo) entry.Entity;
                 if (entry.State == EntityState.Added && entity.CreatedOn == default)
                 {
                     entity.CreatedOn = DateTime.UtcNow;

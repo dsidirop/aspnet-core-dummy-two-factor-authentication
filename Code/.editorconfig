@@ -14,3 +14,6 @@ dotnet_diagnostic.SA1009.severity = none
 
 # Default severity for analyzer diagnostics with category 'StyleCop.CSharp.SpacingRules'
 dotnet_analyzer_diagnostic.category-StyleCop.CSharp.SpacingRules.severity = none
+
+# Default severity for analyzer diagnostics with category 'StyleCop.CSharp.LayoutRules'
+dotnet_analyzer_diagnostic.category-StyleCop.CSharp.LayoutRules.severity = none

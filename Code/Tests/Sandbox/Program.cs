@@ -1,6 +1,4 @@
-﻿using TwoFactorAuth.Services.Data.SettingsService;
-
-namespace Sandbox
+﻿namespace Sandbox
 {
     using System;
     using System.Diagnostics;
@@ -20,7 +18,8 @@ namespace Sandbox
     using TwoFactorAuth.Data.Models;
     using TwoFactorAuth.Data.Repositories;
     using TwoFactorAuth.Data.Seeding;
-    using TwoFactorAuth.Services.Data;
+    using TwoFactorAuth.Services.Data.DummyAuthService;
+    using TwoFactorAuth.Services.Data.SettingsService;
     using TwoFactorAuth.Services.Messaging;
 
     static public class Program
@@ -61,9 +60,10 @@ namespace Sandbox
             return await Task.FromResult(0);
         }
 
-        static private void ConfigureServices(ServiceCollection services)
+        static private void ConfigureServices(IServiceCollection services)
         {
-            var configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false, true)
                 .AddEnvironmentVariables()
                 .Build();
@@ -71,11 +71,15 @@ namespace Sandbox
             services.AddSingleton<IConfiguration>(configuration);
 
             services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
-                    .UseLoggerFactory(new LoggerFactory()));
+                options => options
+                    .UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+                    .UseLoggerFactory(new LoggerFactory())
+            );
 
-            services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services
+                .AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
+                .AddRoles<ApplicationRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
@@ -84,6 +88,7 @@ namespace Sandbox
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<IDummyTwoFactorAuthService, DummyTwoFactorAuthService>();
         }
     }
 }
