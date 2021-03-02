@@ -1,8 +1,6 @@
-﻿using System;
-using Microsoft.OpenApi.Models;
-
-namespace TwoFactorAuth.Web
+﻿namespace TwoFactorAuth.Web
 {
+    using System;
     using System.Reflection;
 
     using Data;
@@ -18,6 +16,7 @@ namespace TwoFactorAuth.Web
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.OpenApi.Models;
 
     using Services.Mapping;
     using Services.Messaging;
@@ -25,7 +24,6 @@ namespace TwoFactorAuth.Web
     using TwoFactorAuth.Data.Common;
     using TwoFactorAuth.Data.Common.Repositories;
     using TwoFactorAuth.Services.Data;
-
     using TwoFactorAuth.Web.ViewModels;
 
     public class Startup
