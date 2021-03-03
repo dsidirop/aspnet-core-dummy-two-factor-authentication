@@ -1,4 +1,6 @@
-﻿namespace TwoFactorAuth.Web
+﻿using System.Globalization;
+
+namespace TwoFactorAuth.Web
 {
     using System;
     using System.Reflection;
@@ -6,8 +8,6 @@
     using Data;
     using Data.Models;
     using Data.Repositories;
-    using Data.Seeding;
-
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -118,15 +118,14 @@
         // This method gets called by the runtime   Use this method to configure the HTTP request pipeline
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var cultureInfo = CultureInfo.InvariantCulture; //best practice
+
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
-            using (var serviceScope = app.ApplicationServices.CreateScope()) // Seed data on application startup
-            {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                dbContext.Database.Migrate();
-
-                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-            }
+            app.RunDbMigrationsAndSeeders();
 
             if (env.IsDevelopment())
             {

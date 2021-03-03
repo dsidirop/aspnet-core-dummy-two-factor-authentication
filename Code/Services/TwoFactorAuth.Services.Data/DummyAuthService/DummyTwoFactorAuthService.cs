@@ -9,6 +9,7 @@
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Http;
 
+    using TwoFactorAuth.Common;
     using TwoFactorAuth.Data.Common.Repositories;
     using TwoFactorAuth.Data.Models;
 
@@ -25,15 +26,15 @@
 
         public bool FirstStageSignIn(string firstPassword)
         {
-            return firstPassword == DummyUserAuthSpecs.First;
+            return firstPassword == GlobalConstants.DummyAuthUserSpecs.Passwords.First;
         }
 
         public async Task<bool> SecondStageSignInAsync(HttpContext httpContext, string secondPassword, bool isPersistent = false)
         {
-            if (secondPassword != DummyUserAuthSpecs.Second)
+            if (secondPassword != GlobalConstants.DummyAuthUserSpecs.Passwords.Second)
                 return false;
 
-            var dbUserData = await _repository.FindFirstNoTrackingAsync(dbQuery: x => x.Email == DummyUserAuthSpecs.Email.ToUpper());
+            var dbUserData = await _repository.FindFirstNoTrackingAsync(dbQuery: x => x.Email == GlobalConstants.DummyAuthUserSpecs.Email.ToUpper());
             if (dbUserData == null)
                 return false; //wops  how did this happen?  faulty db?
 
@@ -61,7 +62,7 @@
 
         #region helpers
 
-        private IEnumerable<Claim> GetUserClaims(ApplicationUser user)
+        static private IEnumerable<Claim> GetUserClaims(ApplicationUser user)
         {
             return GetBaseClaims(user).Concat(GetUserRoleClaims(user));
         }
@@ -86,13 +87,5 @@
         }
 
         #endregion helpers
-
-        static private class DummyUserAuthSpecs
-        {
-            internal const string First = "123";
-            internal const string Second = "123";
-
-            internal const string Email = "dummy@auth.user.com";
-        }
     }
 }
