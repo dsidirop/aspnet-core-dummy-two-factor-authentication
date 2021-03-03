@@ -1,4 +1,6 @@
-﻿namespace TwoFactorAuth.Web.Controllers
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace TwoFactorAuth.Web.Controllers
 {
     using System.Diagnostics;
 
@@ -9,6 +11,12 @@
     public class HomeController : BaseController
     {
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public IActionResult Welldone()
         {
             return View();
         }

@@ -64,11 +64,11 @@
             var success = await _authService.SecondStageSignInAsync(HttpContext, password, isPersistent: true);
             if (!success)
             {
-                ModelState.AddModelError("", "Wrong Password!");
+                ModelState.AddModelError("Password", "Wrong Password!");
                 return View();
             }
 
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(HomeController.Welldone), "Home", new { area = "" });
         }
 
         #endregion

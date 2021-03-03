@@ -81,17 +81,6 @@ namespace TwoFactorAuth.Web
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IDummyTwoFactorAuthService, DummyTwoFactorAuthService>();
 
-            services
-                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(
-                    CookieAuthenticationDefaults.AuthenticationScheme,
-                    options =>
-                    {
-                        options.LoginPath = "/DummyTwoFactorAuth/Login";
-                        options.LogoutPath = "/Account/Logout";
-                    }
-                );
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo

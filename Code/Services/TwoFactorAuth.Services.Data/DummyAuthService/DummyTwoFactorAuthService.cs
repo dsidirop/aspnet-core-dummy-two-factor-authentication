@@ -40,11 +40,11 @@
 
             var principal = new ClaimsPrincipal(new ClaimsIdentity(
                 claims: GetUserClaims(dbUserData),
-                authenticationType: CookieAuthenticationDefaults.AuthenticationScheme
+                authenticationType: "Identity.Application"
             ));
 
             await httpContext.SignInAsync( //todo   abstract this away
-                scheme: CookieAuthenticationDefaults.AuthenticationScheme,
+                scheme: "Identity.Application",
                 principal: principal,
                 properties: new AuthenticationProperties {IsPersistent = true}
             );

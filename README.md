@@ -2,7 +2,7 @@
 
 Proof of concept website for two factor authentication (2 challenges ala "guess the password").
 
-The site has 3 simple views:
+The site supports login via a simple 2-stage password challenge:
 
 1. The first screen is the landing page which has just a simple password field and a submit ('login') button.
     It also contains a *hidden* input field right before the visible password field, containing the
