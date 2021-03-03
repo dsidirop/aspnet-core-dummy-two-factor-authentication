@@ -1,4 +1,7 @@
-﻿namespace TwoFactorAuth.Services.Mapping
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace TwoFactorAuth.Services.Mapping
 {
     using System;
     using System.Linq;
@@ -8,6 +11,11 @@
 
     static public class QueryableMappingExtensions
     {
+        static public IEnumerable<TDestination> To<TDestination>(
+            this IEnumerable source,
+            params Expression<Func<TDestination, object>>[] membersToExpand)
+            => source.AsQueryable().To(membersToExpand);
+
         static public IQueryable<TDestination> To<TDestination>(
             this IQueryable source,
             params Expression<Func<TDestination, object>>[] membersToExpand)

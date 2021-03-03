@@ -14,40 +14,35 @@
 
     public class DummyTwoFactorAuthService : IDummyTwoFactorAuthService
     {
-        private IRepository<ApplicationUser> _repository;
-
-        static private class Passwords
-        {
-            internal const string First = "123";
-            internal const string Second = "123";
-        }
+        private readonly IRepository<ApplicationUser> _repository;
 
         public DummyTwoFactorAuthService(IRepository<ApplicationUser> repository)
         {
             _repository = repository;
         }
-
         
         #region signin methods
 
         public bool FirstStageSignIn(string firstPassword)
         {
-            return firstPassword == Passwords.First;
+            return firstPassword == DummyUserAuthSpecs.First;
         }
 
         public async Task<bool> SecondStageSignInAsync(HttpContext httpContext, string secondPassword, bool isPersistent = false)
         {
-            if (secondPassword != Passwords.Second)
+            if (secondPassword != DummyUserAuthSpecs.Second)
                 return false;
 
-            var dbUserData = new ApplicationUser(); //todo  get this from the db
+            var dbUserData = await _repository.FindFirstNoTrackingAsync(dbQuery: x => x.Email == DummyUserAuthSpecs.Email.ToUpper());
+            if (dbUserData == null)
+                return false; //wops  how did this happen?  faulty db?
 
             var principal = new ClaimsPrincipal(new ClaimsIdentity(
                 claims: GetUserClaims(dbUserData),
                 authenticationType: CookieAuthenticationDefaults.AuthenticationScheme
             ));
 
-            await httpContext.SignInAsync(
+            await httpContext.SignInAsync( //todo   abstract this away
                 scheme: CookieAuthenticationDefaults.AuthenticationScheme,
                 principal: principal,
                 properties: new AuthenticationProperties {IsPersistent = true}
@@ -75,7 +70,7 @@
         {
             yield return new Claim(type: ClaimTypes.NameIdentifier, value: user.Id);
             yield return new Claim(type: ClaimTypes.Name, value: user.NormalizedUserName);
-            yield return new Claim(type: ClaimTypes.Email, value: user.Email);
+            yield return new Claim(type: ClaimTypes.Email, value: user.NormalizedEmail);
         }
 
         static private IEnumerable<Claim> GetUserRoleClaims(ApplicationUser user)
@@ -91,5 +86,13 @@
         }
 
         #endregion helpers
+
+        static private class DummyUserAuthSpecs
+        {
+            internal const string First = "123";
+            internal const string Second = "123";
+
+            internal const string Email = "dummy@auth.user.com";
+        }
     }
 }

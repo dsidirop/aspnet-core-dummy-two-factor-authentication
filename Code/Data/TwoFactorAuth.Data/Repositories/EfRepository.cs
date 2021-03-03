@@ -1,7 +1,10 @@
-﻿namespace TwoFactorAuth.Data.Repositories
+﻿
+namespace TwoFactorAuth.Data.Repositories
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -21,9 +24,22 @@
 
         protected ApplicationDbContext Context { get; set; }
 
-        public virtual IQueryable<TEntity> All() => DbSet;
+        protected virtual IQueryable<TEntity> QAll() => DbSet; //                            keep these protected and never make them part of IRepository
+        protected virtual IQueryable<TEntity> QAllNoTracking() => QAll().AsNoTracking(); //  keep these protected and never make them part of IRepository
 
-        public virtual IQueryable<TEntity> AllAsNoTracking() => DbSet.AsNoTracking();
+        public virtual int AllCount() => DbSet.Count();
+
+        public virtual IEnumerable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate) => QAll().Where(predicate).AsEnumerable();
+        public virtual IEnumerable<TEntity> FindByNoTracking(Expression<Func<TEntity, bool>> predicate) => QAllNoTracking().Where(predicate).AsEnumerable();
+
+        public virtual async Task<IEnumerable<TEntity>> FindByAsync(Expression<Func<TEntity, bool>> predicate) => await QAll().Where(predicate).ToArrayAsync();
+        public virtual async Task<IEnumerable<TEntity>> FindByNoTrackingAsync(Expression<Func<TEntity, bool>> predicate) => await QAllNoTracking().Where(predicate).ToArrayAsync();
+
+        public virtual async Task<TEntity> FindFirstAsync(Expression<Func<TEntity, bool>> predicate) => await QAll().Where(predicate).FirstOrDefaultAsync();
+        public virtual async Task<TEntity> FindFirstNoTrackingAsync(Expression<Func<TEntity, bool>> dbQuery) => await QAllNoTracking().Where(dbQuery).FirstOrDefaultAsync();
+
+        public virtual IEnumerable<TEntity> All() => QAll().ToArray();
+        public virtual IEnumerable<TEntity> AllAsNoTracking() => QAllNoTracking().ToArray();
 
         public virtual Task AddAsync(TEntity entity) => DbSet.AddAsync(entity).AsTask();
 

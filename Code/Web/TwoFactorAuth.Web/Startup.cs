@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using TwoFactorAuth.Services.Data.SettingsService;
-
-namespace TwoFactorAuth.Web
+﻿namespace TwoFactorAuth.Web
 {
     using System;
     using System.Reflection;
@@ -11,6 +8,7 @@ namespace TwoFactorAuth.Web
     using Data.Repositories;
     using Data.Seeding;
 
+    using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -26,7 +24,8 @@ namespace TwoFactorAuth.Web
 
     using TwoFactorAuth.Data.Common;
     using TwoFactorAuth.Data.Common.Repositories;
-    using TwoFactorAuth.Services.Data;
+    using TwoFactorAuth.Services.Data.DummyAuthService;
+    using TwoFactorAuth.Services.Data.SettingsService;
     using TwoFactorAuth.Web.ViewModels;
 
     public class Startup
@@ -79,7 +78,8 @@ namespace TwoFactorAuth.Web
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<ISettingsService, DummyAuthService>();
+            services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<IDummyTwoFactorAuthService, DummyTwoFactorAuthService>();
 
             services
                 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -124,6 +124,7 @@ namespace TwoFactorAuth.Web
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 dbContext.Database.Migrate();
+
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
