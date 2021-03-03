@@ -1,6 +1,6 @@
 ﻿@model TwoFactorAuth.Web.ViewModels.DummyAuthUserLogin.LoginStep1ViewModel
 
-@{ ViewData["Title"] = "Login Step#1"; }
+@{ ViewData["Title"] = "First Login Step"; }
 
 <h1>@ViewData["Title"]</h1>
 <div class="row">
@@ -11,7 +11,7 @@
                 
                 @* Html.AntiForgeryToken()  noneed   it gets automagically injected *@
 
-                <h4>Guess the password to log in</h4>
+                <h4>Guess the 1st password</h4>
                 <hr>
 
                 <div class="form-group">
@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button id="login-submit" type="submit" class="btn btn-primary">Submit</button>
+                    <button id="LoginSubmit" type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>
         </section>

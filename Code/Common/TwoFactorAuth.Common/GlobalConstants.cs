@@ -12,7 +12,7 @@
             static public class Passwords
             {
                 public const string First = "123";
-                public const string Second = "123";
+                public const string Second = "blue1sF0rev3r";
             }
         }
     }

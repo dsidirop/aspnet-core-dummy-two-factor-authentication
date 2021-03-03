@@ -1,7 +1,29 @@
 ﻿@model TwoFactorAuth.Web.ViewModels.DummyAuthUserLogin.LoginStep2ViewModel
 
-@{
-    ViewData["Title"] = "Login Step#2";
-}
+@{ ViewData["Title"] = "Final Login Step"; }
 
 <h1>@ViewData["Title"]</h1>
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form id="account" method="post">
+                <h4>Guess the 2nd password</h4>
+                <hr>
+
+                <div class="form-group">
+                    <img src="https://user-images.githubusercontent.com/7284501/109744505-17115c00-7bdb-11eb-8977-5c40813f486a.jpg" alt="Hint-Image"/>
+
+                    @Html.LabelFor(x => x.Password)
+                    @Html.PasswordFor(x => x.Password, new {@class = @"form-control"})
+
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button id="LoginSubmit" type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+

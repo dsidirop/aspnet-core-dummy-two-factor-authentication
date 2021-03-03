@@ -55,8 +55,6 @@
         [HttpGet] //todo   introduce a special antiforgerytoken here to prevent direct access to stage2
         public IActionResult LoginStep2()
         {
-            //todo   place the image properly in the view
-
             return View();
         }
 
