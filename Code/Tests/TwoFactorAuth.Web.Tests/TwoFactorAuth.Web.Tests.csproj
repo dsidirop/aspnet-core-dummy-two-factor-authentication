@@ -31,4 +31,8 @@
     <ProjectReference Include="..\..\Web\TwoFactorAuth.Web\TwoFactorAuth.Web.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Pages\DummyTwoFactorAuth\" />
+  </ItemGroup>
+
 </Project>

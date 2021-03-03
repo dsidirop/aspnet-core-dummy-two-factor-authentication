@@ -1,6 +1,7 @@
 ﻿@using TwoFactorAuth.Common
 @using Microsoft.AspNetCore.Identity
 @using TwoFactorAuth.Data.Models
+@using TwoFactorAuth.Web.Areas.Identity.Controllers
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -18,7 +19,7 @@
             </li>
         }
         <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = string.Empty })">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
             </form>
         </li>
@@ -30,6 +31,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="nav-link text-dark" asp-area="Identity" asp-controller="DummyTwoFactorAuth" asp-action="Index">Dummy Two-Factor Login</a>
         </li>
     }
 </ul>

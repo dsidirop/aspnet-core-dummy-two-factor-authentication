@@ -103,7 +103,7 @@ namespace TwoFactorAuth.Web
                     Contact = new OpenApiContact
                     {
                         Name = "Acme Corp.",
-                        Email = string.Empty,
+                        Email = "corp@acme.com",
                         Url = new Uri("https://acmecorp.com/about"),
                     },
                     License = new OpenApiLicense

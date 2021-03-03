@@ -1,10 +1,8 @@
-﻿using TwoFactorAuth.Services.Data.SettingsService;
-
-namespace TwoFactorAuth.Web.Areas.Administration.Controllers
+﻿namespace TwoFactorAuth.Web.Areas.Administration.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
 
-    using TwoFactorAuth.Services.Data;
+    using TwoFactorAuth.Services.Data.SettingsService;
     using TwoFactorAuth.Web.ViewModels.Administration.Dashboard;
 
     public class DashboardController : AdministrationController
