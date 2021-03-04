@@ -37,7 +37,7 @@ they get redirected back to step 1.
 
 2. dotnet restore
 
-3. Open your IDE and build/run the solution
+3. Open your .Net5.x-aware IDE of choice and build/run the solution
 
 ## Project Overview
 
