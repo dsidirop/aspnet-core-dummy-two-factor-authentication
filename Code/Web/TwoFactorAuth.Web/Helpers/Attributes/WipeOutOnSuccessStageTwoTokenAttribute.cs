@@ -16,7 +16,7 @@
                 if (response.StatusCode != (int) HttpStatusCode.OK && response.StatusCode != (int) HttpStatusCode.Redirect)
                     return;
 
-                response.Cookies.Delete(GlobalConstants.DummyAuthUserSpecs.CookieSpecs.EnableAccessToSecondStage);
+                response.Cookies.Delete(GlobalConstants.DummyAuthSpecs.CookieSpecs.EnableAccessToSecondStage);
             }
             finally
             {

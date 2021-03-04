@@ -14,7 +14,7 @@
                     .HttpContext
                     .Response
                     .Cookies
-                    .Delete(key: GlobalConstants.DummyAuthUserSpecs.CookieSpecs.EnableAccessToSecondStage);
+                    .Delete(key: GlobalConstants.DummyAuthSpecs.CookieSpecs.EnableAccessToSecondStage);
             }
             finally
             {

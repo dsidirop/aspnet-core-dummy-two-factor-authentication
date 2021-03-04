@@ -1,18 +1,21 @@
-﻿using TwoFactorAuth.Web.Controllers;
-
-namespace TwoFactorAuth.Web.Helpers.Attributes
+﻿namespace TwoFactorAuth.Web.Helpers.Attributes
 {
     using System;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;
+    using Microsoft.Extensions.DependencyInjection;
 
     using TwoFactorAuth.Common;
-    using TwoFactorAuth.Web.Areas.Identity.Controllers;
+    using TwoFactorAuth.Services.Crypto;
+    using TwoFactorAuth.Web.Contracts.Controllers;
+    using TwoFactorAuth.Web.Controllers;
+    using TwoFactorAuth.Web.Helpers.Attributes.CustomCookies;
 
     public class ValidateOnEntryStageTwoTokenAttribute : ActionFilterAttribute
     {
+        private IAppCryptoService _cryptoService;
+
         public ValidateOnEntryStageTwoTokenAttribute()
         {
             Order = 2000; //0 best practice
@@ -24,6 +27,8 @@ namespace TwoFactorAuth.Web.Helpers.Attributes
 
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
+            _cryptoService = context.HttpContext.RequestServices.GetService<IAppCryptoService>();
+
             var controller = context.Controller as IDummyTwoFactorAuthController;
             if (controller == null)
                 throw new ArgumentException("This filter is specific to [I]DummyTwoFactorAuthController - no other controller should be using it", nameof(context));
@@ -35,7 +40,7 @@ namespace TwoFactorAuth.Web.Helpers.Attributes
                     .Request
                     .Cookies
                     .TryGetValue(
-                        key: GlobalConstants.DummyAuthUserSpecs.CookieSpecs.EnableAccessToSecondStage,
+                        key: GlobalConstants.DummyAuthSpecs.CookieSpecs.EnableAccessToSecondStage,
                         value: out var cookie
                     );
                 if (!cookieFound)
@@ -48,7 +53,6 @@ namespace TwoFactorAuth.Web.Helpers.Attributes
                 if (!isValid)
                 {
                     SetRedirectionToLoginFirstStage(context, controller);
-                    return;
                 }
             }
             finally
@@ -65,11 +69,25 @@ namespace TwoFactorAuth.Web.Helpers.Attributes
             );
         }
 
-        static private bool ValidateCookieValue(string cookie)
+        private bool ValidateCookieValue(string cookie)
         {
-            //todo
+            try
+            {
+                var decryptedValue = _cryptoService.DecryptFromBase64String(cookie);
 
-            return true;
+                var dummyAuthSecondStageEnablingCookieSpecs = System
+                    .Text
+                    .Json
+                    .JsonSerializer
+                    .Deserialize<DummyAuthSecondStageEnablingCookieSpecs>(decryptedValue);
+
+                return dummyAuthSecondStageEnablingCookieSpecs != null
+                       && dummyAuthSecondStageEnablingCookieSpecs.ExpiresAt >= DateTime.UtcNow;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

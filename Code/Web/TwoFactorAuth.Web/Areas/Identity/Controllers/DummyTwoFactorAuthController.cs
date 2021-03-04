@@ -1,4 +1,6 @@
-﻿namespace TwoFactorAuth.Web.Areas.Identity.Controllers
+﻿using TwoFactorAuth.Web.Contracts.Controllers;
+
+namespace TwoFactorAuth.Web.Areas.Identity.Controllers
 {
     using System.Net;
     using System.Threading.Tasks;
@@ -34,7 +36,7 @@
         {
             return View("Index", new LoginStep1ViewModel
             {
-                HiddenEncodedPassword = GlobalConstants.DummyAuthUserSpecs.Passwords.First.Asciify(),
+                HiddenEncodedPassword = GlobalConstants.DummyAuthSpecs.Passwords.First.Asciify(),
             });
 
             //0 if the user for whatever reason revisits the first stage deliberately then we wipe out any preexisting stage two token he might have
@@ -65,7 +67,7 @@
         #region step2
 
         [HttpGet]
-        [ValidateOnEntryStageTwoToken]
+        [ValidateOnEntryStageTwoToken] //vital
         public IActionResult LoginStep2()
         {
             return View();
@@ -73,7 +75,7 @@
 
         [HttpPost]
         [ValidateOnEntryStageTwoToken]
-        [WipeOutOnSuccessStageTwoToken] //0
+        [WipeOutOnSuccessStageTwoToken] //0 vital
         public async Task<IActionResult> LoginStep2(string password)
         {
             var success = await _authService.SecondStageSignInAsync(HttpContext, password, isPersistent: true);
@@ -92,11 +94,5 @@
         }
 
         #endregion
-    }
-
-    public interface IDummyTwoFactorAuthController
-    {
-        public string ControllerName { get; }
-        public string LoginStep1Action { get; }
     }
 }

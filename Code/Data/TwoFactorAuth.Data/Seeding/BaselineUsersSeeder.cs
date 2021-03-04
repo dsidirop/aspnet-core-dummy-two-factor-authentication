@@ -18,8 +18,8 @@
 
             await SeedDummyAuthUserAsync(
                 userManager: userManager,
-                email: GlobalConstants.DummyAuthUserSpecs.Email,
-                password: GlobalConstants.DummyAuthUserSpecs.Passwords.Second
+                email: GlobalConstants.DummyAuthSpecs.Email,
+                password: GlobalConstants.DummyAuthSpecs.Passwords.Second
             );
         }
 

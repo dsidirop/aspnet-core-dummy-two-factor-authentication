@@ -1,14 +1,16 @@
-﻿using System.Globalization;
+﻿using Microsoft.IdentityModel.Tokens;
+using TwoFactorAuth.Services.Crypto;
 
 namespace TwoFactorAuth.Web
 {
     using System;
+    using System.Globalization;
     using System.Reflection;
 
     using Data;
     using Data.Models;
     using Data.Repositories;
-    using Microsoft.AspNetCore.Authentication.Cookies;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -22,6 +24,7 @@ namespace TwoFactorAuth.Web
     using Services.Mapping;
     using Services.Messaging;
 
+    using TwoFactorAuth.Common.Configuration;
     using TwoFactorAuth.Data.Common;
     using TwoFactorAuth.Data.Common.Repositories;
     using TwoFactorAuth.Services.Data.DummyAuthService;
@@ -71,6 +74,8 @@ namespace TwoFactorAuth.Web
 
             services.AddSingleton(_configuration);
 
+            services.Configure<AppCryptoConfig>(_configuration.GetSection("Crypto"));
+
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
@@ -78,6 +83,7 @@ namespace TwoFactorAuth.Web
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IAppCryptoService, AppCryptoService>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IDummyTwoFactorAuthService, DummyTwoFactorAuthService>();
 

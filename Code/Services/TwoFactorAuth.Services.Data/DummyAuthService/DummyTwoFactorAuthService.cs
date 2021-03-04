@@ -25,15 +25,15 @@
 
         public bool FirstStageSignIn(string firstPassword)
         {
-            return firstPassword == GlobalConstants.DummyAuthUserSpecs.Passwords.First;
+            return firstPassword == GlobalConstants.DummyAuthSpecs.Passwords.First;
         }
 
         public async Task<bool> SecondStageSignInAsync(HttpContext httpContext, string secondPassword, bool isPersistent = false)
         {
-            if (secondPassword != GlobalConstants.DummyAuthUserSpecs.Passwords.Second)
+            if (secondPassword != GlobalConstants.DummyAuthSpecs.Passwords.Second)
                 return false;
 
-            var user = await _repository.FindFirstNoTrackingAsync(dbQuery: x => x.Email == GlobalConstants.DummyAuthUserSpecs.Email.ToUpper());
+            var user = await _repository.FindFirstNoTrackingAsync(dbQuery: x => x.Email == GlobalConstants.DummyAuthSpecs.Email.ToUpper());
             if (user == null)
                 return false; //wops  how did this happen?  faulty db?
             
