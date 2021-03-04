@@ -26,8 +26,11 @@ they get redirected back to step 1.
 0. Make sure:
 
    a. You have SQL Server 2012+ running on your local machine (including services).
+
    b. You have a DB called TwoFactorAuth and a db-user & owner of it called TwoFactorAuth with password '123456789'.
+
    c. Doublecheck that your SqlServer allows logging both with Windows Authentication and via [Sql Server Directly](https://serverfault.com/a/399871/502822).
+
    d. Last but not least edit appsettings.json and change 'Server=DROOD\\SQLEXPRESS' to whatever your local server is running as
 
 1. cd Code
