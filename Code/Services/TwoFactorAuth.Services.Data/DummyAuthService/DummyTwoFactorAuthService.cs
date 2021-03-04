@@ -6,7 +6,6 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authentication;
-    using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Http;
 
     using TwoFactorAuth.Common;
@@ -34,17 +33,17 @@
             if (secondPassword != GlobalConstants.DummyAuthUserSpecs.Passwords.Second)
                 return false;
 
-            var dbUserData = await _repository.FindFirstNoTrackingAsync(dbQuery: x => x.Email == GlobalConstants.DummyAuthUserSpecs.Email.ToUpper());
-            if (dbUserData == null)
+            var user = await _repository.FindFirstNoTrackingAsync(dbQuery: x => x.Email == GlobalConstants.DummyAuthUserSpecs.Email.ToUpper());
+            if (user == null)
                 return false; //wops  how did this happen?  faulty db?
-
+            
             var principal = new ClaimsPrincipal(new ClaimsIdentity(
-                claims: GetUserClaims(dbUserData),
-                authenticationType: "Identity.Application"
+                claims: GetUserClaims(user),
+                authenticationType: IdentityApplication
             ));
 
             await httpContext.SignInAsync( //todo   abstract this away
-                scheme: "Identity.Application",
+                scheme: IdentityApplication,
                 principal: principal,
                 properties: new AuthenticationProperties {IsPersistent = true}
             );
@@ -87,5 +86,7 @@
         }
 
         #endregion helpers
+
+        private const string IdentityApplication = "Identity.Application";
     }
 }

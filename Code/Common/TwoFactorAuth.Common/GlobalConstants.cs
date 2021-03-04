@@ -14,6 +14,11 @@
                 public const string First = "123";
                 public const string Second = "blue1sF0rev3r";
             }
+
+            static public class CookieSpecs
+            {
+                public const string EnableAccessToSecondStage = ".AspNet.DummyAuth.SecondStageAccessEnabled";
+            }
         }
     }
 }
