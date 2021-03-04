@@ -56,6 +56,8 @@ This solution folder contains three subfolders:
 
 [TwoFactorAuth.Web](https://github.com/dsidirop/aspnet-core-dummy-two-factor-authentication/tree/master/Code/Web/TwoFactorAuth.Web) self explanatory.
 
+The 2-stage authentication mechanism is implemented via the 'DummyTwoFactorAuthController'.
+
 Note: In development mode the Web project advertises its API via Swagger under /swagger.
 
 #### TwoFactorAuth.Web.ViewModels

@@ -1,6 +1,4 @@
-﻿using TwoFactorAuth.Services.Data.SettingsService;
-
-namespace TwoFactorAuth.Web.Controllers
+﻿namespace TwoFactorAuth.Web.Controllers
 {
     using System;
     using System.Threading.Tasks;
@@ -10,6 +8,8 @@ namespace TwoFactorAuth.Web.Controllers
     using Microsoft.AspNetCore.Mvc;
 
     using TwoFactorAuth.Data.Common.Repositories;
+    using TwoFactorAuth.Services.Data.SettingsService;
+    using TwoFactorAuth.Web.Infrastructure.Controllers;
 
     using ViewModels.Settings;
 
@@ -21,8 +21,8 @@ namespace TwoFactorAuth.Web.Controllers
 
         public SettingsController(ISettingsService settingsService, IDeletableEntityRepository<Setting> repository)
         {
-            _settingsService = settingsService;
             _repository = repository;
+            _settingsService = settingsService;
         }
 
         public IActionResult Index()

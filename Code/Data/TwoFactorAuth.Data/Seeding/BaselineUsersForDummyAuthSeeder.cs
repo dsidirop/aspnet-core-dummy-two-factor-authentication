@@ -6,20 +6,28 @@
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Options;
 
-    using TwoFactorAuth.Common;
+    using TwoFactorAuth.Common.Configuration;
     using TwoFactorAuth.Data.Models;
 
-    internal class BaselineUsersSeeder : ISeeder
+    internal class BaselineUsersForDummyAuthSeeder : ISeeder
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            var dummyAuthSpecs = serviceProvider.GetRequiredService<IOptionsMonitor<AppDummyAuthSpecs>>();
 
             await SeedDummyAuthUserAsync(
                 userManager: userManager,
-                email: GlobalConstants.DummyAuthSpecs.Email,
-                password: GlobalConstants.DummyAuthSpecs.Passwords.Second
+                email: dummyAuthSpecs.CurrentValue.EmailFirstDummyAuthUser,
+                password: dummyAuthSpecs.CurrentValue.Passwords.First
+            );
+
+            await SeedDummyAuthUserAsync(
+                userManager: userManager,
+                email: dummyAuthSpecs.CurrentValue.EmailEventualDummyAuthUser,
+                password: dummyAuthSpecs.CurrentValue.Passwords.Second
             );
         }
 

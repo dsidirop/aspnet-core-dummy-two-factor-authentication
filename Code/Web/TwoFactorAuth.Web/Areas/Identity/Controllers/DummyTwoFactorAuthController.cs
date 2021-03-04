@@ -1,17 +1,19 @@
-﻿using TwoFactorAuth.Web.Contracts.Controllers;
-
-namespace TwoFactorAuth.Web.Areas.Identity.Controllers
+﻿namespace TwoFactorAuth.Web.Areas.Identity.Controllers
 {
     using System.Net;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Options;
 
     using TwoFactorAuth.Common;
+    using TwoFactorAuth.Common.Configuration;
     using TwoFactorAuth.Services.Data.DummyAuthService;
     using TwoFactorAuth.Web.Controllers;
-    using TwoFactorAuth.Web.Helpers.Attributes;
+    using TwoFactorAuth.Web.Infrastructure.Attributes;
+    using TwoFactorAuth.Web.Infrastructure.Contracts.Controllers;
+    using TwoFactorAuth.Web.Infrastructure.Controllers;
     using TwoFactorAuth.Web.ViewModels.DummyAuthUserLogin;
 
     [AllowAnonymous]
@@ -21,10 +23,12 @@ namespace TwoFactorAuth.Web.Areas.Identity.Controllers
         public string ControllerName { get; } = nameof(DummyTwoFactorAuthController).Replace("Controller", "");
         public string LoginStep1Action { get; } = nameof(Index);
 
+        private readonly AppDummyAuthSpecs _authSpecs;
         private readonly IDummyTwoFactorAuthService _authService;
 
-        public DummyTwoFactorAuthController(IDummyTwoFactorAuthService authService)
+        public DummyTwoFactorAuthController(IOptionsMonitor<AppDummyAuthSpecs> authSpecsOptionsMonitor, IDummyTwoFactorAuthService authService)
         {
+            _authSpecs = authSpecsOptionsMonitor.CurrentValue;
             _authService = authService;
         }
 
@@ -36,7 +40,7 @@ namespace TwoFactorAuth.Web.Areas.Identity.Controllers
         {
             return View("Index", new LoginStep1ViewModel
             {
-                HiddenEncodedPassword = GlobalConstants.DummyAuthSpecs.Passwords.First.Asciify(),
+                HiddenEncodedPassword = _authSpecs.Passwords.First.Asciify(),
             });
 
             //0 if the user for whatever reason revisits the first stage deliberately then we wipe out any preexisting stage two token he might have
@@ -44,9 +48,9 @@ namespace TwoFactorAuth.Web.Areas.Identity.Controllers
 
         [HttpPost]
         [InjectOnSuccessStageTwoToken] //0
-        public IActionResult Index(string password)
+        public async Task<IActionResult> Index(string password)
         {
-            var success = _authService.FirstStageSignIn(password);
+            var success = await _authService.FirstStageSignInAsync(password);
             if (!success)
             {
                 ModelState.AddModelError("Password", "Wrong Password!");

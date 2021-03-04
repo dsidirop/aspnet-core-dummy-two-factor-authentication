@@ -1,4 +1,4 @@
-﻿namespace TwoFactorAuth.Web.Contracts.Controllers
+﻿namespace TwoFactorAuth.Web.Infrastructure.Contracts.Controllers
 {
     public interface IDummyTwoFactorAuthController
     {

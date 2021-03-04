@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TwoFactorAuth.Web.Helpers.Attributes.CustomCookies
+namespace TwoFactorAuth.Web.Infrastructure.Attributes.CustomCookies
 {
     public class DummyAuthSecondStageEnablingCookieSpecs
     {

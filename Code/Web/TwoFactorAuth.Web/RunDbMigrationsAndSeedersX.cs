@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using TwoFactorAuth.Data;
-using TwoFactorAuth.Data.Seeding;
-
-namespace TwoFactorAuth.Web
+﻿namespace TwoFactorAuth.Web
 {
-    static public class StartupAppMigrationsX
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.DependencyInjection;
+
+    using TwoFactorAuth.Data;
+    using TwoFactorAuth.Data.Seeding;
+
+    static public class RunDbMigrationsAndSeedersX
     {
         static public IApplicationBuilder RunDbMigrationsAndSeeders(this IApplicationBuilder app)
         {

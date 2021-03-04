@@ -1,4 +1,4 @@
-﻿namespace TwoFactorAuth.Web.Controllers
+﻿namespace TwoFactorAuth.Web.Infrastructure.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
 

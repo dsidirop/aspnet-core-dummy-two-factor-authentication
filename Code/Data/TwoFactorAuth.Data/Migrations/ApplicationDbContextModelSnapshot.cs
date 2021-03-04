@@ -78,7 +78,7 @@ namespace TwoFactorAuth.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("EmailEventualDummyAuthUser")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 

@@ -1,20 +1,23 @@
-﻿namespace TwoFactorAuth.Web.Helpers.Attributes
+﻿using TwoFactorAuth.Web.Infrastructure.Controllers;
+
+namespace TwoFactorAuth.Web.Infrastructure.Attributes
 {
     using System;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc.Filters;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Options;
 
-    using TwoFactorAuth.Common;
+    using TwoFactorAuth.Common.Configuration;
     using TwoFactorAuth.Services.Crypto;
-    using TwoFactorAuth.Web.Contracts.Controllers;
-    using TwoFactorAuth.Web.Controllers;
-    using TwoFactorAuth.Web.Helpers.Attributes.CustomCookies;
+    using TwoFactorAuth.Web.Infrastructure.Attributes.CustomCookies;
+    using TwoFactorAuth.Web.Infrastructure.Contracts.Controllers;
 
     public class ValidateOnEntryStageTwoTokenAttribute : ActionFilterAttribute
     {
         private IAppCryptoService _cryptoService;
+        private IOptionsMonitor<AppDummyAuthSpecs> _dummyAuthSpecsOptionsMonitor;
 
         public ValidateOnEntryStageTwoTokenAttribute()
         {
@@ -28,6 +31,7 @@
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             _cryptoService = context.HttpContext.RequestServices.GetService<IAppCryptoService>();
+            _dummyAuthSpecsOptionsMonitor = context.HttpContext.RequestServices.GetService<IOptionsMonitor<AppDummyAuthSpecs>>();
 
             var controller = context.Controller as IDummyTwoFactorAuthController;
             if (controller == null)
@@ -40,7 +44,7 @@
                     .Request
                     .Cookies
                     .TryGetValue(
-                        key: GlobalConstants.DummyAuthSpecs.CookieSpecs.EnableAccessToSecondStage,
+                        key: _dummyAuthSpecsOptionsMonitor.CurrentValue.CookiesSettings.CookieNameForEnableAccessToSecondStage,
                         value: out var cookie
                     );
                 if (!cookieFound)

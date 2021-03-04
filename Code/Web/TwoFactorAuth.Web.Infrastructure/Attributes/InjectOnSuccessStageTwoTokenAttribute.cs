@@ -1,4 +1,4 @@
-﻿namespace TwoFactorAuth.Web.Helpers.Attributes
+﻿namespace TwoFactorAuth.Web.Infrastructure.Attributes
 {
     using System;
     using System.Net;
@@ -6,18 +6,21 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Filters;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Options;
 
-    using TwoFactorAuth.Common;
+    using TwoFactorAuth.Common.Configuration;
     using TwoFactorAuth.Services.Crypto;
-    using TwoFactorAuth.Web.Helpers.Attributes.CustomCookies;
+    using TwoFactorAuth.Web.Infrastructure.Attributes.CustomCookies;
 
     public class InjectOnSuccessStageTwoTokenAttribute : ActionFilterAttribute
     {
         private IAppCryptoService _cryptoService;
+        private IOptionsMonitor<AppDummyAuthSpecs> _dummyAuthSpecsOptionsMonitor;
 
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             _cryptoService = context.HttpContext.RequestServices.GetService<IAppCryptoService>();
+            _dummyAuthSpecsOptionsMonitor = context.HttpContext.RequestServices.GetService<IOptionsMonitor<AppDummyAuthSpecs>>();
 
             try
             {
@@ -25,23 +28,28 @@
                 if (response.StatusCode != (int) HttpStatusCode.OK && response.StatusCode != (int) HttpStatusCode.Redirect)
                     return;
 
+                var cookieLifespan = _dummyAuthSpecsOptionsMonitor
+                    .CurrentValue
+                    .CookiesSettings
+                    .SecondStageEnablingCookieLifespanInMins;
+
                 var secondStageEnablingCookieValueJson = System.Text.Json.JsonSerializer.Serialize(
                     new DummyAuthSecondStageEnablingCookieSpecs
                     {
-                        ExpiresAt = DateTime.UtcNow.AddMinutes(GlobalConstants.DummyAuthSpecs.CookieSpecs.SecondStageEnablingCookieLifespanInMins),
+                        ExpiresAt = DateTime.UtcNow.AddMinutes(cookieLifespan),
                     }
                 );
 
                 var encryptedValue = _cryptoService.EncryptToBase64String(secondStageEnablingCookieValueJson);
                 
                 response.Cookies.Append(
-                    key: GlobalConstants.DummyAuthSpecs.CookieSpecs.EnableAccessToSecondStage,
+                    key: _dummyAuthSpecsOptionsMonitor.CurrentValue.CookiesSettings.CookieNameForEnableAccessToSecondStage,
                     value: encryptedValue,
                     new CookieOptions
                     {
                         Secure = true, //0 vital
-                        MaxAge = TimeSpan.FromMinutes(GlobalConstants.DummyAuthSpecs.CookieSpecs.SecondStageEnablingCookieLifespanInMins), //0
-                        Expires = DateTimeOffset.Now.AddHours(GlobalConstants.DummyAuthSpecs.CookieSpecs.SecondStageEnablingCookieLifespanInMins), //0 backwards compatibility ie8
+                        MaxAge = TimeSpan.FromMinutes(cookieLifespan), //0
+                        Expires = DateTimeOffset.Now.AddHours(cookieLifespan), //0 backwards compatibility ie8
                         IsEssential = false,
                     }
                 );

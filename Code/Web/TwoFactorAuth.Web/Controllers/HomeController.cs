@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace TwoFactorAuth.Web.Controllers
+﻿namespace TwoFactorAuth.Web.Controllers
 {
     using System.Diagnostics;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using TwoFactorAuth.Web.Infrastructure.Controllers;
     using TwoFactorAuth.Web.ViewModels;
 
     public class HomeController : PlatformBaseController

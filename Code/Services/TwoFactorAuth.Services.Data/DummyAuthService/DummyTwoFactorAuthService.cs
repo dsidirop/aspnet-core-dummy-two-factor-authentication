@@ -1,4 +1,7 @@
-﻿namespace TwoFactorAuth.Services.Data.DummyAuthService
+﻿using Microsoft.Extensions.Options;
+using TwoFactorAuth.Common.Configuration;
+
+namespace TwoFactorAuth.Services.Data.DummyAuthService
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -7,6 +10,7 @@
 
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
 
     using TwoFactorAuth.Common;
     using TwoFactorAuth.Data.Common.Repositories;
@@ -15,30 +19,55 @@
     public class DummyTwoFactorAuthService : IDummyTwoFactorAuthService
     {
         private readonly IRepository<ApplicationUser> _repository;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IOptionsMonitor<AppDummyAuthSpecs> _dummyAuthSpecsOptionsMonitor;
 
-        public DummyTwoFactorAuthService(IRepository<ApplicationUser> repository)
+        public DummyTwoFactorAuthService(
+            IRepository<ApplicationUser> repository,
+            SignInManager<ApplicationUser> signInManager,
+            IOptionsMonitor<AppDummyAuthSpecs> dummyAuthSpecsOptionsMonitor
+        )
         {
             _repository = repository;
+            _signInManager = signInManager;
+            _dummyAuthSpecsOptionsMonitor = dummyAuthSpecsOptionsMonitor;
         }
-        
+
         #region signin methods
 
-        public bool FirstStageSignIn(string firstPassword)
+        public async Task<bool> FirstStageSignInAsync(string firstPassword)
         {
-            return firstPassword == GlobalConstants.DummyAuthSpecs.Passwords.First;
+            var firstDummyAuthUser = await _repository.FindFirstNoTrackingAsync(
+                dbQuery: x => x.NormalizedEmail == _dummyAuthSpecsOptionsMonitor.CurrentValue.EmailFirstDummyAuthUser.ToUpper()
+            );
+
+            var passwordVerdict = await _signInManager.CheckPasswordSignInAsync(
+                user: firstDummyAuthUser,
+                password: firstPassword,
+                lockoutOnFailure: false
+            );
+
+            return passwordVerdict?.Succeeded ?? false;
         }
 
         public async Task<bool> SecondStageSignInAsync(HttpContext httpContext, string secondPassword, bool isPersistent = false)
         {
-            if (secondPassword != GlobalConstants.DummyAuthSpecs.Passwords.Second)
-                return false;
-
-            var user = await _repository.FindFirstNoTrackingAsync(dbQuery: x => x.Email == GlobalConstants.DummyAuthSpecs.Email.ToUpper());
-            if (user == null)
+            var secondStageDummyUser = await _repository.FindFirstNoTrackingAsync(
+                dbQuery: x => x.NormalizedEmail == _dummyAuthSpecsOptionsMonitor.CurrentValue.EmailEventualDummyAuthUser.ToUpper()
+            );
+            if (secondStageDummyUser == null)
                 return false; //wops  how did this happen?  faulty db?
+
+            var passwordVerdict = await _signInManager.CheckPasswordSignInAsync(
+                user: secondStageDummyUser,
+                password: secondPassword,
+                lockoutOnFailure: false
+            );
+            if (!(passwordVerdict?.Succeeded ?? false))
+                return false;
             
             var principal = new ClaimsPrincipal(new ClaimsIdentity(
-                claims: GetUserClaims(user),
+                claims: GetUserClaims(secondStageDummyUser),
                 authenticationType: IdentityApplication
             ));
 

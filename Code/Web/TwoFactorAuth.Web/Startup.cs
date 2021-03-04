@@ -1,11 +1,6 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using TwoFactorAuth.Services.Crypto;
-
-namespace TwoFactorAuth.Web
+﻿namespace TwoFactorAuth.Web
 {
     using System;
-    using System.Globalization;
-    using System.Reflection;
 
     using Data;
     using Data.Models;
@@ -21,15 +16,14 @@ namespace TwoFactorAuth.Web
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
 
-    using Services.Mapping;
     using Services.Messaging;
 
     using TwoFactorAuth.Common.Configuration;
     using TwoFactorAuth.Data.Common;
     using TwoFactorAuth.Data.Common.Repositories;
+    using TwoFactorAuth.Services.Crypto;
     using TwoFactorAuth.Services.Data.DummyAuthService;
     using TwoFactorAuth.Services.Data.SettingsService;
-    using TwoFactorAuth.Web.ViewModels;
 
     public class Startup
     {
@@ -75,16 +69,17 @@ namespace TwoFactorAuth.Web
             services.AddSingleton(_configuration);
 
             services.Configure<AppCryptoConfig>(_configuration.GetSection("Crypto"));
+            services.Configure<AppDummyAuthSpecs>(_configuration.GetSection("DummyAuthSpecs"));
 
             // Data repositories
+            services.AddScoped<IDbQueryRunner, DbQueryRunner>();
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-            services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
-            services.AddTransient<IAppCryptoService, AppCryptoService>();
             services.AddTransient<ISettingsService, SettingsService>();
+            services.AddTransient<IAppCryptoService, AppCryptoService>();
             services.AddTransient<IDummyTwoFactorAuthService, DummyTwoFactorAuthService>();
 
             services.AddSwaggerGen(c =>
@@ -110,16 +105,10 @@ namespace TwoFactorAuth.Web
             });
         }
 
-        // This method gets called by the runtime   Use this method to configure the HTTP request pipeline
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            var cultureInfo = CultureInfo.InvariantCulture; //best practice
-
-            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
-
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
+            app.SetDefaultThreadCulture();
+            app.RegisterMappings();
             app.RunDbMigrationsAndSeeders();
 
             if (env.IsDevelopment())

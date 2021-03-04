@@ -1,4 +1,4 @@
-﻿namespace TwoFactorAuth.Web.Helpers.Attributes
+﻿namespace TwoFactorAuth.Web.Infrastructure.Attributes
 {
     using System.Linq;
 

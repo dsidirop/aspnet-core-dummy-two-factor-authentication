@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using TwoFactorAuth.Web.Controllers;
+    using TwoFactorAuth.Web.Infrastructure.Controllers;
 
     [Area("Administration")]
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
