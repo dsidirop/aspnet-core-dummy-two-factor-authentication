@@ -8,7 +8,7 @@ namespace TwoFactorAuth.Web.Controllers
 
     using TwoFactorAuth.Web.ViewModels;
 
-    public class HomeController : BaseController
+    public class HomeController : PlatformBaseController
     {
         public IActionResult Index()
         {

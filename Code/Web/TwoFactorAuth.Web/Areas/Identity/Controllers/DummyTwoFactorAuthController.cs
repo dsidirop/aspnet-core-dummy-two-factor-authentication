@@ -8,15 +8,17 @@
 
     using TwoFactorAuth.Common;
     using TwoFactorAuth.Services.Data.DummyAuthService;
-    using TwoFactorAuth.Web.Areas.Administration.Controllers;
     using TwoFactorAuth.Web.Controllers;
     using TwoFactorAuth.Web.Helpers.Attributes;
     using TwoFactorAuth.Web.ViewModels.DummyAuthUserLogin;
 
     [AllowAnonymous]
     [Area("Identity")]
-    public class DummyTwoFactorAuthController : AdministrationController
+    public class DummyTwoFactorAuthController : PlatformBaseController, IDummyTwoFactorAuthController
     {
+        public string ControllerName { get; } = nameof(DummyTwoFactorAuthController).Replace("Controller", "");
+        public string LoginStep1Action { get; } = nameof(Index);
+
         private readonly IDummyTwoFactorAuthService _authService;
 
         public DummyTwoFactorAuthController(IDummyTwoFactorAuthService authService)
@@ -90,5 +92,11 @@
         }
 
         #endregion
+    }
+
+    public interface IDummyTwoFactorAuthController
+    {
+        public string ControllerName { get; }
+        public string LoginStep1Action { get; }
     }
 }

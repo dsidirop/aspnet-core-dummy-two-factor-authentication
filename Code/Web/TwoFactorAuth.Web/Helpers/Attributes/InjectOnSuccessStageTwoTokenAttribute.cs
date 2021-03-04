@@ -20,7 +20,7 @@
 
                 response.Cookies.Append(
                     key: GlobalConstants.DummyAuthUserSpecs.CookieSpecs.EnableAccessToSecondStage,
-                    value: "some_value",
+                    value: "some_value", //todo
                     new CookieOptions
                     {
                         Secure = true, //0 vital

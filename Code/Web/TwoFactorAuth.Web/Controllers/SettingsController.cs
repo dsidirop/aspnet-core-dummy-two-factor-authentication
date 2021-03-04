@@ -13,7 +13,7 @@ namespace TwoFactorAuth.Web.Controllers
 
     using ViewModels.Settings;
 
-    public class SettingsController : BaseController
+    public class SettingsController : PlatformBaseController
     {
         private readonly ISettingsService _settingsService;
 

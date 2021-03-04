@@ -42,4 +42,8 @@
     <ProjectReference Include="..\TwoFactorAuth.Web.Infrastructure\TwoFactorAuth.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\TwoFactorAuth.Web.ViewModels\TwoFactorAuth.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Contracts\Controllers\" />
+  </ItemGroup>
 </Project>
