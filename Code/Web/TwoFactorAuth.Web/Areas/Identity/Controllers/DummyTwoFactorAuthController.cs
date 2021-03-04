@@ -43,6 +43,8 @@
                 return View("Index");
             }
 
+            //todo   inject the client with an antiforgery token-cookie to enable him to access step2
+
             return RedirectToAction(nameof(LoginStep2));
         }
 
