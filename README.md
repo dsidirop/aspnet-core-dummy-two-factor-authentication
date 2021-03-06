@@ -6,7 +6,7 @@ The site supports login via a simple 2-stage password challenge:
 
 1. The first screen is the landing page which has just a simple password field and a submit ('login') button.
     It also contains a *hidden* input field right before the visible password field, containing the
-    password in a ASCII format. When the user submit in the correct password he is redirected to
+    password in a numeric format. When the user submit in the correct password he is redirected to
     the second screen.
 
 2. The second screen has (again) a password input field and a submit ('login') button. It also has a specially
