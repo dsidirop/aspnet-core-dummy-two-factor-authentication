@@ -1,3 +1,11 @@
+![Rider](https://bitbucket.org/dsidirop/gighub/raw/3053c14bf8cf41ce78cec197828b66353422c914/Collateral/Badges/rider.png)
+![Resharper](https://bitbucket.org/dsidirop/gighub/raw/3053c14bf8cf41ce78cec197828b66353422c914/Collateral/Badges/resharper.png)
+
+![ASPNET](https://bitbucket.org/dsidirop/gighub/raw/3a22265aecb7a0af8cd2c58f7ee445209cb15ec2/Collateral/Badges/AspNet.png)
+![Bootstrap](https://bitbucket.org/dsidirop/gighub/raw/3a22265aecb7a0af8cd2c58f7ee445209cb15ec2/Collateral/Badges/Bootstrap.png)
+![jQuery](https://bitbucket.org/dsidirop/gighub/raw/3a22265aecb7a0af8cd2c58f7ee445209cb15ec2/Collateral/Badges/jQuery.png)
+
+
 # ASPNET CORE (.Net5.x) Two-Factor Authentication Proof-of-Concept Scaffold
 
 Proof of concept website for two factor authentication (2 challenges ala "guess the password").
