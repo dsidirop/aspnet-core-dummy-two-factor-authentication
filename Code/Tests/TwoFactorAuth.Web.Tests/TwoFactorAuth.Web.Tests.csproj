@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Identity\Pages\DummyTwoFactorAuth\" />
+    <Folder Include="Areas\Identity\Pages\Login\" />
   </ItemGroup>
 
 </Project>

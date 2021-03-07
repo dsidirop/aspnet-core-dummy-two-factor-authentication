@@ -82,6 +82,8 @@
             services.AddTransient<IAppCryptoService, AppCryptoService>();
             services.AddTransient<IDummyTwoFactorAuthService, DummyTwoFactorAuthService>();
 
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/Identity/Login"); //vital
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo

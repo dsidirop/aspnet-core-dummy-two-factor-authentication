@@ -35,7 +35,7 @@ namespace TwoFactorAuth.Web.Infrastructure.Attributes
 
             var controller = context.Controller as IDummyTwoFactorAuthController;
             if (controller == null)
-                throw new ArgumentException("This filter is specific to [I]DummyTwoFactorAuthController - no other controller should be using it", nameof(context));
+                throw new ArgumentException("This filter is specific to [I]LoginController - no other controller should be using it", nameof(context));
 
             try
             {

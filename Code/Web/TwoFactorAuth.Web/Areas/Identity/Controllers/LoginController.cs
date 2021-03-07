@@ -1,4 +1,6 @@
-﻿namespace TwoFactorAuth.Web.Areas.Identity.Controllers
+﻿using TwoFactorAuth.Web.ViewModels.Login;
+
+namespace TwoFactorAuth.Web.Areas.Identity.Controllers
 {
     using System.Net;
     using System.Threading.Tasks;
@@ -14,19 +16,18 @@
     using TwoFactorAuth.Web.Infrastructure.Attributes;
     using TwoFactorAuth.Web.Infrastructure.Contracts.Controllers;
     using TwoFactorAuth.Web.Infrastructure.Controllers;
-    using TwoFactorAuth.Web.ViewModels.DummyAuthUserLogin;
 
     [AllowAnonymous]
     [Area("Identity")]
-    public class DummyTwoFactorAuthController : PlatformBaseController, IDummyTwoFactorAuthController
+    public class LoginController : PlatformBaseController, IDummyTwoFactorAuthController
     {
-        public string ControllerName { get; } = nameof(DummyTwoFactorAuthController).Replace("Controller", "");
+        public string ControllerName { get; } = nameof(LoginController).Replace("Controller", "");
         public string LoginStep1Action { get; } = nameof(Index);
 
         private readonly AppDummyAuthSpecs _authSpecs;
         private readonly IDummyTwoFactorAuthService _authService;
 
-        public DummyTwoFactorAuthController(IOptionsMonitor<AppDummyAuthSpecs> authSpecsOptionsMonitor, IDummyTwoFactorAuthService authService)
+        public LoginController(IOptionsMonitor<AppDummyAuthSpecs> authSpecsOptionsMonitor, IDummyTwoFactorAuthService authService)
         {
             _authSpecs = authSpecsOptionsMonitor.CurrentValue;
             _authService = authService;
@@ -43,7 +44,8 @@
                 HiddenEncodedPassword = _authSpecs.Passwords.First.Asciify(),
             });
 
-            //0 if the user for whatever reason revisits the first stage deliberately then we wipe out any preexisting stage two token he might have
+            //0 if the user for whatever reason revisits the first stage deliberately then we wipe out any preexisting stage two token
+            //  he might have
         }
 
         [HttpPost]
@@ -55,7 +57,7 @@
             {
                 ModelState.AddModelError("Password", "Wrong Password!");
                 
-                Response.StatusCode = (int) HttpStatusCode.BadRequest; //vital
+                Response.StatusCode = (int) HttpStatusCode.Forbidden; //vital
                 return View("Index");
             }
             
@@ -87,7 +89,7 @@
             {
                 ModelState.AddModelError("Password", "Wrong Password!");
 
-                Response.StatusCode = (int) HttpStatusCode.BadRequest; //vital
+                Response.StatusCode = (int) HttpStatusCode.Forbidden; //vital
                 return View();
             }
 

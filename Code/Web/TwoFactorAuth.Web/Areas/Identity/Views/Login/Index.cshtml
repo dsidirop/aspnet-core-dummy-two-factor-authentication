@@ -1,4 +1,4 @@
-﻿@model TwoFactorAuth.Web.ViewModels.DummyAuthUserLogin.LoginStep1ViewModel
+﻿@model TwoFactorAuth.Web.ViewModels.Login.LoginStep1ViewModel
 
 @{ ViewData["Title"] = "First Login Step"; }
 
@@ -16,7 +16,7 @@
 
                 <div class="form-group">
                     @Html.LabelFor(x => x.Password)
-                    @Html.PasswordFor(x => x.Password, new { @class = @"form-control" })
+                    @Html.PasswordFor(x => x.Password, new { @class = @"form-control", autofocus = "autofocus" })
 
                     <span asp-validation-for="Password" class="text-danger"></span>
 

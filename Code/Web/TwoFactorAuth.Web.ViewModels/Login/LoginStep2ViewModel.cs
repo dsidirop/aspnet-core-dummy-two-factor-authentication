@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TwoFactorAuth.Web.ViewModels.DummyAuthUserLogin
+namespace TwoFactorAuth.Web.ViewModels.Login
 {
     public class LoginStep2ViewModel
     {
