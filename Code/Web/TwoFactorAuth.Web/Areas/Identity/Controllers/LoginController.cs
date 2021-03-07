@@ -1,4 +1,6 @@
-﻿namespace TwoFactorAuth.Web.Areas.Identity.Controllers
+﻿using TwoFactorAuth.Services.Auth.Contracts;
+
+namespace TwoFactorAuth.Web.Areas.Identity.Controllers
 {
     using System.Net;
     using System.Threading.Tasks;
@@ -9,7 +11,6 @@
 
     using TwoFactorAuth.Common;
     using TwoFactorAuth.Common.Configuration;
-    using TwoFactorAuth.Services.Auth.DummyAuthService;
     using TwoFactorAuth.Web.Controllers;
     using TwoFactorAuth.Web.Infrastructure.Attributes;
     using TwoFactorAuth.Web.Infrastructure.Contracts.Controllers;

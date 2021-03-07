@@ -1,4 +1,4 @@
-﻿namespace TwoFactorAuth.Services.Auth.DummyAuthService
+﻿namespace TwoFactorAuth.Services.Auth.DummyAuth
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -13,6 +13,7 @@
     using TwoFactorAuth.Common.Configuration;
     using TwoFactorAuth.Data.Common.Repositories;
     using TwoFactorAuth.Data.Models;
+    using TwoFactorAuth.Services.Auth.Contracts;
 
     public class DummyTwoFactorAuthService : IDummyTwoFactorAuthService
     {

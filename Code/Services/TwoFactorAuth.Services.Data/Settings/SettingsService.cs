@@ -1,4 +1,4 @@
-﻿namespace TwoFactorAuth.Services.Data.SettingsService
+﻿namespace TwoFactorAuth.Services.Data.Settings
 {
     using System.Collections.Generic;
     using System.Linq;

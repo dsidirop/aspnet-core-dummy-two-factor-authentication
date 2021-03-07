@@ -1,4 +1,6 @@
-﻿namespace TwoFactorAuth.Services.Data.Tests
+﻿using TwoFactorAuth.Services.Data.Settings;
+
+namespace TwoFactorAuth.Services.Data.Tests
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -33,7 +35,7 @@
                     }.AsQueryable()
                 );
 
-            var service = new SettingsService.SettingsService(repository.Object);
+            var service = new SettingsService(repository.Object);
 
             Assert.Equal(3, service.GetCount());
 
@@ -55,7 +57,7 @@
             await dbContext.SaveChangesAsync();
 
             using var repository = new EfDeletableEntityRepository<Setting>(dbContext);
-            var service = new SettingsService.SettingsService(repository);
+            var service = new SettingsService(repository);
 
             Assert.Equal(3, service.GetCount());
         }

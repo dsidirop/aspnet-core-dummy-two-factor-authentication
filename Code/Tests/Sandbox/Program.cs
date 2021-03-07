@@ -1,6 +1,4 @@
-﻿using TwoFactorAuth.Services.Data.Contracts;
-
-namespace Sandbox
+﻿namespace Sandbox
 {
     using System;
     using System.Diagnostics;
@@ -20,8 +18,10 @@ namespace Sandbox
     using TwoFactorAuth.Data.Models;
     using TwoFactorAuth.Data.Repositories;
     using TwoFactorAuth.Data.Seeding;
-    using TwoFactorAuth.Services.Auth.DummyAuthService;
-    using TwoFactorAuth.Services.Data.SettingsService;
+    using TwoFactorAuth.Services.Auth.Contracts;
+    using TwoFactorAuth.Services.Auth.DummyAuth;
+    using TwoFactorAuth.Services.Data.Contracts;
+    using TwoFactorAuth.Services.Data.Settings;
     using TwoFactorAuth.Services.Messaging;
 
     static public class Program
