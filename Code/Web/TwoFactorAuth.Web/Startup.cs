@@ -21,8 +21,8 @@
     using TwoFactorAuth.Common.Configuration;
     using TwoFactorAuth.Data.Common;
     using TwoFactorAuth.Data.Common.Repositories;
+    using TwoFactorAuth.Services.Auth.DummyAuthService;
     using TwoFactorAuth.Services.Crypto;
-    using TwoFactorAuth.Services.Data.DummyAuthService;
     using TwoFactorAuth.Services.Data.SettingsService;
 
     public class Startup

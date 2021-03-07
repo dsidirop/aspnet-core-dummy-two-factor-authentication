@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.312" PrivateAssets="all">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\TwoFactorAuth.Common\TwoFactorAuth.Common.csproj" />
+    <ProjectReference Include="..\..\Data\TwoFactorAuth.Data.Common\TwoFactorAuth.Data.Common.csproj" />
+    <ProjectReference Include="..\..\Data\TwoFactorAuth.Data.Models\TwoFactorAuth.Data.Models.csproj" />
+    <ProjectReference Include="..\TwoFactorAuth.Services.Auth.Contracts\TwoFactorAuth.Services.Auth.Contracts.csproj" />
+    <ProjectReference Include="..\TwoFactorAuth.Services.Mapping\TwoFactorAuth.Services.Mapping.csproj" />
+  </ItemGroup>
+
+</Project>

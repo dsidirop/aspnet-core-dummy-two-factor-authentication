@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-
-namespace TwoFactorAuth.Services.Data.DummyAuthService
+﻿namespace TwoFactorAuth.Services.Auth.DummyAuthService
 {
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Http;
+
     public interface IDummyTwoFactorAuthService
     {
         Task<bool> FirstStageSignInAsync(string firstPassword);

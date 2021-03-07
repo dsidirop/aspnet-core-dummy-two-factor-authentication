@@ -37,6 +37,7 @@
     <ProjectReference Include="..\..\Data\TwoFactorAuth.Data.Common\TwoFactorAuth.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\TwoFactorAuth.Data.Models\TwoFactorAuth.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\TwoFactorAuth.Data\TwoFactorAuth.Data.csproj" />
+    <ProjectReference Include="..\..\Services\TwoFactorAuth.Services.Auth\TwoFactorAuth.Services.Auth.csproj" />
     <ProjectReference Include="..\..\Services\TwoFactorAuth.Services.Data\TwoFactorAuth.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\TwoFactorAuth.Services.Mapping\TwoFactorAuth.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\TwoFactorAuth.Services.Messaging\TwoFactorAuth.Services.Messaging.csproj" />

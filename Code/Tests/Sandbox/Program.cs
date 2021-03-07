@@ -18,7 +18,7 @@
     using TwoFactorAuth.Data.Models;
     using TwoFactorAuth.Data.Repositories;
     using TwoFactorAuth.Data.Seeding;
-    using TwoFactorAuth.Services.Data.DummyAuthService;
+    using TwoFactorAuth.Services.Auth.DummyAuthService;
     using TwoFactorAuth.Services.Data.SettingsService;
     using TwoFactorAuth.Services.Messaging;
 

@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using TwoFactorAuth.Common.Configuration;
-
-namespace TwoFactorAuth.Services.Data.DummyAuthService
+﻿namespace TwoFactorAuth.Services.Auth.DummyAuthService
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -11,8 +8,9 @@ namespace TwoFactorAuth.Services.Data.DummyAuthService
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.Options;
 
-    using TwoFactorAuth.Common;
+    using TwoFactorAuth.Common.Configuration;
     using TwoFactorAuth.Data.Common.Repositories;
     using TwoFactorAuth.Data.Models;
 

@@ -2,7 +2,7 @@
 
 namespace TwoFactorAuth.Web.Infrastructure.Attributes.CustomCookies
 {
-    public class DummyAuthSecondStageEnablingCookieSpecs
+    internal class DummyAuthSecondStageEnablingCookieSpecs
     {
         public DateTime ExpiresAt { get; set; }
     }

@@ -9,7 +9,7 @@
 
     using TwoFactorAuth.Common;
     using TwoFactorAuth.Common.Configuration;
-    using TwoFactorAuth.Services.Data.DummyAuthService;
+    using TwoFactorAuth.Services.Auth.DummyAuthService;
     using TwoFactorAuth.Web.Controllers;
     using TwoFactorAuth.Web.Infrastructure.Attributes;
     using TwoFactorAuth.Web.Infrastructure.Contracts.Controllers;
