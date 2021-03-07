@@ -12,12 +12,13 @@
     {
         static public IEnumerable<TDestination> To<TDestination>(
             this IEnumerable source,
-            params Expression<Func<TDestination, object>>[] membersToExpand)
-            => source.AsQueryable().To(membersToExpand);
+            params Expression<Func<TDestination, object>>[] membersToExpand
+        ) => source.AsQueryable().To(membersToExpand);
 
         static public IQueryable<TDestination> To<TDestination>(
             this IQueryable source,
-            params Expression<Func<TDestination, object>>[] membersToExpand)
+            params Expression<Func<TDestination, object>>[] membersToExpand
+        )
         {
             if (source == null)
             {
@@ -29,7 +30,8 @@
 
         static public IQueryable<TDestination> To<TDestination>(
             this IQueryable source,
-            object parameters)
+            object parameters
+        )
         {
             if (source == null)
             {

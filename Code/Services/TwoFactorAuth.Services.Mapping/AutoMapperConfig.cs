@@ -49,7 +49,9 @@
                     {
                         map.CreateMappings(configuration);
                     }
-                });
+                }
+            );
+
             MapperInstance = new Mapper(new MapperConfiguration(config));
         }
 
