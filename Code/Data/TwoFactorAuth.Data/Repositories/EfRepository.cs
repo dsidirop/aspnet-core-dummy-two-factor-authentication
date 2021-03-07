@@ -1,5 +1,4 @@
-﻿
-namespace TwoFactorAuth.Data.Repositories
+﻿namespace TwoFactorAuth.Data.Repositories
 {
     using System;
     using System.Collections.Generic;

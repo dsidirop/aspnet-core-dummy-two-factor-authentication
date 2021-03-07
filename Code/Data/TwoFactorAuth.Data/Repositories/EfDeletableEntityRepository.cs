@@ -20,8 +20,8 @@
         public override IEnumerable<TEntity> All() => base.QAll().Where(x => !x.IsDeleted);
         public override IEnumerable<TEntity> AllAsNoTracking() => base.QAllNoTracking().Where(x => !x.IsDeleted);
 
-        public IQueryable<TEntity> AllWithDeleted() => base.QAll().IgnoreQueryFilters();
-        public IQueryable<TEntity> AllAsNoTrackingWithDeleted() => base.QAllNoTracking().IgnoreQueryFilters();
+        public IEnumerable<TEntity> AllWithDeleted() => base.QAll().IgnoreQueryFilters().ToArray();
+        public IEnumerable<TEntity> AllAsNoTrackingWithDeleted() => base.QAllNoTracking().IgnoreQueryFilters().ToArray();
 
         public void HardDelete(TEntity entity) => base.Delete(entity);
 

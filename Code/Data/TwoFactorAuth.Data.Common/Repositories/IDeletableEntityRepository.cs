@@ -1,14 +1,14 @@
 ﻿namespace TwoFactorAuth.Data.Common.Repositories
 {
-    using System.Linq;
+    using System.Collections.Generic;
 
     using Models;
 
     public interface IDeletableEntityRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IDeletableEntity
     {
-        IQueryable<TEntity> AllWithDeleted();
-        IQueryable<TEntity> AllAsNoTrackingWithDeleted();
+        IEnumerable<TEntity> AllWithDeleted();
+        IEnumerable<TEntity> AllAsNoTrackingWithDeleted();
 
         void HardDelete(TEntity entity);
         void Undelete(TEntity entity);
