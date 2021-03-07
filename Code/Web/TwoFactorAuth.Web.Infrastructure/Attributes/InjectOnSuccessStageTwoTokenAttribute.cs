@@ -9,7 +9,7 @@
     using Microsoft.Extensions.Options;
 
     using TwoFactorAuth.Common.Configuration;
-    using TwoFactorAuth.Services.Crypto;
+    using TwoFactorAuth.Services.Contracts;
     using TwoFactorAuth.Web.Infrastructure.Attributes.CustomCookies;
 
     public class InjectOnSuccessStageTwoTokenAttribute : ActionFilterAttribute

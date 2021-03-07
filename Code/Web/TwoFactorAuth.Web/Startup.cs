@@ -1,5 +1,6 @@
 ﻿using TwoFactorAuth.Services.Auth.Contracts;
 using TwoFactorAuth.Services.Auth.DummyAuth;
+using TwoFactorAuth.Services.Contracts;
 using TwoFactorAuth.Services.Data.Contracts;
 using TwoFactorAuth.Services.Data.Settings;
 

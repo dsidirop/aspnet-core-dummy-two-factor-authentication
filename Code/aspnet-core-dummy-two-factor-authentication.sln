@@ -56,6 +56,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwoFactorAuth.Services.Data
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwoFactorAuth.Services.Mapping.Contracts", "Services\TwoFactorAuth.Services.Mapping.Contracts\TwoFactorAuth.Services.Mapping.Contracts.csproj", "{9441D9D7-6B03-45EC-A5E0-0A4BD4BA66E2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwoFactorAuth.Services.Contracts", "Services\TwoFactorAuth.Services.Contracts\TwoFactorAuth.Services.Contracts.csproj", "{60215202-7607-4683-B2E4-21C350BD8E03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -134,6 +136,10 @@ Global
 		{9441D9D7-6B03-45EC-A5E0-0A4BD4BA66E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9441D9D7-6B03-45EC-A5E0-0A4BD4BA66E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9441D9D7-6B03-45EC-A5E0-0A4BD4BA66E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60215202-7607-4683-B2E4-21C350BD8E03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60215202-7607-4683-B2E4-21C350BD8E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60215202-7607-4683-B2E4-21C350BD8E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60215202-7607-4683-B2E4-21C350BD8E03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -157,6 +163,7 @@ Global
 		{1AF59A75-D9E8-4844-BC29-230204E62985} = {516E002B-9E6E-4456-B7F6-EAA353966DE6}
 		{1C49522E-16FD-4FCE-85D9-D963351F55DD} = {516E002B-9E6E-4456-B7F6-EAA353966DE6}
 		{9441D9D7-6B03-45EC-A5E0-0A4BD4BA66E2} = {516E002B-9E6E-4456-B7F6-EAA353966DE6}
+		{60215202-7607-4683-B2E4-21C350BD8E03} = {516E002B-9E6E-4456-B7F6-EAA353966DE6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {384484BE-4680-4529-9CC2-AD37BA4D12D1}

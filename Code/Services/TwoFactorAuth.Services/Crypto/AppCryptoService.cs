@@ -1,4 +1,6 @@
-﻿namespace TwoFactorAuth.Services.Crypto
+﻿using TwoFactorAuth.Services.Contracts;
+
+namespace TwoFactorAuth.Services.Crypto
 {
     using System;
     using System.Security.Cryptography;

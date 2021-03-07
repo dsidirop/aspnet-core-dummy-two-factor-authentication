@@ -1,4 +1,4 @@
-﻿namespace TwoFactorAuth.Services.Crypto
+﻿namespace TwoFactorAuth.Services.Contracts
 {
     public interface IAppCryptoService
     {

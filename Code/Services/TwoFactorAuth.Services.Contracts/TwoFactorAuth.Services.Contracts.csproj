@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\TwoFactorAuth.Common\TwoFactorAuth.Common.csproj" />
-    <ProjectReference Include="..\TwoFactorAuth.Services.Contracts\TwoFactorAuth.Services.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

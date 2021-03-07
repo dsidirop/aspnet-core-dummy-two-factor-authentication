@@ -1,6 +1,4 @@
-﻿using TwoFactorAuth.Web.Infrastructure.Controllers;
-
-namespace TwoFactorAuth.Web.Infrastructure.Attributes
+﻿namespace TwoFactorAuth.Web.Infrastructure.Attributes
 {
     using System;
     using System.Threading.Tasks;
@@ -10,9 +8,10 @@ namespace TwoFactorAuth.Web.Infrastructure.Attributes
     using Microsoft.Extensions.Options;
 
     using TwoFactorAuth.Common.Configuration;
-    using TwoFactorAuth.Services.Crypto;
+    using TwoFactorAuth.Services.Contracts;
     using TwoFactorAuth.Web.Infrastructure.Attributes.CustomCookies;
     using TwoFactorAuth.Web.Infrastructure.Contracts.Controllers;
+    using TwoFactorAuth.Web.Infrastructure.Controllers;
 
     public class ValidateOnEntryStageTwoTokenAttribute : ActionFilterAttribute
     {
