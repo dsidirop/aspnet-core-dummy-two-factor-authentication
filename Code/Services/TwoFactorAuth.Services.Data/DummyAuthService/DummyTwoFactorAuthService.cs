@@ -38,7 +38,7 @@ namespace TwoFactorAuth.Services.Data.DummyAuthService
         public async Task<bool> FirstStageSignInAsync(string firstPassword)
         {
             var firstDummyAuthUser = await _repository.FindFirstNoTrackingAsync(
-                dbQuery: x => x.NormalizedEmail == _dummyAuthSpecsOptionsMonitor.CurrentValue.EmailFirstDummyAuthUser.ToUpper()
+                dbQuery: x => x.NormalizedEmail == _dummyAuthSpecsOptionsMonitor.CurrentValue.DummyUsers.First.Email.ToUpper()
             );
 
             var passwordVerdict = await _signInManager.CheckPasswordSignInAsync(
@@ -53,7 +53,7 @@ namespace TwoFactorAuth.Services.Data.DummyAuthService
         public async Task<bool> SecondStageSignInAsync(HttpContext httpContext, string secondPassword, bool isPersistent = false)
         {
             var secondStageDummyUser = await _repository.FindFirstNoTrackingAsync(
-                dbQuery: x => x.NormalizedEmail == _dummyAuthSpecsOptionsMonitor.CurrentValue.EmailEventualDummyAuthUser.ToUpper()
+                dbQuery: x => x.NormalizedEmail == _dummyAuthSpecsOptionsMonitor.CurrentValue.DummyUsers.Second.Email.ToUpper()
             );
             if (secondStageDummyUser == null)
                 return false; //wops  how did this happen?  faulty db?

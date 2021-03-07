@@ -20,14 +20,14 @@
 
             await SeedDummyAuthUserAsync(
                 userManager: userManager,
-                email: dummyAuthSpecs.CurrentValue.EmailFirstDummyAuthUser,
-                password: dummyAuthSpecs.CurrentValue.Passwords.First
+                email: dummyAuthSpecs.CurrentValue.DummyUsers.First.Email,
+                password: dummyAuthSpecs.CurrentValue.DummyUsers.First.Password
             );
 
             await SeedDummyAuthUserAsync(
                 userManager: userManager,
-                email: dummyAuthSpecs.CurrentValue.EmailEventualDummyAuthUser,
-                password: dummyAuthSpecs.CurrentValue.Passwords.Second
+                email: dummyAuthSpecs.CurrentValue.DummyUsers.Second.Email,
+                password: dummyAuthSpecs.CurrentValue.DummyUsers.Second.Password
             );
         }
 

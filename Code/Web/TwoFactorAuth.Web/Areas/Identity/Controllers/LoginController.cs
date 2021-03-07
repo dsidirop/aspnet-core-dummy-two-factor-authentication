@@ -1,6 +1,4 @@
-﻿using TwoFactorAuth.Web.ViewModels.Login;
-
-namespace TwoFactorAuth.Web.Areas.Identity.Controllers
+﻿namespace TwoFactorAuth.Web.Areas.Identity.Controllers
 {
     using System.Net;
     using System.Threading.Tasks;
@@ -16,6 +14,7 @@ namespace TwoFactorAuth.Web.Areas.Identity.Controllers
     using TwoFactorAuth.Web.Infrastructure.Attributes;
     using TwoFactorAuth.Web.Infrastructure.Contracts.Controllers;
     using TwoFactorAuth.Web.Infrastructure.Controllers;
+    using TwoFactorAuth.Web.ViewModels.Login;
 
     [AllowAnonymous]
     [Area("Identity")]
@@ -41,7 +40,7 @@ namespace TwoFactorAuth.Web.Areas.Identity.Controllers
         {
             return View("Index", new LoginStep1ViewModel
             {
-                HiddenEncodedPassword = _authSpecs.Passwords.First.Asciify(),
+                HiddenEncodedPassword = _authSpecs.DummyUsers.First.Password.Asciify(),
             });
 
             //0 if the user for whatever reason revisits the first stage deliberately then we wipe out any preexisting stage two token

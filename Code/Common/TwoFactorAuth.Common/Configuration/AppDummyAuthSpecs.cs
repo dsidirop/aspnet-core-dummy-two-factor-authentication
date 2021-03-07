@@ -2,16 +2,19 @@
 {
     public class AppDummyAuthSpecs
     {
-        public string EmailFirstDummyAuthUser { get; set; }
-        public string EmailEventualDummyAuthUser { get; set; }
-
-        public XPasswords Passwords { get; set; }
+        public XDummyUsers DummyUsers { get; set; }
         public XCookiesSpecs CookiesSettings { get; set; }
 
-        public class XPasswords
+        public class XDummyUsers
         {
-            public string First { get; set; }
-            public string Second { get; set; }
+            public XUser First { get; set; }
+            public XUser Second { get; set; }
+
+            public class XUser
+            {
+                public string Email { get; set; }
+                public string Password { get; set; }
+            }
         }
 
         public class XCookiesSpecs
