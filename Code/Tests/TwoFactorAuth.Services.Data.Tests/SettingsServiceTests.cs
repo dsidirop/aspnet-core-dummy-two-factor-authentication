@@ -1,6 +1,4 @@
-﻿using TwoFactorAuth.Services.Data.Settings;
-
-namespace TwoFactorAuth.Services.Data.Tests
+﻿namespace TwoFactorAuth.Services.Data.Tests
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -14,6 +12,7 @@ namespace TwoFactorAuth.Services.Data.Tests
     using TwoFactorAuth.Data.Common.Repositories;
     using TwoFactorAuth.Data.Models;
     using TwoFactorAuth.Data.Repositories;
+    using TwoFactorAuth.Services.Data.Settings;
 
     using Xunit;
 
