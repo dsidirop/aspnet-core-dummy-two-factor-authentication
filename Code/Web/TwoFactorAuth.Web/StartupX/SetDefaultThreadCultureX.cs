@@ -1,12 +1,12 @@
-﻿namespace TwoFactorAuth.Web
+﻿namespace TwoFactorAuth.Web.StartupX
 {
     using System.Globalization;
 
     using Microsoft.AspNetCore.Builder;
 
-    static public class SetDefaultThreadCultureX
+    static internal class SetDefaultThreadCultureX
     {
-        static public void SetDefaultThreadCulture(this IApplicationBuilder app)
+        static internal void SetDefaultThreadCulture(this IApplicationBuilder app)
         {
             var cultureInfo = CultureInfo.InvariantCulture; //best practice
 

@@ -1,4 +1,4 @@
-﻿namespace TwoFactorAuth.Web
+﻿namespace TwoFactorAuth.Web.StartupX
 {
     using System.Reflection;
 
@@ -7,9 +7,9 @@
     using TwoFactorAuth.Services.Mapping;
     using TwoFactorAuth.Web.ViewModels;
 
-    static public class RegisterMappingsX
+    static internal class RegisterMappingsX
     {
-        static public void RegisterMappings(this IApplicationBuilder app)
+        static internal void RegisterMappings(this IApplicationBuilder app)
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
         }

@@ -1,4 +1,4 @@
-﻿namespace TwoFactorAuth.Web
+﻿namespace TwoFactorAuth.Web.StartupX
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.EntityFrameworkCore;
@@ -7,9 +7,9 @@
     using TwoFactorAuth.Data;
     using TwoFactorAuth.Data.Seeding;
 
-    static public class RunDbMigrationsAndSeedersX
+    static internal class RunDbMigrationsAndSeedersX
     {
-        static public IApplicationBuilder RunDbMigrationsAndSeeders(this IApplicationBuilder app)
+        static internal IApplicationBuilder RunDbMigrationsAndSeeders(this IApplicationBuilder app)
         {
             using var serviceScope = app
                 .ApplicationServices

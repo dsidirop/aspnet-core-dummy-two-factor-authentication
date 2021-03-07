@@ -28,6 +28,7 @@
     using TwoFactorAuth.Services.Data.Contracts;
     using TwoFactorAuth.Services.Data.Settings;
     using TwoFactorAuth.Services.Messaging.Contracts;
+    using TwoFactorAuth.Web.StartupX;
 
     public class Startup
     {
