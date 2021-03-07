@@ -1,4 +1,4 @@
-﻿namespace TwoFactorAuth.Services.Messaging
+﻿namespace TwoFactorAuth.Services.Messaging.Contracts
 {
     public class EmailAttachment
     {

@@ -3,6 +3,7 @@ using TwoFactorAuth.Services.Auth.DummyAuth;
 using TwoFactorAuth.Services.Contracts;
 using TwoFactorAuth.Services.Data.Contracts;
 using TwoFactorAuth.Services.Data.Settings;
+using TwoFactorAuth.Services.Messaging.Contracts;
 
 namespace TwoFactorAuth.Web
 {
@@ -81,7 +82,7 @@ namespace TwoFactorAuth.Web
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IAppEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IAppCryptoService, AppCryptoService>();
             services.AddTransient<IDummyTwoFactorAuthService, DummyTwoFactorAuthService>();

@@ -8,7 +8,9 @@
     using SendGrid;
     using SendGrid.Helpers.Mail;
 
-    public class SendGridEmailSender : IEmailSender
+    using TwoFactorAuth.Services.Messaging.Contracts;
+
+    public class SendGridEmailSender : IAppEmailSender
     {
         private readonly SendGridClient _client;
 

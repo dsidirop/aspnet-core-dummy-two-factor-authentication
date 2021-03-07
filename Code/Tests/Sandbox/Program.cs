@@ -23,6 +23,7 @@
     using TwoFactorAuth.Services.Data.Contracts;
     using TwoFactorAuth.Services.Data.Settings;
     using TwoFactorAuth.Services.Messaging;
+    using TwoFactorAuth.Services.Messaging.Contracts;
 
     static public class Program
     {
@@ -88,7 +89,7 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IAppEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IDummyTwoFactorAuthService, DummyTwoFactorAuthService>();
         }

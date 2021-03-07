@@ -3,7 +3,9 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public class NullMessageSender : IEmailSender
+    using TwoFactorAuth.Services.Messaging.Contracts;
+
+    public class NullMessageSender : IAppEmailSender
     {
         public Task SendEmailAsync(
             string from,

@@ -19,8 +19,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\TwoFactorAuth.Services.Messaging.Contracts\TwoFactorAuth.Services.Messaging.Contracts.csproj" />
-  </ItemGroup>
-
 </Project>

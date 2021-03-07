@@ -1,9 +1,9 @@
-﻿namespace TwoFactorAuth.Services.Messaging
+﻿namespace TwoFactorAuth.Services.Messaging.Contracts
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    public interface IEmailSender
+    public interface IAppEmailSender
     {
         Task SendEmailAsync(
             string from,
@@ -11,6 +11,7 @@
             string to,
             string subject,
             string htmlContent,
-            IEnumerable<EmailAttachment> attachments = null);
+            IEnumerable<EmailAttachment> attachments = null
+        );
     }
 }
