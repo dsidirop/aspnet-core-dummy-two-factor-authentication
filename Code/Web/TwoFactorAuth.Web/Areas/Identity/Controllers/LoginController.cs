@@ -12,7 +12,6 @@
     using TwoFactorAuth.Services.Auth.Contracts;
     using TwoFactorAuth.Web.Controllers;
     using TwoFactorAuth.Web.Infrastructure.Attributes;
-    using TwoFactorAuth.Web.Infrastructure.Contracts.Controllers;
     using TwoFactorAuth.Web.Infrastructure.Controllers;
     using TwoFactorAuth.Web.ViewModels.Login;
 

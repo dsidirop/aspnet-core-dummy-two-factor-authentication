@@ -10,7 +10,6 @@
     using TwoFactorAuth.Common.Contracts.Configuration;
     using TwoFactorAuth.Services.Contracts;
     using TwoFactorAuth.Web.Infrastructure.Attributes.CustomCookies;
-    using TwoFactorAuth.Web.Infrastructure.Contracts.Controllers;
     using TwoFactorAuth.Web.Infrastructure.Controllers;
 
     public class ValidateOnEntryStageTwoTokenAttribute : ActionFilterAttribute
