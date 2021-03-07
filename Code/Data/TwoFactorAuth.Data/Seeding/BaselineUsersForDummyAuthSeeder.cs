@@ -8,7 +8,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Options;
 
-    using TwoFactorAuth.Common.Configuration;
+    using TwoFactorAuth.Common.Contracts.Configuration;
     using TwoFactorAuth.Data.Models;
 
     internal class BaselineUsersForDummyAuthSeeder : ISeeder

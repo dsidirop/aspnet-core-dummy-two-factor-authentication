@@ -1,11 +1,4 @@
-﻿using TwoFactorAuth.Services.Auth.Contracts;
-using TwoFactorAuth.Services.Auth.DummyAuth;
-using TwoFactorAuth.Services.Contracts;
-using TwoFactorAuth.Services.Data.Contracts;
-using TwoFactorAuth.Services.Data.Settings;
-using TwoFactorAuth.Services.Messaging.Contracts;
-
-namespace TwoFactorAuth.Web
+﻿namespace TwoFactorAuth.Web
 {
     using System;
 
@@ -25,10 +18,16 @@ namespace TwoFactorAuth.Web
 
     using Services.Messaging;
 
-    using TwoFactorAuth.Common.Configuration;
+    using TwoFactorAuth.Common.Contracts.Configuration;
     using TwoFactorAuth.Data.Common;
     using TwoFactorAuth.Data.Common.Repositories;
+    using TwoFactorAuth.Services.Auth.Contracts;
+    using TwoFactorAuth.Services.Auth.DummyAuth;
+    using TwoFactorAuth.Services.Contracts;
     using TwoFactorAuth.Services.Crypto;
+    using TwoFactorAuth.Services.Data.Contracts;
+    using TwoFactorAuth.Services.Data.Settings;
+    using TwoFactorAuth.Services.Messaging.Contracts;
 
     public class Startup
     {

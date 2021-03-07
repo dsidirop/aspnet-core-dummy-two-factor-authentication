@@ -10,7 +10,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Options;
 
-    using TwoFactorAuth.Common.Configuration;
+    using TwoFactorAuth.Common.Contracts.Configuration;
     using TwoFactorAuth.Data.Common.Repositories;
     using TwoFactorAuth.Data.Models;
     using TwoFactorAuth.Services.Auth.Contracts;

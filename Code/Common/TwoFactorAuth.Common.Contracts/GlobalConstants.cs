@@ -1,4 +1,4 @@
-﻿namespace TwoFactorAuth.Common
+﻿namespace TwoFactorAuth.Common.Contracts
 {
     static public class GlobalConstants
     {

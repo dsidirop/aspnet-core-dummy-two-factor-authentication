@@ -1,6 +1,7 @@
-﻿namespace TwoFactorAuth.Web.Areas.Administration.Controllers
+﻿using TwoFactorAuth.Common.Contracts;
+
+namespace TwoFactorAuth.Web.Areas.Administration.Controllers
 {
-    using Common;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;

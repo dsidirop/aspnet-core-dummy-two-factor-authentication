@@ -1,11 +1,11 @@
-﻿namespace TwoFactorAuth.Common.Configuration
+﻿namespace TwoFactorAuth.Common.Contracts.Configuration
 {
-    public class AppDummyAuthSpecs
+    public sealed class AppDummyAuthSpecs
     {
         public XDummyUsers DummyUsers { get; set; }
         public XCookiesSpecs CookiesSettings { get; set; }
 
-        public class XDummyUsers
+        public sealed class XDummyUsers
         {
             public XUser First { get; set; }
             public XUser Second { get; set; }
@@ -17,7 +17,7 @@
             }
         }
 
-        public class XCookiesSpecs
+        public sealed class XCookiesSpecs
         {
             public int SecondStageEnablingCookieLifespanInMins { get; set; }
             public string CookieNameForEnableAccessToSecondStage { get; set; }

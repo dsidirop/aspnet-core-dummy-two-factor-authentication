@@ -1,6 +1,4 @@
-﻿using TwoFactorAuth.Services.Contracts;
-
-namespace TwoFactorAuth.Services.Crypto
+﻿namespace TwoFactorAuth.Services.Crypto
 {
     using System;
     using System.Security.Cryptography;
@@ -8,7 +6,8 @@ namespace TwoFactorAuth.Services.Crypto
 
     using Microsoft.Extensions.Options;
 
-    using TwoFactorAuth.Common.Configuration;
+    using TwoFactorAuth.Common.Contracts.Configuration;
+    using TwoFactorAuth.Services.Contracts;
 
     public class AppCryptoService : IAppCryptoService
     {

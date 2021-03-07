@@ -4,7 +4,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Options;
 
-    using TwoFactorAuth.Common.Configuration;
+    using TwoFactorAuth.Common.Contracts.Configuration;
 
     public class WipeOutOnRespondStageTwoTokenAttribute : ActionFilterAttribute
     {

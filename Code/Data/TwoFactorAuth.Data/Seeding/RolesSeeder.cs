@@ -1,4 +1,6 @@
-﻿namespace TwoFactorAuth.Data.Seeding
+﻿using TwoFactorAuth.Common.Contracts;
+
+namespace TwoFactorAuth.Data.Seeding
 {
     using System;
     using System.Linq;
@@ -8,8 +10,6 @@
     using Microsoft.Extensions.DependencyInjection;
 
     using Models;
-
-    using TwoFactorAuth.Common;
 
     internal class RolesSeeder : ISeeder
     {

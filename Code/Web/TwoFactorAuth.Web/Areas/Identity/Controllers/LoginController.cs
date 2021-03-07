@@ -8,7 +8,7 @@
     using Microsoft.Extensions.Options;
 
     using TwoFactorAuth.Common;
-    using TwoFactorAuth.Common.Configuration;
+    using TwoFactorAuth.Common.Contracts.Configuration;
     using TwoFactorAuth.Services.Auth.Contracts;
     using TwoFactorAuth.Web.Controllers;
     using TwoFactorAuth.Web.Infrastructure.Attributes;
