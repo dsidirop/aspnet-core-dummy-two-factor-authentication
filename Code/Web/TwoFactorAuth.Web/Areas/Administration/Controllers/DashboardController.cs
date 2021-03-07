@@ -2,7 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    using TwoFactorAuth.Services.Data.SettingsService;
+    using TwoFactorAuth.Services.Data.Contracts;
     using TwoFactorAuth.Web.ViewModels.Administration.Dashboard;
 
     public class DashboardController : AdministrationController

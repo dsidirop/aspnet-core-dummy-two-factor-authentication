@@ -5,6 +5,7 @@
 
     using TwoFactorAuth.Data.Common.Repositories;
     using TwoFactorAuth.Data.Models;
+    using TwoFactorAuth.Services.Data.Contracts;
     using TwoFactorAuth.Services.Mapping;
 
     public class SettingsService : ISettingsService

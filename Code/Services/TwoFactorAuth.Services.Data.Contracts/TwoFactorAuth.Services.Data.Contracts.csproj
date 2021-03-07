@@ -24,7 +24,6 @@
     <ProjectReference Include="..\..\Common\TwoFactorAuth.Common\TwoFactorAuth.Common.csproj" />
     <ProjectReference Include="..\..\Data\TwoFactorAuth.Data.Common\TwoFactorAuth.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\TwoFactorAuth.Data.Models\TwoFactorAuth.Data.Models.csproj" />
-    <ProjectReference Include="..\TwoFactorAuth.Services.Data.Contracts\TwoFactorAuth.Services.Data.Contracts.csproj" />
     <ProjectReference Include="..\TwoFactorAuth.Services.Mapping\TwoFactorAuth.Services.Mapping.csproj" />
   </ItemGroup>
 

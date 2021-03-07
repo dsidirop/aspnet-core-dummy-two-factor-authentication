@@ -1,4 +1,6 @@
-﻿namespace TwoFactorAuth.Web
+﻿using TwoFactorAuth.Services.Data.Contracts;
+
+namespace TwoFactorAuth.Web
 {
     using System;
 

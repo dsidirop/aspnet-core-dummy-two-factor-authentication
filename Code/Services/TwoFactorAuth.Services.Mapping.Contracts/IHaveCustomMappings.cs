@@ -1,4 +1,4 @@
-﻿namespace TwoFactorAuth.Services.Mapping
+﻿namespace TwoFactorAuth.Services.Mapping.Contracts
 {
     using AutoMapper;
 

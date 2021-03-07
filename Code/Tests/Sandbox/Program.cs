@@ -1,4 +1,6 @@
-﻿namespace Sandbox
+﻿using TwoFactorAuth.Services.Data.Contracts;
+
+namespace Sandbox
 {
     using System;
     using System.Diagnostics;

@@ -4,7 +4,7 @@
 
     using Data.Models;
 
-    using Services.Mapping;
+    using TwoFactorAuth.Services.Mapping.Contracts;
 
     public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
     {
@@ -20,7 +20,7 @@
         {
             configuration.CreateMap<Setting, SettingViewModel>().ForMember(
                 m => m.NameAndValue,
-                opt => opt.MapFrom(x => x.Name + " = " + x.Value));
+                opt => opt.MapFrom(x => $"{x.Name} = {x.Value}"));
         }
     }
 }

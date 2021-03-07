@@ -8,6 +8,8 @@
     using AutoMapper;
     using AutoMapper.Configuration;
 
+    using TwoFactorAuth.Services.Mapping.Contracts;
+
     static public class AutoMapperConfig
     {
         static private bool _initialized;

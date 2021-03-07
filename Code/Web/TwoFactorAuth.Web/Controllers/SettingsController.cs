@@ -8,7 +8,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using TwoFactorAuth.Data.Common.Repositories;
-    using TwoFactorAuth.Services.Data.SettingsService;
+    using TwoFactorAuth.Services.Data.Contracts;
     using TwoFactorAuth.Web.Infrastructure.Controllers;
 
     using ViewModels.Settings;
