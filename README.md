@@ -2,9 +2,9 @@
 ![Resharper](https://bitbucket.org/dsidirop/gighub/raw/3053c14bf8cf41ce78cec197828b66353422c914/Collateral/Badges/resharper.png)
 
 ![ASPNET](https://bitbucket.org/dsidirop/gighub/raw/3a22265aecb7a0af8cd2c58f7ee445209cb15ec2/Collateral/Badges/AspNet.png)
+![Autofac](https://user-images.githubusercontent.com/7284501/110253283-248b6500-7f92-11eb-993c-73eaadfc4830.png)
 ![Bootstrap](https://bitbucket.org/dsidirop/gighub/raw/3a22265aecb7a0af8cd2c58f7ee445209cb15ec2/Collateral/Badges/Bootstrap.png)
 ![jQuery](https://bitbucket.org/dsidirop/gighub/raw/3a22265aecb7a0af8cd2c58f7ee445209cb15ec2/Collateral/Badges/jQuery.png)
-
 
 # ASPNET CORE (.Net5.x) Two-Factor Authentication Proof-of-Concept Scaffold
 
@@ -50,7 +50,7 @@ they get redirected back to step 1.
 ## Project Overview
 
 The project is based off the dotnet template [ASP.NET-Core-Template](https://github.com/NikolayIT/ASP.NET-Core-Template/tree/master/)
-kind courtesy of [Nikolay Kostov](https://github.com/NikolayIT).
+kind courtesy of [Nikolay Kostov](https://github.com/NikolayIT). It has been modified to employ Autofac for dependency injection.
 
 ![image](https://user-images.githubusercontent.com/7284501/109699777-a72eb180-7b99-11eb-9064-770c029336f9.png)
 ![Dependencies Graph](https://user-images.githubusercontent.com/7284501/109700429-64210e00-7b9a-11eb-9de0-d91756719a4c.png)

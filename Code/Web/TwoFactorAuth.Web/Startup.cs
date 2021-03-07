@@ -1,4 +1,6 @@
-﻿namespace TwoFactorAuth.Web
+﻿using TwoFactorAuth.Web.IoC;
+
+namespace TwoFactorAuth.Web
 {
     using System;
 
