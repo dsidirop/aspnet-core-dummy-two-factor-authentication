@@ -1,6 +1,4 @@
-﻿using TwoFactorAuth.Web.IoC;
-
-namespace TwoFactorAuth.Web
+﻿namespace TwoFactorAuth.Web
 {
     using System;
 
@@ -19,6 +17,7 @@ namespace TwoFactorAuth.Web
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
 
+    using TwoFactorAuth.Web.IoC;
     using TwoFactorAuth.Web.StartupX;
 
     public class Startup
@@ -138,7 +137,7 @@ namespace TwoFactorAuth.Web
         public void ConfigureContainer(ContainerBuilder builder)
         {
 #if DEBUG
-            var tracer = new Autofac.Diagnostics.DefaultDiagnosticTracer();
+            var tracer = new Autofac.Diagnostics.DefaultDiagnosticTracer(); //0
 
             tracer.OperationCompleted += (_, args) =>
             {
@@ -155,10 +154,10 @@ namespace TwoFactorAuth.Web
 
             builder.RegisterModule(new AutofacModule(_configuration)); //0    
 
-            //0 Add any Autofac modules or registrations  This is called AFTER ConfigureServices so things you
+            //0 Add any Autofac modules or registrations  This is called AFTER ConfigureServices so things we
             //  register here OVERRIDE things registered in ConfigureServices
             //  
-            //  You must have the call to UseServiceProviderFactory(new AutofacServiceProviderFactory())
+            //  We must have the call to UseServiceProviderFactory(new AutofacServiceProviderFactory())
             //  when building the host or this wont be called
             //  
             //  Diagnostics get printed via a build callback   Diagnostics arent free so we shouldnt just do this

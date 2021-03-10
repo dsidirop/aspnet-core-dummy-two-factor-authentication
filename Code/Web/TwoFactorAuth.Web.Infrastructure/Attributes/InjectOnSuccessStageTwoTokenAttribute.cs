@@ -48,8 +48,8 @@
                     new CookieOptions
                     {
                         Secure = true, //0 vital
-                        MaxAge = TimeSpan.FromMinutes(cookieLifespan), //0
-                        Expires = DateTimeOffset.Now.AddHours(cookieLifespan), //0 backwards compatibility ie8
+                        MaxAge = TimeSpan.FromMinutes(cookieLifespan),
+                        Expires = DateTimeOffset.UtcNow.AddHours(cookieLifespan), //backwards compatibility ie8
                         IsEssential = false,
                     }
                 );

@@ -25,8 +25,8 @@
 
             dllPaths = dllPaths
                 .Select(x => new { fullpath = x, filename = Path.GetFileName(x) })
-                .Where(pair => whitelistRegex.IsMatch(Path.GetFileName(pair.filename)))
-                .Where(pair => !blacklistRegex.IsMatch(Path.GetFileName(pair.filename)))
+                .Where(pair => whitelistRegex.IsMatch(pair.filename))
+                .Where(pair => !blacklistRegex.IsMatch(pair.filename))
                 .Select(x => x.fullpath)
                 .ToArray();
 
