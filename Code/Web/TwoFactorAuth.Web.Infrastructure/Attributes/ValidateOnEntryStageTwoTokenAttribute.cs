@@ -84,7 +84,7 @@
                     .Deserialize<DummyAuthSecondStageEnablingCookieSpecs>(decryptedValue);
 
                 return dummyAuthSecondStageEnablingCookieSpecs != null
-                       && dummyAuthSecondStageEnablingCookieSpecs.ExpiresAt >= DateTime.UtcNow;
+                       && dummyAuthSecondStageEnablingCookieSpecs.ExpiresAt >= DateTimeOffset.UtcNow;
             }
             catch
             {

@@ -33,10 +33,11 @@
                     .CookiesSettings
                     .SecondStageEnablingCookieLifespanInMins;
 
+                var nowUtc = DateTimeOffset.UtcNow;
                 var secondStageEnablingCookieValueJson = System.Text.Json.JsonSerializer.Serialize(
                     new DummyAuthSecondStageEnablingCookieSpecs
                     {
-                        ExpiresAt = DateTime.UtcNow.AddMinutes(cookieLifespan),
+                        ExpiresAt = nowUtc.AddMinutes(cookieLifespan),
                     }
                 );
 
@@ -49,7 +50,7 @@
                     {
                         Secure = true, //0 vital
                         MaxAge = TimeSpan.FromMinutes(cookieLifespan),
-                        Expires = DateTimeOffset.UtcNow.AddHours(cookieLifespan), //backwards compatibility ie8
+                        Expires = nowUtc.AddHours(cookieLifespan), //backwards compatibility ie8
                         IsEssential = false,
                     }
                 );
