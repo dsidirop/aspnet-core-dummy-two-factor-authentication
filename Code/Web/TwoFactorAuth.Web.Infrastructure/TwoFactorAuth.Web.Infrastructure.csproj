@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.312" PrivateAssets="all">
@@ -23,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\TwoFactorAuth.Common.Contracts\TwoFactorAuth.Common.Contracts.csproj" />
+    <ProjectReference Include="..\..\Services\TwoFactorAuth.Services.Auth.Contracts\TwoFactorAuth.Services.Auth.Contracts.csproj" />
     <ProjectReference Include="..\..\Services\TwoFactorAuth.Services\TwoFactorAuth.Services.csproj" />
   </ItemGroup>
 

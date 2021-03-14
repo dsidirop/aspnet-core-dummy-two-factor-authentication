@@ -3,6 +3,8 @@
     using System.Net;
     using System.Threading.Tasks;
 
+    using MediatR;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
@@ -14,6 +16,8 @@
     using TwoFactorAuth.Web.Controllers;
     using TwoFactorAuth.Web.Infrastructure.Attributes;
     using TwoFactorAuth.Web.Infrastructure.Controllers;
+    using TwoFactorAuth.Web.Infrastructure.Mediator.Commands.Auth.FirstStagePasswordValidation;
+    using TwoFactorAuth.Web.Infrastructure.Mediator.Commands.Auth.SecondStagePasswordValidation;
     using TwoFactorAuth.Web.ViewModels.Login;
 
     [AllowAnonymous]
@@ -23,19 +27,19 @@
         public string ControllerName { get; } = nameof(LoginController).Replace("Controller", "");
         public string LoginStep1Action { get; } = nameof(Index);
 
+        private readonly IMediator _mediator;
         private readonly AppDummyAuthSpecs _authSpecs;
         private readonly IPasswordHintImageService _passwordHintImageService;
-        private readonly IDummyTwoFactorAuthService _authService;
 
         public LoginController(
+            IMediator mediator,
             IPasswordHintImageService passwordHintImageService,
-            IDummyTwoFactorAuthService authService,
             IOptionsMonitor<AppDummyAuthSpecs> authSpecsOptionsMonitor
 
         )
         {
+            _mediator = mediator;
             _authSpecs = authSpecsOptionsMonitor.CurrentValue;
-            _authService = authService;
             _passwordHintImageService = passwordHintImageService;
         }
 
@@ -58,8 +62,8 @@
         [InjectOnSuccessStageTwoToken] //0
         public async Task<IActionResult> Index(string password)
         {
-            var success = await _authService.FirstStageSignInAsync(password);
-            if (!success)
+            var verdict = await _mediator.Send(new FirstStagePasswordValidationCommand(password));
+            if (!verdict.Success)
             {
                 ModelState.AddModelError("Password", "Wrong Password!");
 
@@ -105,8 +109,8 @@
         [WipeOutOnSuccessStageTwoToken] //0 vital
         public async Task<IActionResult> LoginSecondStep(string password)
         {
-            var success = await _authService.SecondStageSignInAsync(HttpContext, password, isPersistent: true);
-            if (!success)
+            var verdict = await _mediator.Send(new SecondStagePasswordValidationCommand(password));
+            if (!verdict.Success)
             {
                 ModelState.AddModelError("Password", "Wrong Password!");
 

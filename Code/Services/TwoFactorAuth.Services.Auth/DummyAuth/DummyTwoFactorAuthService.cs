@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-
-namespace TwoFactorAuth.Services.Auth.DummyAuth
+﻿namespace TwoFactorAuth.Services.Auth.DummyAuth
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -10,6 +8,7 @@ namespace TwoFactorAuth.Services.Auth.DummyAuth
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
 
     using TwoFactorAuth.Common.Contracts.Configuration;
@@ -19,20 +18,23 @@ namespace TwoFactorAuth.Services.Auth.DummyAuth
 
     public class DummyTwoFactorAuthService : IDummyTwoFactorAuthService
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRepository<ApplicationUser> _repository;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<DummyTwoFactorAuthService> _logger;
         private readonly IOptionsMonitor<AppDummyAuthSpecs> _dummyAuthSpecsOptionsMonitor;
 
         public DummyTwoFactorAuthService(
-            ILogger<DummyTwoFactorAuthService> logger,
+            IHttpContextAccessor httpContextAccessor,
             IRepository<ApplicationUser> repository,
             SignInManager<ApplicationUser> signInManager,
+            ILogger<DummyTwoFactorAuthService> logger,
             IOptionsMonitor<AppDummyAuthSpecs> dummyAuthSpecsOptionsMonitor)
         {
             _logger = logger;
             _repository = repository;
             _signInManager = signInManager;
+            _httpContextAccessor = httpContextAccessor;
             _dummyAuthSpecsOptionsMonitor = dummyAuthSpecsOptionsMonitor;
         }
 
@@ -58,7 +60,7 @@ namespace TwoFactorAuth.Services.Auth.DummyAuth
             return passwordVerdict?.Succeeded ?? false;
         }
 
-        public async Task<bool> SecondStageSignInAsync(HttpContext httpContext, string secondPassword, bool isPersistent = false)
+        public async Task<bool> SecondStageSignInAsync(string secondPassword, bool isPersistent = false)
         {
             var secondStageDummyUser = await _repository.FindFirstNoTrackingAsync(
                 dbQuery: x => x.NormalizedEmail == _dummyAuthSpecsOptionsMonitor.CurrentValue.DummyUsers.Second.Email.ToUpper()
@@ -82,18 +84,13 @@ namespace TwoFactorAuth.Services.Auth.DummyAuth
                 authenticationType: IdentityApplication
             ));
 
-            await httpContext.SignInAsync( //todo   abstract this away
+            await _httpContextAccessor.HttpContext.SignInAsync(
                 scheme: IdentityApplication,
                 principal: principal,
                 properties: new AuthenticationProperties {IsPersistent = true}
             );
 
             return true;
-        }
-
-        public async void SignOut(HttpContext httpContext)
-        {
-            await httpContext.SignOutAsync();
         }
 
         #endregion signinmethods
