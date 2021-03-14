@@ -1,4 +1,6 @@
-﻿namespace TwoFactorAuth.Services.Auth.DummyAuth
+﻿using Microsoft.Extensions.Logging;
+
+namespace TwoFactorAuth.Services.Auth.DummyAuth
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -19,14 +21,16 @@
     {
         private readonly IRepository<ApplicationUser> _repository;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ILogger<DummyTwoFactorAuthService> _logger;
         private readonly IOptionsMonitor<AppDummyAuthSpecs> _dummyAuthSpecsOptionsMonitor;
 
         public DummyTwoFactorAuthService(
+            ILogger<DummyTwoFactorAuthService> logger,
             IRepository<ApplicationUser> repository,
             SignInManager<ApplicationUser> signInManager,
-            IOptionsMonitor<AppDummyAuthSpecs> dummyAuthSpecsOptionsMonitor
-        )
+            IOptionsMonitor<AppDummyAuthSpecs> dummyAuthSpecsOptionsMonitor)
         {
+            _logger = logger;
             _repository = repository;
             _signInManager = signInManager;
             _dummyAuthSpecsOptionsMonitor = dummyAuthSpecsOptionsMonitor;
@@ -39,6 +43,11 @@
             var firstDummyAuthUser = await _repository.FindFirstNoTrackingAsync(
                 dbQuery: x => x.NormalizedEmail == _dummyAuthSpecsOptionsMonitor.CurrentValue.DummyUsers.First.Email.ToUpper()
             );
+            if (firstDummyAuthUser == null)
+            {
+                _logger.LogCritical($"[DTFAS.FSSIA01] [BUG] Wops! Failed to get hold of the first dummy-auth user with email '{_dummyAuthSpecsOptionsMonitor.CurrentValue.DummyUsers.First.Email}' (Did db-migrations run properly on startup?)");
+                return false;
+            }
 
             var passwordVerdict = await _signInManager.CheckPasswordSignInAsync(
                 user: firstDummyAuthUser,
@@ -55,7 +64,10 @@
                 dbQuery: x => x.NormalizedEmail == _dummyAuthSpecsOptionsMonitor.CurrentValue.DummyUsers.Second.Email.ToUpper()
             );
             if (secondStageDummyUser == null)
-                return false; //wops  how did this happen?  faulty db?
+            {
+                _logger.LogCritical($"[DTFAS.SSSIA01] [BUG] Wops! Failed to get hold of the second dummy-auth user with email '{_dummyAuthSpecsOptionsMonitor.CurrentValue.DummyUsers.Second.Email}' (Did db-migrations run properly on startup?)");
+                return false;
+            }
 
             var passwordVerdict = await _signInManager.CheckPasswordSignInAsync(
                 user: secondStageDummyUser,
