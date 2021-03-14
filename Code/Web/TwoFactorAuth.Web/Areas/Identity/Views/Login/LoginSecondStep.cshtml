@@ -1,4 +1,4 @@
-﻿@model TwoFactorAuth.Web.ViewModels.Login.LoginStep2ViewModel
+﻿@model TwoFactorAuth.Web.ViewModels.Login.LoginSecondStepViewModel
 
 @{ ViewData["Title"] = "Final Login Step"; }
 
@@ -11,7 +11,7 @@
                 <hr>
 
                 <div class="form-group">
-                    <img src="https://user-images.githubusercontent.com/7284501/109744505-17115c00-7bdb-11eb-8977-5c40813f486a.jpg" alt="Hint-Image" loading="lazy" />
+                    <img src="@($"{Model.PasswordHintImagePath}?v=123")" alt="Hint-Image" loading="lazy" />
 
                     @Html.LabelFor(x => x.Password)
                     @Html.PasswordFor(x => x.Password, new { @class = @"form-control", autofocus = "autofocus" })

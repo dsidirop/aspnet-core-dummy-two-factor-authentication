@@ -1,6 +1,8 @@
 ﻿// ReSharper disable UnusedMember.Global
 // ReSharper disable RedundantTypeArgumentsOfMethod
 
+using TwoFactorAuth.Services.Auth.PasswordHintImage;
+
 namespace TwoFactorAuth.Services.Auth.IoC
 {
     using Autofac;
@@ -16,6 +18,11 @@ namespace TwoFactorAuth.Services.Auth.IoC
                 .RegisterType(typeof(DummyTwoFactorAuthService))
                 .As(typeof(IDummyTwoFactorAuthService))
                 .InstancePerLifetimeScope();
+
+            builder
+                .RegisterType(typeof(PasswordHintImageService))
+                .As(typeof(IPasswordHintImageService))
+                .SingleInstance();
         }
     }
 }

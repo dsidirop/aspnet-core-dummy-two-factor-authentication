@@ -34,6 +34,7 @@
             app.SetDefaultThreadCulture();
             app.RegisterMappings();
             app.RunDbMigrationsAndSeeders();
+            app.ScaffoldImages();
 
             if (env.IsDevelopment())
             {

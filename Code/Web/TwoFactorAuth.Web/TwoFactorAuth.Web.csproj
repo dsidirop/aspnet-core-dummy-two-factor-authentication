@@ -9,8 +9,18 @@
   <PropertyGroup>
     <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Content\BlueHint.jpg" />
+    <None Remove="Content\BlueHint.orig.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\BlueHint.orig.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\.editorconfig" Link=".editorconfig" />
@@ -45,5 +55,11 @@
     <ProjectReference Include="..\..\Services\TwoFactorAuth.Services\TwoFactorAuth.Services.csproj" />
     <ProjectReference Include="..\TwoFactorAuth.Web.Infrastructure\TwoFactorAuth.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\TwoFactorAuth.Web.ViewModels\TwoFactorAuth.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Content\BlueHint.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

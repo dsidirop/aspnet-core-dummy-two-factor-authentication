@@ -8,6 +8,7 @@
     using Microsoft.Extensions.Options;
 
     using TwoFactorAuth.Common;
+    using TwoFactorAuth.Common.Contracts;
     using TwoFactorAuth.Common.Contracts.Configuration;
     using TwoFactorAuth.Services.Auth.Contracts;
     using TwoFactorAuth.Web.Controllers;
@@ -23,12 +24,19 @@
         public string LoginStep1Action { get; } = nameof(Index);
 
         private readonly AppDummyAuthSpecs _authSpecs;
+        private readonly IPasswordHintImageService _passwordHintImageService;
         private readonly IDummyTwoFactorAuthService _authService;
 
-        public LoginController(IOptionsMonitor<AppDummyAuthSpecs> authSpecsOptionsMonitor, IDummyTwoFactorAuthService authService)
+        public LoginController(
+            IPasswordHintImageService passwordHintImageService,
+            IDummyTwoFactorAuthService authService,
+            IOptionsMonitor<AppDummyAuthSpecs> authSpecsOptionsMonitor
+
+        )
         {
             _authSpecs = authSpecsOptionsMonitor.CurrentValue;
             _authService = authService;
+            _passwordHintImageService = passwordHintImageService;
         }
 
         #region step1
@@ -54,40 +62,55 @@
             if (!success)
             {
                 ModelState.AddModelError("Password", "Wrong Password!");
-                
-                Response.StatusCode = (int) HttpStatusCode.Forbidden; //vital
+
+                Response.StatusCode = (int)HttpStatusCode.Forbidden; //vital
                 return View("Index");
             }
-            
-            return RedirectToAction(nameof(LoginStep2));
 
-            //0 if the action is green then the attribute injects the client with an antiforgery token-cookie to enable him to access step2
+            return RedirectToAction(nameof(LoginSecondStep));
+
+            //0 if the action is green then the attribute injects the client with an antiforgery token-cookie to enable him to access SecondStep
         }
 
         #endregion
 
 
 
-        #region step2
+        #region SecondStep
 
         [HttpGet]
         [ValidateOnEntryStageTwoToken] //vital
-        public IActionResult LoginStep2()
+        public IActionResult LoginSecondStep()
         {
-            return View();
+            return View(new LoginSecondStepViewModel
+            {
+                PasswordHintImagePath = Url.Action(GlobalConstants.LoginSecondStepImageHintActionName),
+            });
+        }
+
+        [HttpGet]
+        [ValidateOnEntryStageTwoToken]
+        [ActionName(GlobalConstants.LoginSecondStepImageHintActionName)]
+        public IActionResult PasswordHintImage()
+        {
+            var imagePasswordHintFilepath = _passwordHintImageService.GetLoginSecondStepImageHintFilePath(); //0
+
+            return PhysicalFile(imagePasswordHintFilepath, GlobalConstants.LoginSecondStepEventualImagePasswordHintMimeType);
+
+            //0 C:\VS\aspnet-core-dummy-two-factor-authentication\Code\Web\TwoFactorAuth.Web\content\image.jpg
         }
 
         [HttpPost]
         [ValidateOnEntryStageTwoToken]
         [WipeOutOnSuccessStageTwoToken] //0 vital
-        public async Task<IActionResult> LoginStep2(string password)
+        public async Task<IActionResult> LoginSecondStep(string password)
         {
             var success = await _authService.SecondStageSignInAsync(HttpContext, password, isPersistent: true);
             if (!success)
             {
                 ModelState.AddModelError("Password", "Wrong Password!");
 
-                Response.StatusCode = (int) HttpStatusCode.Forbidden; //vital
+                Response.StatusCode = (int)HttpStatusCode.Forbidden; //vital
                 return View();
             }
 
