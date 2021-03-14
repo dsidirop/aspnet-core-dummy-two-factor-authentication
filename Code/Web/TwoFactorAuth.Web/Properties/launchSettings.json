@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iis": {
-      "applicationUrl": "http://localhost/TwoFactorAuth.Web",
+      "applicationUrl": "http://localhost:8080",
       "sslPort": 0
     },
     "iisExpress": {

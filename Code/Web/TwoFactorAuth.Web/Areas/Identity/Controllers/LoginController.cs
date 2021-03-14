@@ -45,7 +45,7 @@
         [WipeOutOnRespondStageTwoToken] //0
         public IActionResult Index() //login step1
         {
-            return View("Index", new LoginStep1ViewModel
+            return View(new LoginStep1ViewModel
             {
                 HiddenEncodedPassword = _authSpecs.DummyUsers.First.Password.Asciify(),
             });
@@ -64,7 +64,7 @@
                 ModelState.AddModelError("Password", "Wrong Password!");
 
                 Response.StatusCode = (int)HttpStatusCode.Forbidden; //vital
-                return View("Index");
+                return Index(); //vital
             }
 
             return RedirectToAction(nameof(LoginSecondStep));
@@ -111,7 +111,7 @@
                 ModelState.AddModelError("Password", "Wrong Password!");
 
                 Response.StatusCode = (int)HttpStatusCode.Forbidden; //vital
-                return View();
+                return LoginSecondStep(); //vital
             }
 
             return RedirectToAction(nameof(HomeController.Welldone), "Home", new { area = "" });
