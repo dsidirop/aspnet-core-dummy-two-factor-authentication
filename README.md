@@ -47,9 +47,19 @@ they get redirected back to step 1.
 
 3. Open your .Net5.x-aware IDE of choice set the start-up type to '**IIS Express**' and build/run the solution
 
-To build a docker image and run it use (in a single line):
+## Run via Docker on Local-Dev
 
-          [LINUX]
+1. Install Docker (with WSL2 support if you are running on Windows)
+
+2. Follow steps 1 and 2 as described in the section '**IDE Build & Run**'
+
+3. Change the start-up type in your IDE to '**Docker**'
+
+4. Tweak 'appsettings.json' so that the 'DefaultConnection' property uses 'Server=host.docker.internal\\\\SQLEXPRESS' and 'TrustedConnection=False'
+
+To build & run the docker image from the command line use (in a single line):
+
+          [LINUX DOCKER]
           docker
                 build
                 -f "C:\VS\aspnet-core-dummy-two-factor-authentication\Code\Web\TwoFactorAuth.Web\Dockerfile"
@@ -60,7 +70,7 @@ To build a docker image and run it use (in a single line):
                 --label "com.microsoft.visual-studio.project-name=TwoFactorAuth.Web"
                 "C:\VS\aspnet-core-dummy-two-factor-authentication\Code" 
 
-          [WINDOWS]
+          [WINDOWS DOCKER]
           docker
                 build
                 -f "C:\<path to>\aspnet-core-dummy-two-factor-authentication\Code\Web\TwoFactorAuth.Web\Dockerfile.windows"
