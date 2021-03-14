@@ -45,13 +45,25 @@ they get redirected back to step 1.
 
 2. dotnet restore
 
-3. Open your .Net5.x-aware IDE of choice and build/run the solution
+3. Open your .Net5.x-aware IDE of choice set the start-up type to '**IIS Express**' and build/run the solution
 
 To build a docker image and run it use (in a single line):
 
+          [LINUX]
           docker
                 build
-                -f "C:\<path to>\aspnet-core-dummy-two-factor-authentication\Code\Web\TwoFactorAuth.Web\Dockerfile"
+                -f "C:\VS\aspnet-core-dummy-two-factor-authentication\Code\Web\TwoFactorAuth.Web\Dockerfile"
+                --force-rm
+                -t twofactorauthweb:dev
+                --target base
+                --label "com.microsoft.created-by=visual-studio"
+                --label "com.microsoft.visual-studio.project-name=TwoFactorAuth.Web"
+                "C:\VS\aspnet-core-dummy-two-factor-authentication\Code" 
+
+          [WINDOWS]
+          docker
+                build
+                -f "C:\<path to>\aspnet-core-dummy-two-factor-authentication\Code\Web\TwoFactorAuth.Web\Dockerfile.windows"
                 --force-rm
                 -t twofactorauthweb:dev
                 --target base
