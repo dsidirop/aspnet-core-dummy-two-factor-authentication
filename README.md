@@ -47,6 +47,18 @@ they get redirected back to step 1.
 
 3. Open your .Net5.x-aware IDE of choice and build/run the solution
 
+To build a docker image and run it use (in a single line):
+
+          docker
+                build
+                -f "C:\<path to>\aspnet-core-dummy-two-factor-authentication\Code\Web\TwoFactorAuth.Web\Dockerfile"
+                --force-rm
+                -t twofactorauthweb:dev
+                --target base
+                --label "com.microsoft.created-by=visual-studio"
+                --label "com.microsoft.visual-studio.project-name=TwoFactorAuth.Web"
+                "C:\<path to>\aspnet-core-dummy-two-factor-authentication\Code" 
+
 ## Project Overview
 
 The project is based off the dotnet template [ASP.NET-Core-Template](https://github.com/NikolayIT/ASP.NET-Core-Template/tree/master/)
