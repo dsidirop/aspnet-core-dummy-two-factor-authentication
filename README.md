@@ -39,7 +39,7 @@ they get redirected back to step 1.
 
    c. Doublecheck that your SqlServer allows logging both with Windows Authentication and via [Sql Server Directly](https://serverfault.com/a/399871/502822).
 
-   d. Last but not least edit appsettings.json and change 'Server=DROOD\\SQLEXPRESS' to whatever your local server is running as
+   d. Last but not least edit appsettings.json and change 'Server=DROOD' to whatever your local server is running as
 
 1. cd Code
 
@@ -55,7 +55,7 @@ they get redirected back to step 1.
 
 3. Change the start-up type in your IDE to '**Docker**'
 
-4. Tweak 'appsettings.json' so that the 'DefaultConnection' property uses 'Server=host.docker.internal\\\\SQLEXPRESS' and 'TrustedConnection=False'
+4. Tweak 'appsettings.json' so that the 'DefaultConnection' property uses 'Server=host.docker.internal'
 
 To build & run the docker image from the command line use (in a single line):
 
