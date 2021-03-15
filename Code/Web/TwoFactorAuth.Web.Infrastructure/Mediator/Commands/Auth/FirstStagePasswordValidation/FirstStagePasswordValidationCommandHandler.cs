@@ -20,6 +20,8 @@ namespace TwoFactorAuth.Web.Infrastructure.Mediator.Commands.Auth.FirstStagePass
 
         public async Task<FirstStagePasswordValidationVerdict> Handle(FirstStagePasswordValidationCommand request, CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             var success = await _authService.FirstStageSignInAsync(request.Password);
 
             return new FirstStagePasswordValidationVerdict(success);

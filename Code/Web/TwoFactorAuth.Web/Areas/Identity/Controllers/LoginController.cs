@@ -1,22 +1,21 @@
 ﻿namespace TwoFactorAuth.Web.Areas.Identity.Controllers
 {
     using System.Net;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using MediatR;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Options;
 
-    using TwoFactorAuth.Common;
     using TwoFactorAuth.Common.Contracts;
-    using TwoFactorAuth.Common.Contracts.Configuration;
-    using TwoFactorAuth.Services.Auth.Contracts;
     using TwoFactorAuth.Web.Controllers;
     using TwoFactorAuth.Web.Infrastructure.Attributes;
     using TwoFactorAuth.Web.Infrastructure.Controllers;
     using TwoFactorAuth.Web.Infrastructure.Mediator.Commands.Auth.FirstStagePasswordValidation;
+    using TwoFactorAuth.Web.Infrastructure.Mediator.Commands.Auth.RetrieveFirstStagePasswordHint;
+    using TwoFactorAuth.Web.Infrastructure.Mediator.Commands.Auth.RetrieveSecondStagePasswordHint;
     using TwoFactorAuth.Web.Infrastructure.Mediator.Commands.Auth.SecondStagePasswordValidation;
     using TwoFactorAuth.Web.ViewModels.Login;
 
@@ -28,30 +27,23 @@
         public string LoginStep1Action { get; } = nameof(Index);
 
         private readonly IMediator _mediator;
-        private readonly AppDummyAuthSpecs _authSpecs;
-        private readonly IPasswordHintImageService _passwordHintImageService;
 
-        public LoginController(
-            IMediator mediator,
-            IPasswordHintImageService passwordHintImageService,
-            IOptionsMonitor<AppDummyAuthSpecs> authSpecsOptionsMonitor
-
-        )
+        public LoginController(IMediator mediator)
         {
             _mediator = mediator;
-            _authSpecs = authSpecsOptionsMonitor.CurrentValue;
-            _passwordHintImageService = passwordHintImageService;
         }
 
         #region step1
 
         [HttpGet]
         [WipeOutOnRespondStageTwoToken] //0
-        public IActionResult Index() //login step1
+        public async Task<IActionResult> Index() //login step1
         {
+            var result = await _mediator.Send(new RetrieveFirstStagePasswordHintCommand());
+
             return View(new LoginStep1ViewModel
             {
-                HiddenEncodedPassword = _authSpecs.DummyUsers.First.Password.Asciify(),
+                HiddenEncodedPassword = result.EncodedPasswordHint,
             });
 
             //0 if the user for whatever reason revisits the first stage deliberately then we wipe out any preexisting stage two token
@@ -68,7 +60,7 @@
                 ModelState.AddModelError("Password", "Wrong Password!");
 
                 Response.StatusCode = (int)HttpStatusCode.Forbidden; //vital
-                return Index(); //vital
+                return await Index(); //vital
             }
 
             return RedirectToAction(nameof(LoginSecondStep));
@@ -94,12 +86,12 @@
 
         [HttpGet]
         [ValidateOnEntryStageTwoToken]
-        [ActionName(GlobalConstants.LoginSecondStepImageHintActionName)]
-        public IActionResult PasswordHintImage()
+        [ActionName(GlobalConstants.LoginSecondStepImageHintActionName)] // password-hint.jpg
+        public async Task<IActionResult> PasswordHintImage(CancellationToken cancellationToken)
         {
-            var imagePasswordHintFilepath = _passwordHintImageService.GetLoginSecondStepImageHintFilePath(); //0
+            var verdict = await _mediator.Send(new RetrieveSecondStagePasswordHintCommand(), cancellationToken);
 
-            return PhysicalFile(imagePasswordHintFilepath, GlobalConstants.LoginSecondStepEventualImagePasswordHintMimeType);
+            return PhysicalFile(verdict.ImagePasswordHintFilepath, verdict.ImagePasswordHintMimeType); //0
 
             //0 C:\VS\aspnet-core-dummy-two-factor-authentication\Code\Web\TwoFactorAuth.Web\content\image.jpg
         }
@@ -114,8 +106,8 @@
             {
                 ModelState.AddModelError("Password", "Wrong Password!");
 
-                Response.StatusCode = (int)HttpStatusCode.Forbidden; //vital
-                return LoginSecondStep(); //vital
+                Response.StatusCode = (int)HttpStatusCode.Forbidden; //  vital
+                return LoginSecondStep(); //                             vital
             }
 
             return RedirectToAction(nameof(HomeController.Welldone), "Home", new { area = "" });

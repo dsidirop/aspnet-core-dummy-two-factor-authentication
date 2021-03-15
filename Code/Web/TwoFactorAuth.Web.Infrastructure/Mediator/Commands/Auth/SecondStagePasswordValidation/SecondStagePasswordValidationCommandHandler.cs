@@ -20,6 +20,8 @@ namespace TwoFactorAuth.Web.Infrastructure.Mediator.Commands.Auth.SecondStagePas
 
         public async Task<SecondStagePasswordValidationVerdict> Handle(SecondStagePasswordValidationCommand request, CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             var success = await _authService.SecondStageSignInAsync(request.Password, isPersistent: true);
 
             return new SecondStagePasswordValidationVerdict(success);
