@@ -79,8 +79,12 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"))
-            );
+                options =>
+                {
+                    var connectionString = _configuration.GetConnectionString("DefaultConnection");
+                    
+                    options.UseSqlServer(connectionString);
+                });
 
             services
                 .AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
