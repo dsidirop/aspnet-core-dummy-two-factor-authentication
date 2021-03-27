@@ -1,12 +1,11 @@
 ﻿namespace TwoFactorAuth.Web.Infrastructure.Attributes
 {
     using System;
+    using System.Text.Json;
     using System.Threading.Tasks;
-
     using Microsoft.AspNetCore.Mvc.Filters;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Options;
-
     using TwoFactorAuth.Common.Contracts.Configuration;
     using TwoFactorAuth.Services.Contracts;
     using TwoFactorAuth.Web.Infrastructure.Attributes.CustomCookies;
@@ -21,7 +20,7 @@
         {
             Order = 2000; //0 best practice
 
-            //0 the default order for this attribute is 2000 because it must run after any filter which does authentication 
+            //0 the default order for this attribute is 2000 because it must run after any filter which does authentication
             //  or login or baseline antiforgery checks in order to allow them to behave as expected   ie Unauthenticated or
             //  Redirect instead of 400
         }
@@ -33,7 +32,14 @@
 
             var controller = context.Controller as IDummyTwoFactorAuthController;
             if (controller == null)
+            {
                 throw new ArgumentException("This filter is specific to [I]LoginController - no other controller should be using it", nameof(context));
+            }
+
+            if (_dummyAuthSpecsOptionsMonitor == null)
+            {
+                throw new NullReferenceException(nameof(AppDummyAuthSpecs));
+            }
 
             try
             {
@@ -65,7 +71,7 @@
 
         static private void SetRedirectionToLoginFirstStage(ActionExecutingContext context, IDummyTwoFactorAuthController controller)
         {
-            context.Result = (controller as PlatformBaseController).RedirectToAction(
+            context.Result = ((PlatformBaseController) controller).RedirectToAction(
                 actionName: controller.LoginStep1Action, //first stage
                 controllerName: controller.ControllerName
             );
@@ -77,11 +83,7 @@
             {
                 var decryptedValue = _cryptoService.DecryptFromBase64String(cookie);
 
-                var dummyAuthSecondStageEnablingCookieSpecs = System
-                    .Text
-                    .Json
-                    .JsonSerializer
-                    .Deserialize<DummyAuthSecondStageEnablingCookieSpecs>(decryptedValue);
+                var dummyAuthSecondStageEnablingCookieSpecs = JsonSerializer.Deserialize<DummyAuthSecondStageEnablingCookieSpecs>(decryptedValue);
 
                 return dummyAuthSecondStageEnablingCookieSpecs != null
                        && dummyAuthSecondStageEnablingCookieSpecs.ExpiresAt >= DateTimeOffset.UtcNow;

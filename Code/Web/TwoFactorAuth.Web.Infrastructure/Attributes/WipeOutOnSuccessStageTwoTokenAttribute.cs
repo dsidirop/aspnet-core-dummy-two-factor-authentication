@@ -1,11 +1,9 @@
 ﻿namespace TwoFactorAuth.Web.Infrastructure.Attributes
 {
     using System.Net;
-
     using Microsoft.AspNetCore.Mvc.Filters;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Options;
-
     using TwoFactorAuth.Common.Contracts.Configuration;
 
     public class WipeOutOnSuccessStageTwoTokenAttribute : ActionFilterAttribute
@@ -20,7 +18,9 @@
             {
                 var response = context.HttpContext.Response;
                 if (response.StatusCode != (int) HttpStatusCode.OK && response.StatusCode != (int) HttpStatusCode.Redirect)
+                {
                     return;
+                }
 
                 response.Cookies.Delete(
                     _dummyAuthSpecsOptionsMonitor

@@ -3,12 +3,9 @@
     using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
-
     using MediatR;
-
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
     using TwoFactorAuth.Common.Contracts;
     using TwoFactorAuth.Web.Controllers;
     using TwoFactorAuth.Web.Infrastructure.Attributes;
@@ -23,15 +20,15 @@
     [Area("Identity")]
     public class LoginController : PlatformBaseController, IDummyTwoFactorAuthController
     {
-        public string ControllerName { get; } = nameof(LoginController).Replace("Controller", "");
-        public string LoginStep1Action { get; } = nameof(Index);
-
         private readonly IMediator _mediator;
 
         public LoginController(IMediator mediator)
         {
             _mediator = mediator;
         }
+
+        public string ControllerName { get; } = nameof(LoginController).Replace("Controller", "");
+        public string LoginStep1Action { get; } = nameof(Index);
 
         #region step1
 
@@ -59,7 +56,7 @@
             {
                 ModelState.AddModelError("Password", "Wrong Password!");
 
-                Response.StatusCode = (int)HttpStatusCode.Forbidden; //vital
+                Response.StatusCode = (int) HttpStatusCode.Forbidden; //vital
                 return await Index(); //vital
             }
 
@@ -69,7 +66,6 @@
         }
 
         #endregion
-
 
 
         #region SecondStep
@@ -106,11 +102,11 @@
             {
                 ModelState.AddModelError("Password", "Wrong Password!");
 
-                Response.StatusCode = (int)HttpStatusCode.Forbidden; //  vital
+                Response.StatusCode = (int) HttpStatusCode.Forbidden; //  vital
                 return LoginSecondStep(); //                             vital
             }
 
-            return RedirectToAction(nameof(HomeController.Welldone), "Home", new { area = "" });
+            return RedirectToAction(nameof(HomeController.Welldone), "Home", new {area = ""});
 
             //0 if the action is green then the stage two cookie needs to be eradicated so as to prevent the user from skipping the
             //  first stage next time he logs in

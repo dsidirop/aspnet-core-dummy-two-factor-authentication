@@ -1,13 +1,11 @@
 ﻿// ReSharper disable UnusedMember.Global
+
 namespace TwoFactorAuth.Web.Infrastructure.Mediator.Commands.Auth.RetrieveFirstStagePasswordHint
 {
     using System.Threading;
     using System.Threading.Tasks;
-
     using MediatR;
-
     using Microsoft.Extensions.Options;
-
     using TwoFactorAuth.Common;
     using TwoFactorAuth.Common.Contracts.Configuration;
 

@@ -1,7 +1,6 @@
 ﻿namespace TwoFactorAuth.Web.Infrastructure.Attributes
 {
     using System.Linq;
-
     using Microsoft.AspNetCore.Mvc.Abstractions;
     using Microsoft.AspNetCore.Mvc.ActionConstraints;
     using Microsoft.AspNetCore.Routing;

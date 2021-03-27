@@ -1,10 +1,9 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
+
 namespace TwoFactorAuth.Data.Models
 {
     using System;
-
     using Microsoft.AspNetCore.Identity;
-
     using TwoFactorAuth.Data.Common.Models;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity

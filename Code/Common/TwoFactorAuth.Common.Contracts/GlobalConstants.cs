@@ -11,4 +11,3 @@
         public const string LoginSecondStepEventualImagePasswordHintMimeType = "image/jpg";
     }
 }
-

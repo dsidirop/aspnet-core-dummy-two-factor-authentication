@@ -4,9 +4,7 @@ namespace TwoFactorAuth.Web.Infrastructure.Mediator.Commands.Auth.FirstStagePass
 {
     using System.Threading;
     using System.Threading.Tasks;
-
     using MediatR;
-
     using TwoFactorAuth.Services.Auth.Contracts;
 
     public class FirstStagePasswordValidationCommandHandler : IRequestHandler<FirstStagePasswordValidationCommand, FirstStagePasswordValidationVerdict>

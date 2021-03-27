@@ -4,11 +4,11 @@
 
     public class SecondStagePasswordValidationCommand : IRequest<SecondStagePasswordValidationVerdict>
     {
-        public string Password { get; }
-
         public SecondStagePasswordValidationCommand(string password)
         {
             Password = password;
         }
+
+        public string Password { get; }
     }
 }

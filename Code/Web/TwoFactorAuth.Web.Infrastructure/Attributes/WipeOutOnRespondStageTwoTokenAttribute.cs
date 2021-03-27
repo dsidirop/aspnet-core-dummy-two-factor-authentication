@@ -3,7 +3,6 @@
     using Microsoft.AspNetCore.Mvc.Filters;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Options;
-
     using TwoFactorAuth.Common.Contracts.Configuration;
 
     public class WipeOutOnRespondStageTwoTokenAttribute : ActionFilterAttribute
@@ -20,7 +19,7 @@
                     .HttpContext
                     .Response
                     .Cookies
-                    .Delete(key: _dummyAuthSpecsOptionsMonitor.CurrentValue.CookiesSettings.CookieNameForEnableAccessToSecondStage);
+                    .Delete(_dummyAuthSpecsOptionsMonitor.CurrentValue.CookiesSettings.CookieNameForEnableAccessToSecondStage);
             }
             finally
             {

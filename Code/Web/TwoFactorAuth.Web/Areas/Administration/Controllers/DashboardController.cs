@@ -1,7 +1,6 @@
 ﻿namespace TwoFactorAuth.Web.Areas.Administration.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-
     using TwoFactorAuth.Services.Data.Contracts;
     using TwoFactorAuth.Web.ViewModels.Administration.Dashboard;
 

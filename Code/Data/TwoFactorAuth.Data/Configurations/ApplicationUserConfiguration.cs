@@ -1,8 +1,8 @@
 ﻿namespace TwoFactorAuth.Data.Configurations
 {
-    using Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using TwoFactorAuth.Data.Models;
 
     public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {

@@ -1,7 +1,6 @@
 ﻿namespace TwoFactorAuth.Web.StartupX
 {
     using System.Globalization;
-
     using Microsoft.AspNetCore.Builder;
 
     static internal class SetDefaultThreadCultureX

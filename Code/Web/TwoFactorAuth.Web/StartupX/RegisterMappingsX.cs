@@ -1,9 +1,7 @@
 ﻿namespace TwoFactorAuth.Web.StartupX
 {
     using System.Reflection;
-
     using Microsoft.AspNetCore.Builder;
-
     using TwoFactorAuth.Services.Mapping;
     using TwoFactorAuth.Web.ViewModels;
 

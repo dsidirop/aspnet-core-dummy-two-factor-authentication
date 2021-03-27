@@ -1,16 +1,14 @@
 ﻿// ReSharper disable UnusedMember.Global
 // ReSharper disable RedundantTypeArgumentsOfMethod
 
-using TwoFactorAuth.Services.Auth.PasswordHintImage;
-
 namespace TwoFactorAuth.Services.Auth.IoC
 {
     using Autofac;
-
     using TwoFactorAuth.Services.Auth.Contracts;
     using TwoFactorAuth.Services.Auth.DummyAuth;
+    using TwoFactorAuth.Services.Auth.PasswordHintImage;
 
-    public class AutofacModule : Autofac.Module
+    public class AutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

@@ -1,11 +1,10 @@
 ﻿// ReSharper disable VirtualMemberCallInConstructor
+
 namespace TwoFactorAuth.Data.Models
 {
     using System;
     using System.Collections.Generic;
-
     using Microsoft.AspNetCore.Identity;
-
     using TwoFactorAuth.Data.Common.Models;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
@@ -18,6 +17,12 @@ namespace TwoFactorAuth.Data.Models
             Logins = new HashSet<IdentityUserLogin<string>>();
         }
 
+        public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
+
+        public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
+
+        public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+
         // Audit info
         public DateTime CreatedOn { get; set; }
 
@@ -27,11 +32,5 @@ namespace TwoFactorAuth.Data.Models
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
-
-        public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
-
-        public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
-
-        public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
     }
 }

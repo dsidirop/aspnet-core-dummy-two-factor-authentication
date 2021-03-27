@@ -2,7 +2,6 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
     using TwoFactorAuth.Common.Contracts;
     using TwoFactorAuth.Web.Infrastructure.Controllers;
 

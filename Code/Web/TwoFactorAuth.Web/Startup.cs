@@ -1,12 +1,10 @@
-﻿namespace TwoFactorAuth.Web
+﻿// ReSharper disable CA1822
+
+namespace TwoFactorAuth.Web
 {
     using System;
-
     using Autofac;
-
-    using Data;
-    using Data.Models;
-
+    using Autofac.Diagnostics;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -16,14 +14,15 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
-
+    using TwoFactorAuth.Data;
+    using TwoFactorAuth.Data.Models;
     using TwoFactorAuth.Web.IoC;
     using TwoFactorAuth.Web.StartupX;
 
     public class Startup
     {
         private readonly IConfiguration _configuration;
-        
+
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -44,8 +43,8 @@
                 app.UseSwagger();
                 app.UseSwaggerUI(
                     c => c.SwaggerEndpoint(
-                        "/swagger/v1/swagger.json",
-                        "WebApp1 v1"
+                        url: "/swagger/v1/swagger.json",
+                        name: "WebApp1 v1"
                     )
                 );
             }
@@ -82,7 +81,7 @@
                 options =>
                 {
                     var connectionString = _configuration.GetConnectionString("DefaultConnection");
-                    
+
                     options.UseSqlServer(connectionString);
                 });
 
@@ -101,10 +100,7 @@
 
             services
                 .AddControllersWithViews(
-                    options =>
-                    {
-                        options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-                    }
+                    options => { options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); }
                 )
                 .AddRazorRuntimeCompilation();
 
@@ -142,29 +138,26 @@
         public void ConfigureContainer(ContainerBuilder builder)
         {
 #if DEBUG
-            var tracer = new Autofac.Diagnostics.DefaultDiagnosticTracer(); //0
+            var tracer = new DefaultDiagnosticTracer(); //0
 
-            tracer.OperationCompleted += (_, args) =>
-            {
-                Console.WriteLine(args.TraceContent);
-            };
+            tracer.OperationCompleted += (_, args) => { Console.WriteLine(args.TraceContent); };
 
             builder.RegisterBuildCallback(c =>
             {
-                var container = (IContainer)c;
+                var container = (IContainer) c;
 
                 container.SubscribeToDiagnostics(tracer);
             });
 #endif
 
-            builder.RegisterModule(new AutofacModule(_configuration)); //0    
+            builder.RegisterModule(new AutofacModule(_configuration)); //0
 
             //0 Add any Autofac modules or registrations  This is called AFTER ConfigureServices so things we
             //  register here OVERRIDE things registered in ConfigureServices
-            //  
+            //
             //  We must have the call to UseServiceProviderFactory(new AutofacServiceProviderFactory())
             //  when building the host or this wont be called
-            //  
+            //
             //  Diagnostics get printed via a build callback   Diagnostics arent free so we shouldnt just do this
             //  by default
             //

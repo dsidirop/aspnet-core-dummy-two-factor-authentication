@@ -2,10 +2,8 @@
 {
     using System;
     using System.Threading.Tasks;
-
-    using Common;
-
     using Microsoft.EntityFrameworkCore;
+    using TwoFactorAuth.Data.Common;
 
     public class DbQueryRunner : IDbQueryRunner
     {

@@ -2,22 +2,17 @@
 {
     using System;
     using System.Threading.Tasks;
-
-    using Data.Models;
-
     using Microsoft.AspNetCore.Mvc;
-
     using TwoFactorAuth.Data.Common.Repositories;
+    using TwoFactorAuth.Data.Models;
     using TwoFactorAuth.Services.Data.Contracts;
     using TwoFactorAuth.Web.Infrastructure.Controllers;
-
-    using ViewModels.Settings;
+    using TwoFactorAuth.Web.ViewModels.Settings;
 
     public class SettingsController : PlatformBaseController
     {
-        private readonly ISettingsService _settingsService;
-
         private readonly IDeletableEntityRepository<Setting> _repository;
+        private readonly ISettingsService _settingsService;
 
         public SettingsController(ISettingsService settingsService, IDeletableEntityRepository<Setting> repository)
         {

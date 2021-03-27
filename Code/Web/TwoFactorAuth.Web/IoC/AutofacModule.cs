@@ -3,15 +3,12 @@
 namespace TwoFactorAuth.Web.IoC
 {
     using Autofac;
-
     using MediatR.Extensions.Autofac.DependencyInjection;
-
     using Microsoft.Extensions.Configuration;
-
     using TwoFactorAuth.Web.Infrastructure.Mediator.Commands.Auth.FirstStagePasswordValidation;
     using TwoFactorAuth.Web.StartupX;
 
-    public class AutofacModule : Autofac.Module
+    public class AutofacModule : Module
     {
         private readonly IConfiguration _appConfiguration;
 

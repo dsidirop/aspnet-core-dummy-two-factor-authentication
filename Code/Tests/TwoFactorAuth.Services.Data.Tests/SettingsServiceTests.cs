@@ -3,17 +3,13 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
     using Microsoft.EntityFrameworkCore;
-
     using Moq;
-
     using TwoFactorAuth.Data;
     using TwoFactorAuth.Data.Common.Repositories;
     using TwoFactorAuth.Data.Models;
     using TwoFactorAuth.Data.Repositories;
     using TwoFactorAuth.Services.Data.Settings;
-
     using Xunit;
 
     public class SettingsServiceTests
@@ -28,9 +24,9 @@
                 .Returns(
                     new List<Setting>
                     {
-                        new Setting(),
-                        new Setting(),
-                        new Setting(),
+                        new(),
+                        new(),
+                        new(),
                     }.AsQueryable()
                 );
 
@@ -45,7 +41,7 @@
         public async Task GetCountShouldReturnCorrectNumberUsingDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "SettingsTestDb")
+                .UseInMemoryDatabase("SettingsTestDb")
                 .Options;
 
             await using var dbContext = new ApplicationDbContext(options);

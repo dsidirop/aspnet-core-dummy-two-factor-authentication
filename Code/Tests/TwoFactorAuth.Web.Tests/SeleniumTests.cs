@@ -2,16 +2,14 @@
 {
     using System;
     using System.Linq;
-
     using OpenQA.Selenium;
     using OpenQA.Selenium.Chrome;
-
     using Xunit;
 
     public class SeleniumTests : IClassFixture<SeleniumServerFactory<Startup>>, IDisposable
     {
-        private readonly SeleniumServerFactory<Startup> _server;
         private readonly IWebDriver _browser;
+        private readonly SeleniumServerFactory<Startup> _server;
 
         public SeleniumTests(SeleniumServerFactory<Startup> server)
         {
@@ -23,6 +21,12 @@
             _browser = new ChromeDriver(opts);
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         [Fact(Skip = "Example test. Disabled for CI.")]
         public void FooterOfThePageContainsPrivacyLink()
         {
@@ -30,12 +34,6 @@
             Assert.EndsWith(
                 "/Home/Privacy",
                 _browser.FindElements(By.CssSelector("footer a")).First().GetAttribute("href"));
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)

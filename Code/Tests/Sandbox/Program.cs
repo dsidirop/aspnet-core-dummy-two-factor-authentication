@@ -4,14 +4,11 @@
     using System.Diagnostics;
     using System.IO;
     using System.Threading.Tasks;
-
     using CommandLine;
-
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-
     using TwoFactorAuth.Data;
     using TwoFactorAuth.Data.Common;
     using TwoFactorAuth.Data.Common.Repositories;
@@ -30,9 +27,11 @@
         static public int Main(string[] args)
         {
             Console.WriteLine($"{typeof(Program).Namespace} ({string.Join(" ", args)}) starts working...");
+
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);
-            IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider(true);
+
+            var serviceProvider = (IServiceProvider) serviceCollection.BuildServiceProvider(true);
 
             // Seed data on application startup
             using (var serviceScope = serviceProvider.CreateScope())
@@ -48,16 +47,18 @@
 
                 return Parser.Default.ParseArguments<SandboxOptions>(args).MapResult(
                     opts => SandboxCode(opts, serviceProvider).GetAwaiter().GetResult(),
-                    _ => 255);
+                    _ => 255
+                );
             }
         }
 
+        // ReSharper disable once UnusedParameter.Local
         static private async Task<int> SandboxCode(SandboxOptions options, IServiceProvider serviceProvider)
         {
             var sw = Stopwatch.StartNew();
 
             var settingsService = serviceProvider.GetService<ISettingsService>();
-            Console.WriteLine($"Count of settings: {settingsService.GetCount()}");
+            Console.WriteLine($"Count of settings: {settingsService?.GetCount()}");
 
             Console.WriteLine(sw.Elapsed);
             return await Task.FromResult(0);
@@ -67,7 +68,11 @@
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", false, true)
+                .AddJsonFile(
+                    path: "appsettings.json",
+                    optional: false,
+                    reloadOnChange: true
+                )
                 .AddEnvironmentVariables()
                 .Build();
 

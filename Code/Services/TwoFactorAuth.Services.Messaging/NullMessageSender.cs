@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
     using TwoFactorAuth.Services.Messaging.Contracts;
 
     public class NullMessageSender : IAppEmailSender

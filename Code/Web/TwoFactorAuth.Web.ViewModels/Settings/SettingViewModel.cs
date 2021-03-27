@@ -1,9 +1,7 @@
 ﻿namespace TwoFactorAuth.Web.ViewModels.Settings
 {
     using AutoMapper;
-
-    using Data.Models;
-
+    using TwoFactorAuth.Data.Models;
     using TwoFactorAuth.Services.Mapping.Contracts;
 
     public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings

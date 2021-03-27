@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Reflection;
     using System.Text.RegularExpressions;
-
     using Autofac;
 
     static public class ContainerBuilderExtensionsX
@@ -24,7 +23,7 @@
             var dllPaths = Directory.GetFiles(path, "*.dll", SearchOption.TopDirectoryOnly);
 
             dllPaths = dllPaths
-                .Select(x => new { fullpath = x, filename = Path.GetFileName(x) })
+                .Select(x => new {fullpath = x, filename = Path.GetFileName(x)})
                 .Where(pair => whitelistRegex.IsMatch(pair.filename))
                 .Where(pair => !blacklistRegex.IsMatch(pair.filename))
                 .Select(x => x.fullpath)

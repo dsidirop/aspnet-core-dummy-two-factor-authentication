@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-
-namespace TwoFactorAuth.Services.Auth.Contracts
+﻿namespace TwoFactorAuth.Services.Auth.Contracts
 {
+    using System.Threading.Tasks;
+
     public interface IPasswordHintImageService
     {
         Task SpawnSecondStagePasswordHintImageAsync();

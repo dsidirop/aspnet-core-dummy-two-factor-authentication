@@ -4,13 +4,11 @@
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
-
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
-
     using TwoFactorAuth.Common.Contracts.Configuration;
     using TwoFactorAuth.Data.Common.Repositories;
     using TwoFactorAuth.Data.Models;
@@ -18,11 +16,12 @@
 
     public class DummyTwoFactorAuthService : IDummyTwoFactorAuthService
     {
+        private const string IdentityApplication = "Identity.Application";
+        private readonly IOptionsMonitor<AppDummyAuthSpecs> _dummyAuthSpecsOptionsMonitor;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ILogger<DummyTwoFactorAuthService> _logger;
         private readonly IRepository<ApplicationUser> _repository;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly ILogger<DummyTwoFactorAuthService> _logger;
-        private readonly IOptionsMonitor<AppDummyAuthSpecs> _dummyAuthSpecsOptionsMonitor;
 
         public DummyTwoFactorAuthService(
             IHttpContextAccessor httpContextAccessor,
@@ -43,7 +42,7 @@
         public async Task<bool> FirstStageSignInAsync(string firstPassword)
         {
             var firstDummyAuthUser = await _repository.FindFirstNoTrackingAsync(
-                dbQuery: x => x.NormalizedEmail == _dummyAuthSpecsOptionsMonitor.CurrentValue.DummyUsers.First.Email.ToUpper()
+                x => x.NormalizedEmail == _dummyAuthSpecsOptionsMonitor.CurrentValue.DummyUsers.First.Email.ToUpper()
             );
             if (firstDummyAuthUser == null)
             {
@@ -52,9 +51,9 @@
             }
 
             var passwordVerdict = await _signInManager.CheckPasswordSignInAsync(
-                user: firstDummyAuthUser,
-                password: firstPassword,
-                lockoutOnFailure: false
+                firstDummyAuthUser,
+                firstPassword,
+                false
             );
 
             return passwordVerdict?.Succeeded ?? false;
@@ -63,7 +62,7 @@
         public async Task<bool> SecondStageSignInAsync(string secondPassword, bool isPersistent = false)
         {
             var secondStageDummyUser = await _repository.FindFirstNoTrackingAsync(
-                dbQuery: x => x.NormalizedEmail == _dummyAuthSpecsOptionsMonitor.CurrentValue.DummyUsers.Second.Email.ToUpper()
+                x => x.NormalizedEmail == _dummyAuthSpecsOptionsMonitor.CurrentValue.DummyUsers.Second.Email.ToUpper()
             );
             if (secondStageDummyUser == null)
             {
@@ -72,29 +71,31 @@
             }
 
             var passwordVerdict = await _signInManager.CheckPasswordSignInAsync(
-                user: secondStageDummyUser,
-                password: secondPassword,
-                lockoutOnFailure: false
+                secondStageDummyUser,
+                secondPassword,
+                false
             );
             if (!(passwordVerdict?.Succeeded ?? false))
+            {
                 return false;
-            
+            }
+
             var principal = new ClaimsPrincipal(new ClaimsIdentity(
-                claims: GetUserClaims(secondStageDummyUser),
-                authenticationType: IdentityApplication
+                GetUserClaims(secondStageDummyUser),
+                IdentityApplication
             ));
 
             await _httpContextAccessor.HttpContext.SignInAsync(
-                scheme: IdentityApplication,
-                principal: principal,
-                properties: new AuthenticationProperties {IsPersistent = true}
+                IdentityApplication,
+                principal,
+                new AuthenticationProperties {IsPersistent = true}
             );
 
             return true;
         }
 
         #endregion signinmethods
-        
+
 
         #region helpers
 
@@ -105,9 +106,9 @@
 
         static private IEnumerable<Claim> GetBaseClaims(ApplicationUser user)
         {
-            yield return new Claim(type: ClaimTypes.NameIdentifier, value: user.Id);
-            yield return new Claim(type: ClaimTypes.Name, value: user.NormalizedUserName);
-            yield return new Claim(type: ClaimTypes.Email, value: user.NormalizedEmail);
+            yield return new Claim(ClaimTypes.NameIdentifier, user.Id);
+            yield return new Claim(ClaimTypes.Name, user.NormalizedUserName);
+            yield return new Claim(ClaimTypes.Email, user.NormalizedEmail);
         }
 
         static private IEnumerable<Claim> GetUserRoleClaims(ApplicationUser user)
@@ -116,14 +117,12 @@
                 .Roles
                 .Select(
                     x => new Claim(
-                        type: ClaimTypes.Role,
-                        value: x.RoleId
+                        ClaimTypes.Role,
+                        x.RoleId
                     )
                 );
         }
 
         #endregion helpers
-
-        private const string IdentityApplication = "Identity.Application";
     }
 }

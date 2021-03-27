@@ -1,8 +1,7 @@
 ﻿namespace TwoFactorAuth.Data.Common.Repositories
 {
     using System.Collections.Generic;
-
-    using Models;
+    using TwoFactorAuth.Data.Common.Models;
 
     public interface IDeletableEntityRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IDeletableEntity

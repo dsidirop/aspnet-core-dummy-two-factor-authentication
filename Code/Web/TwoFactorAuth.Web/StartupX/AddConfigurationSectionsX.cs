@@ -2,7 +2,6 @@
 {
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-
     using TwoFactorAuth.Common.Contracts.Configuration;
 
     static internal class AddConfigurationSectionsX

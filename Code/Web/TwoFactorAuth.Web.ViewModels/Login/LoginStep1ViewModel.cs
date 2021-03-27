@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace TwoFactorAuth.Web.ViewModels.Login
+﻿namespace TwoFactorAuth.Web.ViewModels.Login
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class LoginStep1ViewModel
     {
         [Required]

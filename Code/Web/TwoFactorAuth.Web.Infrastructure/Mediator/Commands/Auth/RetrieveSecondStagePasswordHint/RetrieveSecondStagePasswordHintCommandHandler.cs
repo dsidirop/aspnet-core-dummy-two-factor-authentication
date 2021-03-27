@@ -1,11 +1,10 @@
 ﻿// ReSharper disable UnusedMember.Global
+
 namespace TwoFactorAuth.Web.Infrastructure.Mediator.Commands.Auth.RetrieveSecondStagePasswordHint
 {
     using System.Threading;
     using System.Threading.Tasks;
-
     using MediatR;
-
     using TwoFactorAuth.Common.Contracts;
     using TwoFactorAuth.Services.Auth.Contracts;
 
@@ -25,8 +24,8 @@ namespace TwoFactorAuth.Web.Infrastructure.Mediator.Commands.Auth.RetrieveSecond
             var path = _passwordHintImageService.GetLoginSecondStepImageHintFilePath();
 
             return await Task.FromResult(new RetrieveSecondStagePasswordHintVerdict(
-                imagePasswordHintFilepath: path,
-                imagePasswordHintMimeType: GlobalConstants.LoginSecondStepEventualImagePasswordHintMimeType
+                path,
+                GlobalConstants.LoginSecondStepEventualImagePasswordHintMimeType
             ));
         }
     }

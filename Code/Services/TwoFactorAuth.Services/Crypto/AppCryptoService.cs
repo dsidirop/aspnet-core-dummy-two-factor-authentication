@@ -3,17 +3,15 @@
     using System;
     using System.Security.Cryptography;
     using System.Text;
-
     using Microsoft.Extensions.Options;
-
     using TwoFactorAuth.Common.Contracts.Configuration;
     using TwoFactorAuth.Services.Contracts;
 
     public class AppCryptoService : IAppCryptoService
-    {
-        private readonly RijndaelManaged _rijndael;
-        
-        public AppCryptoService(IOptionsMonitor<AppCryptoConfig> optionsMonitor) //0
+    {
+        private readonly RijndaelManaged _rijndael;
+
+        public AppCryptoService(IOptionsMonitor<AppCryptoConfig> optionsMonitor) //0
         {
             var options = optionsMonitor.CurrentValue;
 
@@ -27,17 +25,17 @@
             };
 
             //0 https://medium.com/@dozieogbo/a-better-way-to-inject-appsettings-in-asp-net-core-96be36ffa22b
-        }
-        
+        }
+
         #region public
-        
-        public string EncryptToBase64String(string text)
-        {
+
+        public string EncryptToBase64String(string text)
+        {
             text = text?.Trim();
 
-            return Convert.ToBase64String(EncryptToByte(text));
-        }
-        
+            return Convert.ToBase64String(EncryptToByte(text));
+        }
+
         public string DecryptFromBase64String(string text)
         {
             return Decrypt(Convert.FromBase64String(text));
@@ -55,9 +53,9 @@
             var encryptedValue = _rijndael
                 .CreateEncryptor()
                 .TransformFinalBlock(
-                    inputBuffer: cipher,
-                    inputOffset: 0,
-                    inputCount: cipher.Length
+                    cipher,
+                    0,
+                    cipher.Length
                 );
 
             return encryptedValue;
@@ -68,9 +66,9 @@
             var decryptedValue = _rijndael
                 .CreateDecryptor()
                 .TransformFinalBlock(
-                    inputBuffer: cipher,
-                    inputOffset: 0,
-                    inputCount: cipher.Length
+                    cipher,
+                    0,
+                    cipher.Length
                 );
 
             return UTF8Encoding.GetString(decryptedValue);

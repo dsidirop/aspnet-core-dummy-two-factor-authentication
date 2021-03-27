@@ -1,4 +1,5 @@
-﻿namespace Sandbox
+﻿// ReSharper disable ClassNeverInstantiated.Global
+namespace Sandbox
 {
     using CommandLine;
 

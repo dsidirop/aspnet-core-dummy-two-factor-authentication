@@ -1,9 +1,7 @@
 ﻿namespace TwoFactorAuth.Web
 {
     using System;
-
     using Autofac.Extensions.DependencyInjection;
-
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Hosting;
@@ -28,9 +26,9 @@
                     config
                         .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
                         .AddJsonFile(
-                            path: $"appsettings.{environmentName}.{particularLaunchMethod}.json", //mainly for appsettings.development.docker.json
-                            optional: true,
-                            reloadOnChange: false
+                            $"appsettings.{environmentName}.{particularLaunchMethod}.json", //mainly for appsettings.development.docker.json
+                            true,
+                            false
                         );
                 })
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });

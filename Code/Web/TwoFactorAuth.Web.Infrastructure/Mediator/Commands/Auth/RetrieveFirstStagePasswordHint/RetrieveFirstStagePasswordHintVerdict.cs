@@ -2,11 +2,11 @@
 {
     public class RetrieveFirstStagePasswordHintVerdict
     {
-        public string EncodedPasswordHint { get; }
-    
         public RetrieveFirstStagePasswordHintVerdict(string encodedPasswordHint)
         {
             EncodedPasswordHint = encodedPasswordHint;
         }
+
+        public string EncodedPasswordHint { get; }
     }
 }

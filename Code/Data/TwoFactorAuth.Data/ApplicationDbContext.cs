@@ -5,13 +5,10 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-
-    using Models;
-
     using TwoFactorAuth.Data.Common.Models;
+    using TwoFactorAuth.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -27,7 +24,10 @@
 
         public DbSet<Setting> Settings { get; set; }
 
-        public override int SaveChanges() => SaveChanges(true);
+        public override int SaveChanges()
+        {
+            return SaveChanges(true);
+        }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
@@ -35,8 +35,10 @@
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) =>
-            SaveChangesAsync(true, cancellationToken);
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return SaveChangesAsync(true, cancellationToken);
+        }
 
         public override Task<int> SaveChangesAsync(
             bool acceptAllChangesOnSuccess,
@@ -85,7 +87,9 @@
         }
 
         private void ConfigureUserIdentityRelations(ModelBuilder builder) // applies configurations
-            => builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+        {
+            builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+        }
 
         private void ApplyAuditInfoRules()
         {

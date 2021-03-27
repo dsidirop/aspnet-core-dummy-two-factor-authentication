@@ -2,11 +2,11 @@
 {
     public class SecondStagePasswordValidationVerdict
     {
-        public bool Success { get; }
-    
         public SecondStagePasswordValidationVerdict(bool success)
         {
             Success = success;
         }
+
+        public bool Success { get; }
     }
 }

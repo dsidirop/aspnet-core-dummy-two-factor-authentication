@@ -3,9 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
     using Microsoft.EntityFrameworkCore;
-
     using TwoFactorAuth.Data.Common.Models;
     using TwoFactorAuth.Data.Common.Repositories;
 
@@ -17,13 +15,30 @@
         {
         }
 
-        public override IEnumerable<TEntity> All() => base.QAll().Where(x => !x.IsDeleted);
-        public override IEnumerable<TEntity> AllAsNoTracking() => base.QAllNoTracking().Where(x => !x.IsDeleted);
+        public override IEnumerable<TEntity> All()
+        {
+            return base.QAll().Where(x => !x.IsDeleted);
+        }
 
-        public IEnumerable<TEntity> AllWithDeleted() => base.QAll().IgnoreQueryFilters().ToArray();
-        public IEnumerable<TEntity> AllAsNoTrackingWithDeleted() => base.QAllNoTracking().IgnoreQueryFilters().ToArray();
+        public override IEnumerable<TEntity> AllAsNoTracking()
+        {
+            return base.QAllNoTracking().Where(x => !x.IsDeleted);
+        }
 
-        public void HardDelete(TEntity entity) => base.Delete(entity);
+        public IEnumerable<TEntity> AllWithDeleted()
+        {
+            return base.QAll().IgnoreQueryFilters().ToArray();
+        }
+
+        public IEnumerable<TEntity> AllAsNoTrackingWithDeleted()
+        {
+            return base.QAllNoTracking().IgnoreQueryFilters().ToArray();
+        }
+
+        public void HardDelete(TEntity entity)
+        {
+            base.Delete(entity);
+        }
 
         public void Undelete(TEntity entity)
         {

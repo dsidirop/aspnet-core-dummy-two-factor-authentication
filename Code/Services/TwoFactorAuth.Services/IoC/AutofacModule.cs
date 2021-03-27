@@ -4,11 +4,10 @@
 namespace TwoFactorAuth.Services.IoC
 {
     using Autofac;
-
     using TwoFactorAuth.Services.Contracts;
     using TwoFactorAuth.Services.Crypto;
 
-    public class AutofacModule : Autofac.Module
+    public class AutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

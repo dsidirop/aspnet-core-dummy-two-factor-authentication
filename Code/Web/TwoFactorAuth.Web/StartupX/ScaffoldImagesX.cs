@@ -2,7 +2,6 @@
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
-
     using TwoFactorAuth.Services.Auth.Contracts;
 
     static internal class ScaffoldImagesX

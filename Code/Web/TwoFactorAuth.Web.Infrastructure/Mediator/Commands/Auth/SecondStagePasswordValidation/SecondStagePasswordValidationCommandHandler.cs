@@ -4,9 +4,7 @@ namespace TwoFactorAuth.Web.Infrastructure.Mediator.Commands.Auth.SecondStagePas
 {
     using System.Threading;
     using System.Threading.Tasks;
-
     using MediatR;
-
     using TwoFactorAuth.Services.Auth.Contracts;
 
     public class SecondStagePasswordValidationCommandHandler : IRequestHandler<SecondStagePasswordValidationCommand, SecondStagePasswordValidationVerdict>
@@ -22,7 +20,7 @@ namespace TwoFactorAuth.Web.Infrastructure.Mediator.Commands.Auth.SecondStagePas
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var success = await _authService.SecondStageSignInAsync(request.Password, isPersistent: true);
+            var success = await _authService.SecondStageSignInAsync(request.Password, true);
 
             return new SecondStagePasswordValidationVerdict(success);
         }

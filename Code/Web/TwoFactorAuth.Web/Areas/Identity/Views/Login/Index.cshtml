@@ -8,7 +8,7 @@
         <section>
             <form id="account" method="post">
                 @* novalidate="novalidate" *@
-                
+
                 @* Html.AntiForgeryToken()  noneed   it gets automagically injected *@
 
                 <h4>Guess the 1st password</h4>
@@ -16,7 +16,7 @@
 
                 <div class="form-group">
                     @Html.LabelFor(x => x.Password)
-                    @Html.PasswordFor(x => x.Password, new { @class = @"form-control", autofocus = "autofocus" })
+                    @Html.PasswordFor(x => x.Password, new {@class = @"form-control", autofocus = "autofocus"})
 
                     <span asp-validation-for="Password" class="text-danger"></span>
 
@@ -30,4 +30,3 @@
         </section>
     </div>
 </div>
-

@@ -1,13 +1,12 @@
 ﻿// ReSharper disable UnusedMember.Global
 // ReSharper disable RedundantTypeArgumentsOfMethod
 
-using TwoFactorAuth.Services.Messaging.Contracts;
-
 namespace TwoFactorAuth.Services.Messaging.IoC
 {
     using Autofac;
+    using TwoFactorAuth.Services.Messaging.Contracts;
 
-    public class AutofacModule : Autofac.Module
+    public class AutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

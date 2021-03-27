@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-
     using TwoFactorAuth.Data.Common.Repositories;
     using TwoFactorAuth.Data.Models;
     using TwoFactorAuth.Services.Data.Contracts;

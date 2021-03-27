@@ -11,10 +11,10 @@
                 <hr>
 
                 <div class="form-group">
-                    <img src="@($"{Model.PasswordHintImagePath}?v=123")" alt="Hint-Image" loading="lazy" />
+                    <img src="@($"{Model.PasswordHintImagePath}?v=123")" alt="Hint-Image" loading="lazy"/>
 
                     @Html.LabelFor(x => x.Password)
-                    @Html.PasswordFor(x => x.Password, new { @class = @"form-control", autofocus = "autofocus" })
+                    @Html.PasswordFor(x => x.Password, new {@class = @"form-control", autofocus = "autofocus"})
 
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
@@ -26,4 +26,3 @@
         </section>
     </div>
 </div>
-

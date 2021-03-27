@@ -4,11 +4,11 @@
 
     public class FirstStagePasswordValidationCommand : IRequest<FirstStagePasswordValidationVerdict>
     {
-        public string Password { get; }
-
         public FirstStagePasswordValidationCommand(string password)
         {
             Password = password;
         }
+
+        public string Password { get; }
     }
 }

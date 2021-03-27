@@ -1,7 +1,6 @@
 ﻿namespace TwoFactorAuth.Common
 {
     using System.Collections;
-
     using System.Collections.Generic;
 
     static public class UCollections

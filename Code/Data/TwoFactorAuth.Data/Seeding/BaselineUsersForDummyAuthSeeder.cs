@@ -3,11 +3,9 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Options;
-
     using TwoFactorAuth.Common.Contracts.Configuration;
     using TwoFactorAuth.Data.Models;
 
@@ -19,15 +17,15 @@
             var dummyAuthSpecs = serviceProvider.GetRequiredService<IOptionsMonitor<AppDummyAuthSpecs>>();
 
             await SeedDummyAuthUserAsync(
-                userManager: userManager,
-                email: dummyAuthSpecs.CurrentValue.DummyUsers.First.Email,
-                password: dummyAuthSpecs.CurrentValue.DummyUsers.First.Password
+                userManager,
+                dummyAuthSpecs.CurrentValue.DummyUsers.First.Email,
+                dummyAuthSpecs.CurrentValue.DummyUsers.First.Password
             );
 
             await SeedDummyAuthUserAsync(
-                userManager: userManager,
-                email: dummyAuthSpecs.CurrentValue.DummyUsers.Second.Email,
-                password: dummyAuthSpecs.CurrentValue.DummyUsers.Second.Password
+                userManager,
+                dummyAuthSpecs.CurrentValue.DummyUsers.Second.Email,
+                dummyAuthSpecs.CurrentValue.DummyUsers.Second.Password
             );
         }
 
@@ -40,7 +38,7 @@
             }
 
             var result = await userManager.CreateAsync(
-                user: new ApplicationUser
+                new ApplicationUser
                 {
                     Email = email,
                     UserName = email, //0
@@ -48,11 +46,13 @@
                     NormalizedEmail = email.ToUpperInvariant(),
                     NormalizedUserName = email.ToUpperInvariant(),
                 },
-                password: password
+                password
             );
 
             if (!result.Succeeded)
+            {
                 throw new Exception(string.Join(Environment.NewLine, result.Errors.Select(e => e.Description)));
+            }
 
             //0 we use the email as the username
         }

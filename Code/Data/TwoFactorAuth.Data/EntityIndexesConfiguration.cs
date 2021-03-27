@@ -1,9 +1,7 @@
 ﻿namespace TwoFactorAuth.Data
 {
     using System.Linq;
-
     using Microsoft.EntityFrameworkCore;
-
     using TwoFactorAuth.Data.Common.Models;
 
     static internal class EntityIndexesConfiguration

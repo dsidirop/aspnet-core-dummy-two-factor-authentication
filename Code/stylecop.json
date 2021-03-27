@@ -16,7 +16,7 @@
     },
     "orderingRules": {
       "usingDirectivesPlacement": "insideNamespace",
-      "systemUsingDirectivesFirst": false,
+      "systemUsingDirectivesFirst": true,
       "blankLinesBetweenUsingGroups": "allow",
       "elementOrder": [
         "static",
