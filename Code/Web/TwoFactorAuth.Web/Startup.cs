@@ -4,7 +4,6 @@ namespace TwoFactorAuth.Web
 {
     using System;
     using Autofac;
-    using Autofac.Diagnostics;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -134,35 +133,11 @@ namespace TwoFactorAuth.Web
             });
         }
 
-        // ReSharper disable once UnusedMember.Global
         public void ConfigureContainer(ContainerBuilder builder)
         {
-#if DEBUG
-            var tracer = new DefaultDiagnosticTracer(); //0
-
-            tracer.OperationCompleted += (_, args) => { Console.WriteLine(args.TraceContent); };
-
-            builder.RegisterBuildCallback(c =>
-            {
-                var container = (IContainer) c;
-
-                container.SubscribeToDiagnostics(tracer);
-            });
-#endif
-
-            builder.RegisterModule(new AutofacModule(_configuration)); //0
-
-            //0 Add any Autofac modules or registrations  This is called AFTER ConfigureServices so things we
-            //  register here OVERRIDE things registered in ConfigureServices
-            //
-            //  We must have the call to UseServiceProviderFactory(new AutofacServiceProviderFactory())
-            //  when building the host or this wont be called
-            //
-            //  Diagnostics get printed via a build callback   Diagnostics arent free so we shouldnt just do this
-            //  by default
-            //
-            //  Note  since we are diagnosing the container we cant ALSO resolve the logger to which the diagnostics
-            //  get written so writing directly to the log destination is the way to go
+            builder
+                .AddAutofaqDiagnostics() //order
+                .RegisterModule(new AutofacModule(_configuration)); //order
         }
     }
 }

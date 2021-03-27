@@ -1,4 +1,6 @@
-﻿namespace TwoFactorAuth.Web
+﻿// ReSharper disable MemberCanBePrivate.Global
+
+namespace TwoFactorAuth.Web
 {
     using System;
     using Autofac.Extensions.DependencyInjection;
@@ -24,11 +26,11 @@
                     var particularLaunchMethod = Environment.GetEnvironmentVariable("ASPNETCORE_LAUNCH_METHOD"); //0   docker iisexpress etc
 
                     config
-                        .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
+                        .SetBasePath(basePath: hostingContext.HostingEnvironment.ContentRootPath)
                         .AddJsonFile(
-                            $"appsettings.{environmentName}.{particularLaunchMethod}.json", //mainly for appsettings.development.docker.json
-                            true,
-                            false
+                            path: $"appsettings.{environmentName}.{particularLaunchMethod}.json", //mainly for appsettings.development.docker.json
+                            optional: true,
+                            reloadOnChange: false
                         );
                 })
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
