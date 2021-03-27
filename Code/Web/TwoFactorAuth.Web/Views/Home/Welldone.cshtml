@@ -2,10 +2,19 @@
 
 @model TwoFactorAuth.Web.ViewModels.Home.WelldoneViewModel
 
-<div class="text-center">
+<div class="text-center app-wellcome-container">
     <h1 class="display-4">Well Done!</h1>
 
     <div class="pb-4">
+        <div class="mt-4">
+            <img
+                src=""
+                alt="ignored"
+                loading="lazy"
+                data-gifffer="@(Model.GreenTickImagePath)"
+                data-gifffer-alt="Green Tick"
+                data-gifffer-duration="4350"/>
+        </div>
         <p>
             Wow you made it! Click the Download link to download the README.md file of the website!
         </p>
@@ -17,12 +26,17 @@
                 Download
             </a>
         </div>
-        <div class="mt-4">
-            <img src="@(Model.GreenTickImagePath)" alt="Green Tick" loading="lazy"/>
-        </div>
     </div>
 </div>
 
 @section Scripts {
-    <script src="~/lib/gifffer/build/gifffer.min.js" asp-append-version="true"></script>
+    <script src="~/js/bundles/welldone-view-bundle.min.js" asp-append-version="true"></script>
+
+    <script>
+        $(function(){
+            window.WelldoneController.Init({
+                rootContainerSelector: ".app-wellcome-container"
+            });
+        });
+    </script>
 }

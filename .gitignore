@@ -20,7 +20,9 @@ bld/
 [Bb]in/
 [Oo]bj/
 **/wwwroot/lib/
+*.map
 *.min.js
+*.min.css
 *.[Mm]inified.js
 *.ipch
 *.pdb
