@@ -34,6 +34,7 @@
         #region step1
 
         [HttpGet]
+        [DontCache]
         [WipeOutOnRespondStageTwoToken] //0
         public async Task<IActionResult> Index() //login step1
         {
@@ -71,6 +72,7 @@
         #region step2
 
         [HttpGet]
+        [DontCache]
         [ValidateOnEntryStageTwoToken] //vital
         public IActionResult LoginSecondStep()
         {
@@ -81,6 +83,7 @@
         }
 
         [HttpGet]
+        [DontCache]
         [ValidateOnEntryStageTwoToken]
         [ActionName(GlobalConstants.LoginSecondStepImageHintActionName)] // password-hint.jpg
         public async Task<IActionResult> PasswordHintImage(CancellationToken cancellationToken)
