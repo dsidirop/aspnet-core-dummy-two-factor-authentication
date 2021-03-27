@@ -28,6 +28,7 @@
         }
 
         public string ControllerName { get; } = nameof(LoginController).Replace("Controller", "");
+
         public string LoginStep1Action { get; } = nameof(Index);
 
         #region step1
@@ -67,8 +68,7 @@
 
         #endregion
 
-
-        #region SecondStep
+        #region step2
 
         [HttpGet]
         [ValidateOnEntryStageTwoToken] //vital
@@ -106,7 +106,7 @@
                 return LoginSecondStep(); //                             vital
             }
 
-            return RedirectToAction(nameof(HomeController.Welldone), "Home", new {area = ""});
+            return RedirectToAction(nameof(HomeController.Welldone), "Home", new { area = "" });
 
             //0 if the action is green then the stage two cookie needs to be eradicated so as to prevent the user from skipping the
             //  first stage next time he logs in
