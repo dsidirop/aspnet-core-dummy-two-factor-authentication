@@ -57,7 +57,7 @@
         {
             var sw = Stopwatch.StartNew();
 
-            var settingsService = serviceProvider.GetService<ISettingsService>();
+            var settingsService = serviceProvider.GetRequiredService<ISettingsService>();
             Console.WriteLine($"Count of settings: {settingsService?.GetCount()}");
 
             Console.WriteLine(sw.Elapsed);

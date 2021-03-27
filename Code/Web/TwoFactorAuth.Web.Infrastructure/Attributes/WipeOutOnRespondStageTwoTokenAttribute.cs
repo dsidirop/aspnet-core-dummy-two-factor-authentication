@@ -11,7 +11,7 @@
 
         public override void OnActionExecuted(ActionExecutedContext context)
         {
-            _dummyAuthSpecsOptionsMonitor = context.HttpContext.RequestServices.GetService<IOptionsMonitor<AppDummyAuthSpecs>>();
+            _dummyAuthSpecsOptionsMonitor = context.HttpContext.RequestServices.GetRequiredService<IOptionsMonitor<AppDummyAuthSpecs>>();
 
             try
             {

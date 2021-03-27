@@ -21,7 +21,7 @@
             }
 
             var logger = serviceProvider
-                .GetService<ILoggerFactory>()
+                .GetRequiredService<ILoggerFactory>()
                 .CreateLogger(typeof(ApplicationDbContextSeeder));
 
             var seeders = new List<ISeeder>
@@ -36,8 +36,10 @@
                 await seeder.SeedAsync(dbContext, serviceProvider);
                 await dbContext.SaveChangesAsync();
 
-                logger.LogInformation($"Seeder {seeder.GetType().Name} done.");
+                logger.LogInformation(CompletionMessage);
             }
         }
+
+        private const string CompletionMessage = "Seeder " + nameof(ApplicationDbContextSeeder) + " done.";
     }
 }

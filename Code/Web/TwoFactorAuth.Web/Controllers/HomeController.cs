@@ -3,9 +3,11 @@
     using System.Diagnostics;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using TwoFactorAuth.Common.Contracts;
     using TwoFactorAuth.Web.Infrastructure.Attributes;
     using TwoFactorAuth.Web.Infrastructure.Controllers;
     using TwoFactorAuth.Web.ViewModels;
+    using TwoFactorAuth.Web.ViewModels.Home;
 
     public class HomeController : PlatformBaseController
     {
@@ -17,7 +19,10 @@
         [Authorize]
         public IActionResult Welldone()
         {
-            return View();
+            return View(new WelldoneViewModel
+            {
+                GreenTickImagePath = GlobalConstants.GreenTickImagePathRelativeToRoot,
+            });
         }
 
         public IActionResult Privacy()

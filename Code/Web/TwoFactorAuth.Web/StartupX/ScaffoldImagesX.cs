@@ -14,7 +14,7 @@
 
             var passwordHintImageService = serviceScope
                 .ServiceProvider
-                .GetService<IPasswordHintImageService>();
+                .GetRequiredService<IPasswordHintImageService>();
 
             passwordHintImageService
                 .SpawnSecondStagePasswordHintImageAsync()

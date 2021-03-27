@@ -18,8 +18,8 @@
 
         public override void OnActionExecuted(ActionExecutedContext context)
         {
-            _cryptoService = context.HttpContext.RequestServices.GetService<IAppCryptoService>();
-            _dummyAuthSpecsOptionsMonitor = context.HttpContext.RequestServices.GetService<IOptionsMonitor<AppDummyAuthSpecs>>();
+            _cryptoService = context.HttpContext.RequestServices.GetRequiredService<IAppCryptoService>();
+            _dummyAuthSpecsOptionsMonitor = context.HttpContext.RequestServices.GetRequiredService<IOptionsMonitor<AppDummyAuthSpecs>>();
 
             try
             {

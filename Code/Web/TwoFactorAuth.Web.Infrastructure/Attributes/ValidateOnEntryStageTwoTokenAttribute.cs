@@ -27,18 +27,13 @@
 
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            _cryptoService = context.HttpContext.RequestServices.GetService<IAppCryptoService>();
-            _dummyAuthSpecsOptionsMonitor = context.HttpContext.RequestServices.GetService<IOptionsMonitor<AppDummyAuthSpecs>>();
+            _cryptoService = context.HttpContext.RequestServices.GetRequiredService<IAppCryptoService>();
+            _dummyAuthSpecsOptionsMonitor = context.HttpContext.RequestServices.GetRequiredService<IOptionsMonitor<AppDummyAuthSpecs>>();
 
             var controller = context.Controller as IDummyTwoFactorAuthController;
             if (controller == null)
             {
                 throw new ArgumentException("This filter is specific to [I]LoginController - no other controller should be using it", nameof(context));
-            }
-
-            if (_dummyAuthSpecsOptionsMonitor == null)
-            {
-                throw new NullReferenceException(nameof(AppDummyAuthSpecs));
             }
 
             try
