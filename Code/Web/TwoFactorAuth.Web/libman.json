@@ -35,6 +35,14 @@
         "dist/jquery.validate.unobtrusive.js",
         "dist/jquery.validate.unobtrusive.min.js"
       ]
+    },
+    {
+      "library": "gifffer@1.5.4",
+      "destination": "wwwroot/lib/gifffer/",
+      "files": [
+        "lib/gifffer.js",
+        "build/gifffer.min.js"
+      ]
     }
   ]
 }

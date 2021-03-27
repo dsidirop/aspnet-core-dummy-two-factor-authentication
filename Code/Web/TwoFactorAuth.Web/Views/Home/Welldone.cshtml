@@ -17,8 +17,12 @@
                 Download
             </a>
         </div>
-        @* <div class="mt-4"> *@
-        @*     <img src="@(Model.GreenTickImagePath)" alt="Green Tick" loading="lazy"/> *@
-        @* </div> *@
+        <div class="mt-4">
+            <img src="@(Model.GreenTickImagePath)" alt="Green Tick" loading="lazy"/>
+        </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/lib/gifffer/build/gifffer.min.js" asp-append-version="true"></script>
+}

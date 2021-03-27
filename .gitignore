@@ -20,7 +20,8 @@ bld/
 [Bb]in/
 [Oo]bj/
 **/wwwroot/lib/
-#*.Minified.js
+*.min.js
+*.[Mm]inified.js
 *.ipch
 *.pdb
 #NUNIT
