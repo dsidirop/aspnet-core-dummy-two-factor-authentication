@@ -19,11 +19,10 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
-wwwroot/
+**/wwwroot/lib/
 #*.Minified.js
 *.ipch
 *.pdb
-wwwroot/
 #NUNIT
 *.VisualState.xml
 TestResult.xml

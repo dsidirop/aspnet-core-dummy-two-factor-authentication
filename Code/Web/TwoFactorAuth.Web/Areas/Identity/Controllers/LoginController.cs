@@ -98,15 +98,15 @@
         [HttpPost]
         [ValidateOnEntryStageTwoToken]
         [WipeOutOnSuccessStageTwoToken] //0 vital
-        public async Task<IActionResult> LoginSecondStep(string password)
+        public async Task<IActionResult> LoginSecondStep(string password, CancellationToken cancellationToken)
         {
-            var verdict = await _mediator.Send(new SecondStagePasswordValidationCommand(password));
+            var verdict = await _mediator.Send(new SecondStagePasswordValidationCommand(password), cancellationToken);
             if (!verdict.Success)
             {
                 ModelState.AddModelError("Password", "Wrong Password!");
 
                 Response.StatusCode = (int) HttpStatusCode.Forbidden; //  vital
-                return LoginSecondStep(); //                             vital
+                return LoginSecondStep(); //                              vital
             }
 
             return RedirectToAction(nameof(HomeController.Welldone), "Home", new { area = "" });
