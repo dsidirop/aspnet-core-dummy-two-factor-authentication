@@ -28,7 +28,7 @@
     "sourceMap": true,
     "outputFileName": "wwwroot/js/bundles/welldone-view-bundle.min.js",
     "inputFiles": [
-      "wwwroot/lib/gifffer/lib/gifffer.js",
+      "wwwroot/lib/gifplayer/dist/jquery.gifplayer.js",
       "wwwroot/js/welldone/welldone-view-controller.js"
     ],
     "minify": {

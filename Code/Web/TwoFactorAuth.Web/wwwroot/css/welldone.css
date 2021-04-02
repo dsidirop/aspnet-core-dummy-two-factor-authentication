@@ -1,0 +1,12 @@
+﻿.app-wellcome-container {
+}
+
+    .app-wellcome-container .app-green-tick {
+        width: 25rem;
+        height: 18.749rem;
+        margin-bottom: 2rem;
+    }
+
+        .app-wellcome-container .app-green-tick ~ .play-gif {
+            display: none !important;
+        }

@@ -37,11 +37,13 @@
       ]
     },
     {
-      "library": "gifffer@1.5.4",
-      "destination": "wwwroot/lib/gifffer/",
+      "library": "gifplayer@0.3.3",
+      "destination": "wwwroot/lib/gifplayer/",
       "files": [
-        "lib/gifffer.js",
-        "build/gifffer.min.js"
+        "dist/gifplayer.css",
+        "dist/gifplayer.min.css",
+        "dist/jquery.gifplayer.js",
+        "dist/jquery.gifplayer.min.js"
       ]
     }
   ]

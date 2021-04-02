@@ -1,6 +1,6 @@
 ﻿; //vital   keep this
 
-(function (self, $, _window, _document, _gifffer) {
+(function (self, $, _window, _document) {
 
     "use strict";
 
@@ -8,7 +8,7 @@
         rootContainerSelector: ""
     };
 
-    let _$els = {
+    const _$els = {
         $window: null,
         $document: null,
         $rootContainer: null
@@ -28,28 +28,32 @@
         _$els.$window = $(_window);
         _$els.$document = $(_document);
         _$els.$rootContainer = _$els.$document.find(_config.rootContainerSelector);
-    }
+        _$els.$imgGreenTick = _$els.$rootContainer.find(".app-green-tick");
+    };
 
     function initConfig(config) {
         _config = config;
-    }
+    };
 
     function initImplementation() {
-        const gifs = _gifffer({ //todo  fork gifffer and sanitize it to make its api more appropriate
-            playButtonStyles: {'display': 'none'},
-            playButtonIconStyles: {'display': 'none'}
-        });
+        console.log("** initImplementation2");
+        
+        _$els
+            .$imgGreenTick
+            .gifplayer();
 
-        const handler = function() {
-            if (gifs.length === 0) {
-                _window.setTimeout( handler, 5);
-                return;
-            }
+        _$els
+            .$imgGreenTick
+            .gifplayer("play");
 
-            $(gifs).click(); //start animation
-        };
+        _window.setTimeout(
+            function() {
+                _$els
+                    .$imgGreenTick
+                    .gifplayer("stop");
+            },
+            4500
+        );
+    };
 
-        _window.setTimeout( handler, 50);
-    }
-
-})((window.WelldoneController = window.WelldoneController || {}), window.jQuery, window, document, window.Gifffer);
+})((window.WelldoneController = window.WelldoneController || {}), window.jQuery, window, document);

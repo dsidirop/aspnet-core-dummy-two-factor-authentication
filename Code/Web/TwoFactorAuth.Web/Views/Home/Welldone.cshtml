@@ -2,27 +2,28 @@
 
 @model TwoFactorAuth.Web.ViewModels.Home.WelldoneViewModel
 
+@section Styles {
+    <link rel="stylesheet" href="~/lib/gifplayer/dist/gifplayer.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/welldone.css" asp-append-version="true" />
+}
+
 <div class="text-center app-wellcome-container">
     <h1 class="display-4">Well Done!</h1>
 
     <div class="pb-4">
         <div class="mt-4">
-            <img
-                src=""
-                alt="ignored"
-                loading="lazy"
-                data-gifffer="@(Model.GreenTickImagePath)"
-                data-gifffer-alt="Green Tick"
-                data-gifffer-duration="4350"/>
+            <img class="app-green-tick"
+                 alt="Green Tick"
+                 src="@(Model.GreenTickImagePath.Replace(".gif", ".png"))"
+                 loading="lazy" />
         </div>
         <p>
             Wow you made it! Click the Download link to download the README.md file of the website!
         </p>
         <div class="mt-4">
-            <a
-                href="data:text/plain;charset=UTF-8,https://raw.githubusercontent.com/dsidirop/aspnet-core-dummy-two-factor-authentication/main/README.md"
-                class="bg-primary text-white py-2 px-4 rounded"
-                download="README.md">
+            <a href="data:text/plain;charset=UTF-8,https://raw.githubusercontent.com/dsidirop/aspnet-core-dummy-two-factor-authentication/main/README.md"
+               class="bg-primary text-white py-2 px-4 rounded"
+               download="README.md">
                 Download
             </a>
         </div>
@@ -33,7 +34,7 @@
     <script src="~/js/bundles/welldone-view-bundle.min.js" asp-append-version="true"></script>
 
     <script>
-        $(function(){
+        $(function () {
             window.WelldoneController.Init({
                 rootContainerSelector: ".app-wellcome-container"
             });
